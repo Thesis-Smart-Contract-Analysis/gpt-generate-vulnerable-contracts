@@ -1,0 +1,217 @@
+[
+    {
+        "id": "function-or-state-variable-default-visibility",
+        "name": "Function or State Variable Default Visibility",
+        "description": "Trạng thái hiển thị (visibility) mặc định của các hàm là `public`. Việc không khai báo trạng thái hiển thị một cách tường minh có thể gây ra các hành vi không mong muốn trong smart contract. Ví dụ, các hàm vốn chỉ được dùng trong nội bộ bên trong smart contract có thể bị gọi sử dụng một cách công khai bởi bất kỳ ai."
+    },
+    {
+        "id": "integer-overflow-underflow",
+        "name": "Integer Overflow/Underflow",
+        "description": "Các kiểu dữ liệu lưu trữ số nguyên (bao gồm có dấu và không dấu) ở trong Solidity có kích thước là các lũy thừa cơ số 2 từ 8 đến 256. Khi thực hiện tính toán, dữ liệu có thể mang giá trị vượt ra ngoài phạm vi lưu trữ của kiểu dữ liệu. Vấn đề này được gọi là tràn số (overflow/underflow)."
+    },
+    {
+        "id": "outdated-compiler-version",
+        "name": "Outdated Compiler Version",
+        "description": "Sử dụng một phiên bản trình biên dịch đã cũ có thể gây ra các vấn đề, đặc biệt là khi phiên bản đó có các lỗi và sự cố đã được tiết lộ công khai."
+    },
+    {
+        "id": "floating-compiler-version",
+        "name": "Floating Compiler Version",
+        "description": "Một contract có thể được biên dịch bởi nhiều phiên bản của trình biên dịch khác nhau. Điều này có thể dẫn đến việc phiên bản được sử dụng lúc kiểm thử và lúc triển khai smart contract khác nhau. Nếu smart contract được triển khai bởi một phiên bản của trình biên dịch có chứa lỗi thì có thể làm ảnh hưởng đến tính đúng đắn của nó."
+    },
+    {
+        "id": "unchecked-return-value",
+        "name": "Unchecked Return Value",
+        "description": "Một smart contract có thể giao tiếp với smart contract khác thông qua các cách sau:\n- Sử dụng các hàm ở mức thấp (opcode) chẳng hạn như `call`, `delegatecall` và `staticcall` để gọi hàm hoặc gửi ETH.\n- Sử dụng hàm `send` để gửi ETH.\nNếu có ngoại lệ xảy ra trong smart contract khác thì các hàm trên sẽ trả về giá trị luận lý cho biết thao tác không được thực hiện thành công thay vì lan truyền ngoại lệ. Nếu không kiểm tra giá trị luận lý này thì có thể làm ảnh hưởng đến kết quả thực thi của smart contract."
+    },
+    {
+        "id": "access-control-management",
+        "name": "Access Control Management",
+        "description": "Việc không kiểm soát quyền truy cập của hàm có thể khiến cho bất kỳ ai không có quyền cũng có thể thực thi hàm, đặc biệt là các hàm rút ETH hoặc gọi các hàm nguy hiểm chẳng hạn như `selfdestruct` #footnote[`selfdestruct` là một hàm dùng để xóa bytecode của smart contract ở trên blockchain và chuyển hết ETH còn lại trong smart contract đến địa chỉ được chỉ định.]."
+    },
+    {
+        "id": "re-entrancy",
+        "name": "Re-entrancy",
+        "description": "Là một kiểu tấn công đệ quy tương hỗ xảy ra giữa smart contract của nạn nhân và smart contract của kẻ tấn công. Cụ thể hơn, kẻ tấn công sẽ liên tục gọi lại một hàm trong smart contract của nạn nhân trước khi lời gọi trước đó được thực thi xong."
+    },
+    {
+        "id": "uninitialized-storage-pointer",
+        "name": "Uninitialized Storage Pointer",
+        "description": "Các biến cục bộ có vị trí dữ liệu (data location) là `storage` bên trong hàm nếu không được khởi tạo có thể trỏ đến các biến trạng thái có vị trí dữ liệu là `storage` trong smart contract. Điều này có thể dẫn đến việc giá trị của các biến trạng thái bị sửa đổi thông qua các biến cục bộ."
+    },
+    {
+        "id": "use-of-deprecated-solidity-functions",
+        "name": "Use of Deprecated Solidity Functions",
+        "description": "Với các phiên bản mới của trình biên dịch, việc sử dụng các định danh (identifier) cũ đã bị loại bỏ có thể dẫn đến các lỗi biên dịch hoặc các hành vi không mong muốn."
+    },
+    {
+        "id": "delegatecall-to-untrusted-callee",
+        "name": "Delegatecall to Untrusted Callee",
+        "description": "Việc sử dụng hàm `delegatecall` để gọi hàm của các smart contract không tin cậy là rất nguy hiểm bởi vì các smart contract này có thể thay đổi các giá trị của các biến trạng thái hoặc chiếm quyền sở hữu của smart contract hiện tại."
+    },
+    {
+        "id": "denial-of-service-with-failed-call",
+        "name": "Denial of Service with Failed Call",
+        "description": "Các lời gọi đến bên ngoài smart contract (thực thi hàm hoặc chuyển ETH) có thể thất bại một cách không có hoặc có chủ đích. Trong trường hợp kẻ tấn công gọi đến bên ngoài smart contract nhiều lần trong cùng một giao dịch, smart contract có thể trở nên không khả dụng."
+    },
+    {
+        "id": "authorization-through-tx.origin",
+        "name": "Authorization through `tx.origin`",
+        "description": "Lỗ hổng này xảy ra khi smart contract dùng giá trị `tx.origin` để xác thực. Giá trị này là giá trị của địa chỉ thực hiện giao dịch và nếu smart contract A có gọi thực thi hàm của smart contract B thì smart contract B có thể vượt qua xác thực của smart contract A."
+    },
+    {
+        "id": "signature-malleability",
+        "name": "Signature Malleability",
+        "description": "Các hệ thống chữ ký mật mã của Ethereum được hiện thực với giả định rằng chữ ký số là duy nhất. Smart contract hoạt động dựa trên giả định này có thể bị tấn công vì kẻ tấn công có thể chỉnh sửa các giá trị v, r và s của một chữ ký để tạo ra một chữ ký hợp lệ khác mà không cần biết khóa riêng tư (dựa vào tính đối xứng). "
+    },
+    {
+        "id": "incorrect-constructor-name",
+        "name": "Incorrect Constructor Name",
+        "description": "Trong hàm tạo của Solidity thường thực hiện những hành động đặc quyền chẳng hạn như thiết lập chủ sở hữu của smart contract. Trước phiên bản 0.4.22, hàm tạo có tên trùng với tên smart contract. Tuy nhiên, nếu một hàm đáng lẽ được dùng làm hàm tạo nhưng có tên không trùng với tên của smart contract thì nó sẽ trở thành một hàm bình thường và có thể được gọi bởi bất kỳ ai."
+    },
+    {
+        "id": "shadowing-state-variables",
+        "name": "Shadowing State Variables",
+        "description": "Xảy ra khi một smart contract kế thừa smart contract khác và cả hai đều cùng khai báo một biến. Vấn đề này cũng xảy ra khi smart contract có một biến toàn cục trùng tên với một biến cục bộ ở trong hàm."
+    },
+    {
+        "id": "weak-sources-of-randomness-from-chain-attributes",
+        "name": "Weak Sources of Randomness from Chain Attributes",
+        "description": "Nhu cầu sinh số ngẫu nhiên là rất cần thiết cho một số ứng dụng, đặc biệt là các trò chơi cần sử dụng bộ sinh số giả ngẫu nhiên (pseudo-random number generator) để quyết định người chiến thắng. Tuy nhiên, việc tạo ra một hạt giống sinh số ngẫu nhiên đủ mạnh trong Ethereum là rất khó khăn.\nCụ thể, việc sử dụng giá trị `block.timestamp` làm hạt giống có thể không bảo mật vì giá trị này có thể được chỉnh sửa bởi miner (như trong @timestamp-dependency).\nViệc sử dụng `blockhash` hoặc `block.difficulty` cũng tương tự vì các giá trị này được kiểm soát bởi miner. Nếu thời gian để đào một block là ngắn, miner có thể đào thật nhiều block và chọn block có giá trị băm thỏa mãn điều kiện chiến thắng của smart contract rồi bỏ các block còn lại."
+    },
+    {
+        "id": "missing-protection-against-signature-replay-attacks",
+        "name": "Missing Protection against Signature Replay Attacks",
+        "description": "Lỗ hổng này xảy ra khi smart contract thực hiện xác thực chữ ký nhưng không kiểm tra xem chữ ký đã được sử dụng hay chưa. Kẻ tấn công có thể tái sử dụng chữ ký nhiều lần để vượt qua xác thực và thực thi hàm."
+    },
+    {
+        "id": "lack-of-proper-signature-verification",
+        "name": "Lack of Proper Signature Verification",
+        "description": "Xảy ra khi smart contract không thực hiện kiểm tra tính hợp lệ của chữ ký khi thực hiện những thao tác nhạy cảm. Kẻ tấn công có thể lợi dụng điều này để vượt qua xác thực nhằm thực hiện những hành vi không được phép."
+    },
+    {
+        "id": "write-to-arbitrary-storage-location",
+        "name": "Write to Arbitrary Storage Location",
+        "description": "Smart contract cần phải đảm bảo rằng các vị trí lưu trữ dữ liệu nhạy cảm chỉ có thể được truy cập và chỉnh sửa bởi địa chỉ của người dùng hoặc smart contract mà đã được phân quyền. Nếu một kẻ tấn công có khả năng thay đổi giá trị của bất kỳ vị trí lưu trữ nào thì có thể vượt qua xác thực và thay đổi giá trị của các biến trạng thái."
+    },
+    {
+        "id": "incorrect-inheritance-order",
+        "name": "Incorrect Inheritance Order",
+        "description": "Do mỗi smart contract cơ sở đều có độ ưu tiên, việc không quan tâm thứ tự kế thừa có thể dẫn đến những hành vi không mong muốn của smart contract."
+    },
+    {
+        "id": "insufficient-gas-griefing",
+        "name": "Insufficient Gas Griefing",
+        "description": "Xảy ra khi smart contract không kiểm tra xem nó có đủ gas để gọi đến smart contract khác hay không. Kẻ tấn công có thể cung cấp thiếu gas nhằm khiến cho lời gọi đến smart contract khác bị thất bại và làm kết quả của smart contract bị sai lệch."
+    },
+    {
+        "id": "arbitrary-jump-with-function-type-variable",
+        "name": "Arbitrary Jump with Function Type Variable",
+        "description": "Kẻ tấn công có thể sử dụng các chỉ thị hợp ngữ (assembly instruction) chẳng hạn như `mstore` hoặc toán tử gán bằng để thay đổi tham chiếu của biến có kiểu là hàm đến bất kỳ chỉ thị nào nhằm phá vỡ các giới hạn truy cập và thay đổi các biến trạng thái."
+    },
+    {
+        "id": "denial-of-service-with-block-gas-limit",
+        "name": "Denial of Service with Block Gas Limit",
+        "description": "Các lời gọi đến bên ngoài smart contract (thực thi hàm hoặc chuyển ETH) có thể thất bại một cách không có hoặc có chủ đích. Trong trường hợp kẻ tấn công gọi đến bên ngoài smart contract nhiều lần trong cùng một giao dịch, smart contract có thể trở nên không khả dụng."
+    },
+    {
+        "id": "typographical-error",
+        "name": "Typographical Error",
+        "description": "Lỗi đánh máy có thể dẫn đến những hành vi không mong muốn trong smart contract."
+    },
+    {
+        "id": "right-to-left-override-control-unicode",
+        "name": "Right-To-Left Override Control Character",
+        "description": "Kẻ xấu có thể sử dụng ký tự ghi đè phải sang trái (right-to-left override) có điểm mã (code point) là U+202E để thay đổi chiều hiển thị của các ký tự.\nKý tự này thường được dùng để che giấu phần mở rộng thực sự của tập tin nhằm đánh lừa người dùng. Ví dụ, khi sử dụng nó trong chuỗi `my-text.'U+202E'cod.exe` thì giá trị được hiển thị sẽ là `my-text.exe.doc` @u202e.\nỞ trong mã nguồn, ký tự U+202E có thể được sử dụng để thay đổi thứ tự của các đối số."
+    },
+    {
+        "id": "unexpected-balance",
+        "name": "Unexpected Balance",
+        "description": "Ngoài việc nhận ETH từ các hàm `payable`, smart contract còn có thể nhận ETH thông qua một số cách khác chẳng hạn như hàm `selfdestruct`.\nViệc giả định rằng ETH chỉ đến từ các hàm `payable` và thực hiện các phép so sánh đối với biến `this.balance` có thể làm ảnh hưởng đến kết quả thực thi của smart contract. Trong trường hợp xấu nhất, điều này có thể làm smart contract rơi vào trạng thái từ chối dịch vụ."
+    },
+    {
+        "id": "hash-collisons-with-multiple-variable-length-arguments",
+        "name": "Hash Collisions with Multiple Variable Length Arguments",
+        "description": "Việc sử dụng hàm `abi.encodePacked` với đối số là các mảng có kích thước không cố định có thể gây ra đụng độ giá trị băm (hash collision). Lý do là vì hàm này đóng gói các phần tử mà không quan tâm đến việc chúng có thuộc một mảng nào đó hay không. Cụ thể, hai dòng sau đây sẽ cho ra kết quả tương đương."
+    },
+    {
+        "id": "frozen-ether",
+        "name": "Frozen Ether",
+        "description": "Nếu mã nguồn có các hàm `payable` nhưng không có hàm rút ETH thì sẽ khiến cho ETH bị khóa ở trong hợp đồng thông minh @zaazaa_2023_unveiling."
+    },
+    {
+        "id": "call-to-the-unknown",
+        "name": "Call to the Unknown",
+        "description": "Lỗ hổng này xảy ra khi hàm fallback của một smart contract được thực thi theo một cách không mong đợi khi smart contract gọi hàm với signature không tồn tại hoặc gửi ETH.\nKẻ tấn công có thể cài đặt mã độc ở trong hàm fallback chẳng hạn như gọi đệ quy để gây ra lỗ hổng re-entrancy (@re-entrancy) hoặc cố tình hoàn trả giao dịch để làm smart contract rơi vào trạng thái từ chối dịch vụ."
+    },
+    {
+        "id": "hiding-malicious-code-with-external-contract",
+        "name": "Hiding Malicious Code with External Contract",
+        "description": "Trong Solidity, bất kỳ địa chỉ nào cũng có thể được ép kiểu thành một thực thể của hợp đồng thông minh. Kẻ tấn công có thể lợi dụng điều này để giấu mã độc @hiding-malicious-code-with-external-contract-ref."
+    },
+    {
+        "id": "double-constructor",
+        "name": "Double Constructor",
+        "description": "Tại phiên bản 0.4.22, smart contract có thể sử dụng cùng lúc hai loại hàm tạo: hàm tạo trùng tên với smart contract và hàm tạo có tên là `constructor`. Hàm tạo nào được định nghĩa trước sẽ được thực thi."
+    },
+    {
+        "id": "built-in-symbol-shadowing",
+        "name": "Built-in Symbol Shadowing",
+        "description": "Lỗ hổng này xảy ra khi lập trình viên dùng các định danh (identifier) có sẵn của Solidity để đặt tên cho biến, hàm, modifier hoặc sự kiện. Điều này có thể thay đổi hành vi mặc định của ngôn ngữ và gây ra các lỗi nghiệp vụ @zaazaa_2023_unveiling."
+    },
+    {
+        "id": "identity-verification",
+        "name": "Identity Verification",
+        "description": "Một số smart contract kiểm tra xem một địa chỉ có phải là smart contract hay không thông qua opcode `extcodesize`.\nTuy nhiên, kẻ tấn công có thể thực thi hàm ở trong hàm tạo và vượt qua được cách kiểm tra trên. Lý do là vì trong quá trình hàm tạo thực thi, giá trị trả về của `extcodesize` sẽ là 0."
+    },
+    {
+        "id": "immutable-bugs",
+        "name": "Immutable Bugs",
+        "description": "Smart contract sau khi được triển khai lên mạng blockchain thì không thể được chỉnh sửa, kể cả khi có lỗi. Các lỗi này có thể bị khai thác bởi kẻ tấn công và thiệt hại gây ra là không thể khôi phục #footnote[The DAO là ngoại lệ duy nhất]."
+    },
+    {
+        "id": "ether-lost-in-transfer",
+        "name": "Ether Lost in Transfer",
+        "description": "ETH được chuyển vào các địa chỉ mồ côi (không gắn liền với bất kỳ người dùng hoặc smart contract nào) sẽ bị mất hoàn toàn."
+    },
+    {
+        "id": "stack-size-limit",
+        "name": "Stack Size Limit",
+        "description": "Mỗi lần smart contract gọi thực thi hàm của  smart contract khác (hoặc gọi đến chính nó thông qua `this.f()`), call stack tương ứng với giao dịch sẽ tăng lên một frame @atzei_2017_a. Giới hạn của call stack cho mỗi giao dịch là 1024 @solidity-1024-call-stack-depth. Khi chạm đến giới hạn này, tất cả các lời gọi hàm đến bên ngoài smart contract (hoặc `this.f()`) đều gây ra ngoại lệ.\nKẻ tấn công có thể khai thác tính chất này để tạo ra một giao dịch có call stack gần đầy trước khi gọi hàm trong smart contract để gây ra ngoại lệ. Nếu ngoại lệ không được xử lý thì smart contract có thể rơi vào trạng thái từ chối dịch vụ."
+    },
+    {
+        "id": "function-selector-clashing",
+        "name": "Function Selector Clashing",
+        "description": "EVM sẽ dựa vào 4 byte đầu tiên trong dữ liệu của một giao dịch gọi hàm để thực thi hàm tương ứng. Tuy nhiên, 4 byte này dễ bị đụng độ giá trị băm và có thể dẫn đến việc smart contract thực thi một hàm nào đó mà người dùng không mong muốn."
+    },
+    {
+        "id": "message-call-with-hardcoded-gas-amount",
+        "name": "Message Call with Hardcoded Gas Amount",
+        "description": "Hàm `transfer` và hàm `send` đã từng được sử dụng để giải quyết lỗ hổng re-entrancy (@re-entrancy) vì chúng chỉ cung cấp cho smart contract nhận ETH 2300 gas (hoặc nhỏ hơn) #footnote[Dưới phiên bản 0.4.0 thì hàm `send` có gas là 0 nếu lượng ETH chuyển đi là 0 và gas là 2300 nếu lượng ETH chuyển đi khác 0.] - lượng gas này quá nhỏ để thực hiện các thao tác phức tạp chẳng hạn như cập nhật biến trạng thái hoặc gọi hàm.\nTuy nhiên, một số sự thay đổi trong EVM gây ra bởi các lần hard fork có thể làm thay đổi giá gas và làm cho các giả định của các smart contract đã được triển khai về một giá gas cố định không còn đúng. Ví dụ, EIP-1884 @eip-1884 đã tăng giá của một số opcode chẳng hạn như `SLOAD` và làm một số smart contract không còn hoạt động được nữa."
+    },
+    {
+        "id": "short-address",
+        "name": "Short Address",
+        "description": "Lỗ hổng này liên quan đến cách mà EVM decode dữ liệu giao dịch. Cụ thể hơn, nó liên quan đến việc hợp đồng thông minh sử dụng đối số có kiểu là địa chỉ (`address`) nhưng không thực hiện kiểm tra độ dài của dữ liệu giao dịch."
+    },
+    {
+        "id": "transaction-ordering-dependency",
+        "name": "Transaction Ordering Dependency",
+        "description": "Miner thường ưu tiên chọn những giao dịch có phí gas cao để cho vào các block. Điều này khiến cho thứ tự gửi lên của các giao dịch không giống với thứ tự thực thi của chúng.\nLỗ hổng này xảy ra khi kẻ tấn công (có thể là miner) theo dõi danh sách các giao dịch đang chờ được thực thi ở trong blockchain và phát hiện ra một giao dịch nào đó có lợi hoặc gây bất lợi cho kẻ tấn công. Bằng cách tạo ra một giao dịch có phí gas cao hơn, kẻ tấn công có thể thu lợi hoặc hủy bỏ sự bất lợi nhờ vào việc miner luôn chọn những giao dịch có phí gas cao để thực thi."
+    },
+    {
+        "id": "timestamp-dependency",
+        "name": "Timestamp Dependency",
+        "description": "Smart contract có thể sử dụng các thuộc tính của block chẳng hạn như `block.timestamp` hoặc `block.number` làm điều kiện để thực thi một hành động nào đó. T  uy nhiên, việc smart contract phụ thuộc vào các giá trị này là không an toàn:\n- Trong trường hợp của `block.timestamp`, miner có thể thay đổi nhãn thời gian#footnote[Tất nhiên là không được nhỏ hơn nhãn thời gian của block trước đó hoặc quá xa trong tương lai (không quá 900 giây - tương ứng với 15 phút @luu_2016_making).] của block nên giá trị của nó có thể không như lập trình viên smart contract mong đợi.\n- Trường hợp của `block.number` cũng tương tự, giá trị này có thể biến thiên nhanh hơn hoặc chậm đi tùy thuộc vào thời gian đào một block trong mạng blockchain. Mà thời gian đào một block không cố định và có thể thay đổi vì nhiều lý do chẳng hạn như blockchain tổ chức lại sau khi fork."
+    },
+    {
+        "id": "unencrypted-private-data-on-chain",
+        "name": "Unencrypted Private Data On-Chain",
+        "description": "Trạng thái hiển thị `private` không đảm bảo rằng giá trị của biến sẽ được giữ bí mật. Bởi vì, khi cập nhật các biến trạng thái, người dùng cần gửi các giao dịch lên blockchain. Các giao dịch này là công khai với tất cả mọi người và có thể được phân tích bởi kẻ tấn công nhằm suy ra giá trị của biến.\nDo tính chất này, smart contract không nên lưu những dữ liệu riêng tư hoặc cần mã hóa."
+    },
+    {
+        "id": "untrustworthy-data-feeds",
+        "name": "Untrustworthy Data Feeds",
+        "description": "Để lấy dữ liệu từ bên ngoài blockchain, smart contract thường sử dụng các nguồn cấp dữ liệu chẳng hạn như các Oracle. Tuy nhiên, không có gì đảm bảo rằng dữ liệu từ các nguồn này là đáng tin cậy bởi vì kẻ tấn công có thể thao túng dữ liệu nhằm khiến cho các thao tác của smart contract trở nên sai lệch."
+    }
+]
