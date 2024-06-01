@@ -1,6 +1,6 @@
 # Access Control Management
 
-# Mô tả
+## Mô tả
 
 Việc không kiểm soát quyền truy cập của hàm có thể khiến cho bất kỳ ai không có quyền cũng có thể thực thi hàm, đặc biệt là các hàm rút ETH hoặc gọi các hàm nguy hiểm chẳng hạn như `selfdestruct` #footnote[`selfdestruct` là một hàm dùng để xóa bytecode của smart contract ở trên blockchain và chuyển hết ETH còn lại trong smart contract đến địa chỉ được chỉ định.].
 
@@ -39,7 +39,7 @@ contract SimpleSuicide {
 
 Với ví dụ này, do không kiểm soát quyền truy cập nên bất kỳ ai cũng có thể gọi hàm `sudicideAnyone` và rút hết ETH thông qua hàm `selfdestruct`.
 
-# Cách khắc phục
+## Cách khắc phục
 
 Cần giới hạn lại quyền truy cập của hàm cho một số địa chỉ nhất định. Có thể sử dụng các biện pháp kiểm soát quyền truy cập chẳng hạn như smart contract Ownable của OpenZeppelin @openzeppelin-ownership.
 

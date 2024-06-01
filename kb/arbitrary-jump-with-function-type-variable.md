@@ -1,6 +1,6 @@
 # Arbitrary Jump with Function Type Variable
 
-# Kiểu dữ liệu hàm trong Solidity
+## Kiểu dữ liệu hàm trong Solidity
 
 Là một tham chiếu đến hàm với một nguyên mẫu hàm cụ thể. Biến thuộc kiểu dữ liệu này có thể được gọi thực thi tương tự như các hàm thông thường.
 
@@ -28,7 +28,7 @@ contract AddSub {
 }
 ```
 
-# Mô tả
+## Mô tả
 
 Kẻ tấn công có thể sử dụng các chỉ thị hợp ngữ (assembly instruction) chẳng hạn như `mstore` hoặc toán tử gán bằng để thay đổi tham chiếu của biến có kiểu là hàm đến bất kỳ chỉ thị nào nhằm phá vỡ các giới hạn truy cập và thay đổi các biến trạng thái.
 
@@ -80,6 +80,6 @@ Lỗ hổng tồn tại trong đoạn mã hợp ngữ giúp trỏ biến `func` 
 
 Để nhảy đến một ví trí bất kỳ, mà cụ thể là sau câu lệnh `require()` ở trong hàm `withdraw()`, kẻ tấn công chỉ cần dựa trên giá trị ban đầu của `func` và vị trí của chỉ thị cần nhảy đến ở trong bytecode để tìm ra giá trị `msg.value` cần sử dụng.
 
-# Cách khắc phục
+## Cách khắc phục
 
 Hạn chế việc sử dụng hợp ngữ và không cho phép người dùng có thể gán các giá trị tùy ý cho các biến có kiểu là hàm.

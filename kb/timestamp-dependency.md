@@ -38,4 +38,5 @@ Smart contract trên sử dụng điều kiện `block.timestamp >= 1546300800` 
 
 - Lập trình viên cần chú ý đến tính khả biến của các thuộc tính liên quan đến block khi sử dụng trong smart contract.
 - Sử dụng Oracle #footnote[Là một loại công nghệ cho phép smart contract kết nối đến thế giới bên ngoài, thường là để lấy các số ngẫu nhiên hoặc dữ liệu thời gian thực] nếu có nhu cầu sinh số ngẫu nhiên (tương tự như phần @weak-sources-of-randomness-from-chain-attributes-remediation[]).
+  
 
