@@ -7,6 +7,7 @@ import codecs
 
 openai.api_key = "sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN"
 VULN_LIMIT = 10
+DIR_PREFIX = "stage-1"
 
 
 def load_vulns():
@@ -79,19 +80,21 @@ def query_vulns(vulns: list, kb: str):
     return responses
 
 
-def write_to_file(responses, kb):
+def write_to_file(dir_prefix, responses, kb):
     # Create a directory for the current timestamp
     timestamp = time.time().__str__().split(".")[0]
-    os.makedirs(f"outputs/{timestamp}", exist_ok=True)
+    directory = f"outputs/{dir_prefix}/{timestamp}"
+    os.makedirs(f"{directory}", exist_ok=True)
 
-    # Write kb
-    with open(f"outputs/{timestamp}/kb.md", "w", encoding="utf-8") as f:
-        f.write(kb)
+    # Write kb if not exists
+    if not os.path.exists(f"outputs/{dir_prefix}/kb.md"):
+        with open(f"outputs/{dir_prefix}/kb.md", "w", encoding="utf-8") as f:
+            f.write(kb)
 
     for res in responses:
         # Build file path
         vuln_id = res["vuln_id"]
-        file_path = f"outputs/{timestamp}/{vuln_id}"
+        file_path = f"{directory}/{vuln_id}"
 
         # Write json
         with codecs.open(f"{file_path}.json", "w", encoding="utf-8") as f:
@@ -105,4 +108,4 @@ def write_to_file(responses, kb):
 vulns = load_vulns()
 kb = build_kb(vulns, VULN_LIMIT)
 responses = query_vulns(vulns, kb)
-write_to_file(responses, kb)
+write_to_file(DIR_PREFIX, responses, kb)
