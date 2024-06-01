@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-9VJG2O59gcaz9AloHgCEa4DA7KsA0",
+  "object": "chat.completion",
+  "created": 1717249222,
+  "model": "gpt-3.5-turbo-0125",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "```solidity\n// Incorrect Constructor Name Vulnerability Example\n\npragma solidity ^0.8.0;\n\ncontract IncorrectConstructorName {\n    address public owner;\n\n    // Incorrect constructor name, should be the same as the contract name\n    constructor() {\n        owner = msg.sender;\n    }\n}\n```\n\n### Remediation:\nTo remediate the Incorrect Constructor Name vulnerability, ensure that the constructor function has the same name as the contract itself. Here is the fixed version of the smart contract:\n\n```solidity\n// Fixed Version with Correct Constructor Name\n\npragma solidity ^0.8.0;\n\ncontract CorrectConstructorName {\n    address public owner;\n\n    // Correct constructor name, same as the contract name\n    constructor() {\n        owner = msg.sender;\n    }\n}\n```\n\nBy naming the constructor function the same as the contract name, you can avoid the Incorrect Constructor Name vulnerability."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 8354,
+    "completion_tokens": 177,
+    "total_tokens": 8531
+  },
+  "system_fingerprint": null,
+  "query": "Generate a smart contract that has Incorrect Constructor Name vulnerability and suggest remediation for the vulnerability.",
+  "vuln_id": "incorrect-constructor-name"
+}

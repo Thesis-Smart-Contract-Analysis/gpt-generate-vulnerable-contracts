@@ -1,0 +1,25 @@
+{
+    "id": "chatcmpl-9VGzlUuq3L4L6oJj0oqBpt9XV5DgJ",
+    "object": "chat.completion",
+    "created": 1717240525,
+    "model": "gpt-3.5-turbo-0125",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "```solidity\n// Smart contract with Stack Size Limit vulnerability\npragma solidity ^0.8.0;\n\ncontract StackSizeLimit {\n    \n    uint256 public result;\n    \n    function calculate(uint256 input) public {\n        result = recursiveFunction(input);\n    }\n    \n    function recursiveFunction(uint256 input) internal returns(uint256) {\n        if(input == 0) {\n            return 0;\n        }\n        return input + recursiveFunction(input - 1);\n    }\n}\n```\n\nIn the smart contract above, the `recursiveFunction` is a recursive function that adds numbers from `input` down to 0. If the input value is too large, it can lead to a stack size limit issue due to the depth of the recursive calls.\n\n## Remediation for Stack Size Limit Vulnerability\n\nTo remediate the Stack Size Limit vulnerability, you can refactor the recursive function to an iterative function. By converting the recursive function to an iterative one, you can avoid the issue of exceeding the stack size limit.\n\nHere is the remediated version of the smart contract:\n\n```solidity\n// Remediated Smart contract without Stack Size Limit vulnerability\npragma solidity ^0.8.0;\n\ncontract StackSizeLimitRemediated {\n    \n    uint256 public result;\n    \n    function calculate(uint256 input) public {\n        result = iterativeFunction(input);\n    }\n    \n    function iterativeFunction(uint256 input) internal returns(uint256) {\n        uint256 sum = 0;\n        for(uint256 i = 1; i <= input; i++) {\n            sum += i;\n        }\n        return sum;\n    }\n}\n```\n\nIn the remediated version, the `iterativeFunction` calculates the sum of numbers from 1 to `input` iteratively instead of recursively, thus avoiding the Stack Size Limit vulnerability."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 8354,
+        "completion_tokens": 366,
+        "total_tokens": 8720
+    },
+    "system_fingerprint": null,
+    "query": "Generate a smart contract that has Stack Size Limit vulnerability and suggest remediation for the vulnerability.",
+    "vuln_id": "stack-size-limit"
+}
