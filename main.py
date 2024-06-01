@@ -3,6 +3,7 @@ import openai
 import time
 import random
 import json
+import codecs
 
 openai.api_key = "sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN"
 VULN_LIMIT = 10
@@ -56,7 +57,7 @@ def query_vulns(vulns: list, kb: str):
     vuln_name = ""
     responses = []
 
-    for i in range(1, VULN_LIMIT):
+    for i in range(0, VULN_LIMIT):
         # Get a random vulnerability
         while vuln_name in already_queried or vuln_name == "":
             random_index = random.randint(0, len(vulns) - 1)
@@ -72,33 +73,36 @@ def query_vulns(vulns: list, kb: str):
         # Query
         res = answer(kb, query)
         res["query"] = query
-        res["kb"] = kb
         res["vuln_id"] = vuln_id
         responses.append(res)
 
     return responses
 
 
-def write_to_file(responses):
-    for res in responses:
-        # Create a directory for the current date
-        timestr = time.strftime("%Y%m%d")
-        os.makedirs(f"outputs/{timestr}", exist_ok=True)
+def write_to_file(responses, kb):
+    # Create a directory for the current timestamp
+    timestamp = time.time().__str__().split(".")[0]
+    os.makedirs(f"outputs/{timestamp}", exist_ok=True)
 
+    # Write kb
+    with open(f"outputs/{timestamp}/kb.md", "w", encoding="utf-8") as f:
+        f.write(kb)
+
+    for res in responses:
         # Build file path
         vuln_id = res["vuln_id"]
-        file_path = f"outputs/{timestr}/{vuln_id}"
+        file_path = f"outputs/{timestamp}/{vuln_id}"
 
         # Write json
-        with open(f"{file_path}.json", "w") as f:
-            f.write(res.__str__())
+        with codecs.open(f"{file_path}.json", "w", encoding="utf-8") as f:
+            json.dump(res, f, ensure_ascii=False, indent=2)
 
         # Write md
-        with open(f"{file_path}.md", "w") as f:
+        with open(f"{file_path}.md", "w", encoding="utf-8") as f:
             f.write(res["choices"][0]["message"]["content"])
 
 
 vulns = load_vulns()
 kb = build_kb(vulns, VULN_LIMIT)
 responses = query_vulns(vulns, kb)
-write_to_file(responses)
+write_to_file(responses, kb)
