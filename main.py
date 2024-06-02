@@ -1,9 +1,4 @@
-import os
-import openai
-import time
-import random
-import json
-import codecs
+import os, openai, time, random, json, codecs
 
 openai.api_key = "sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN"
 VULN_LIMIT = 10
@@ -47,7 +42,8 @@ def answer(query):
         )
         return response
     except openai.error.RateLimitError as e:
-        return {"error": e}
+        print(f"Rate limit exceeded")
+        return {}
 
 
 def query_vulns(vulns: list, kb: str):
@@ -72,9 +68,11 @@ def query_vulns(vulns: list, kb: str):
 
         # Query
         res = answer(query)
-        res["query"] = query
         res["vuln_id"] = vuln_id
         responses.append(res)
+
+        # Sleep for 1 second
+        time.sleep(1)
 
     return responses
 
@@ -106,13 +104,16 @@ def write_to_file(dir_prefix, responses, kb):
         vuln_id = res["vuln_id"]
         file_path = f"{directory}/{vuln_id}"
 
-        # Write json
-        with codecs.open(f"{file_path}.json", "w", encoding="utf-8") as f:
-            json.dump(res, f, ensure_ascii=False, indent=2)
+        try:
+            # Write json
+            with codecs.open(f"{file_path}.json", "w", encoding="utf-8") as f:
+                json.dump(res, f, ensure_ascii=False, indent=2)
 
-        # Write md
-        with open(f"{file_path}.md", "w", encoding="utf-8") as f:
-            f.write(res["choices"][0]["message"]["content"])
+            # Write md
+            with open(f"{file_path}.md", "w", encoding="utf-8") as f:
+                f.write(res["choices"][0]["message"]["content"])
+        except Exception as e:
+            print(f"Error writing {vuln_id} to file: {e}")
 
 
 vulns = load_vulns()
