@@ -1,0 +1,676 @@
+{
+  "mythril": {
+    "errors": [],
+    "findings": [],
+    "scan_time": 5.07165002822876,
+    "success": true
+  },
+  "semantic_grep": {
+    "errors": [],
+    "findings": [
+      {
+        "matches": [
+          {
+            "end": {
+              "col": 23,
+              "line": 1,
+              "offset": 22
+            },
+            "lines": "pragma solidity ^0.8.0;",
+            "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+            "start": {
+              "col": 1,
+              "line": 1,
+              "offset": 0
+            }
+          }
+        ],
+        "metadata": {
+          "category": "security",
+          "cwe": "CWE-664: Improper Control of a Resource Through its Lifetime",
+          "id": "swe-103",
+          "message": "Contracts should be deployed with the same compiler version and flags that they have been tested with thoroughly. Locking the pragma helps to ensure that contracts do not accidentally get deployed using, for example, an outdated compiler version that might introduce bugs that affect the contract system negatively.",
+          "name": "floating-compiler-version",
+          "references": [
+            "https://swcregistry.io/docs/SWC-103/",
+            "https://cwe.mitre.org/data/definitions/664.html",
+            "https://semgrep.dev/docs/kb/rules/match-absence"
+          ],
+          "severity": "Low"
+        }
+      },
+      {
+        "matches": [
+          {
+            "end": {
+              "col": 16,
+              "line": 6,
+              "offset": 97
+            },
+            "lines": "    constructor() {",
+            "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+            "start": {
+              "col": 5,
+              "line": 6,
+              "offset": 86
+            }
+          }
+        ],
+        "metadata": {
+          "cwe": "CWE-710: Improper Adherence to Coding Standards",
+          "id": "swe-100",
+          "message": "Function `constructor` does not explicitly declare visibility, so it will have a default visibility of `public` and can be called by anyone.",
+          "name": "function-default-visibility",
+          "references": "https://swcregistry.io/docs/SWC-100/",
+          "severity": "High"
+        }
+      },
+      {
+        "matches": [
+          {
+            "end": {
+              "col": 19,
+              "line": 11,
+              "offset": 219
+            },
+            "lines": "        _recipient.transfer(address(this).balance);",
+            "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+            "start": {
+              "col": 9,
+              "line": 11,
+              "offset": 209
+            }
+          }
+        ],
+        "metadata": {
+          "category": "security",
+          "id": "swe-145",
+          "message": "Be cautious when transferring ETH to address `_recipient` as it may not exist.",
+          "name": "ether-lost-in-transfer",
+          "references": [
+            "https://docs.soliditylang.org/en/latest/types.html#members-of-addresses"
+          ],
+          "severity": "High"
+        }
+      },
+      {
+        "matches": [
+          {
+            "end": {
+              "col": 51,
+              "line": 11,
+              "offset": 251
+            },
+            "lines": "        _recipient.transfer(address(this).balance);",
+            "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+            "start": {
+              "col": 9,
+              "line": 11,
+              "offset": 209
+            }
+          }
+        ],
+        "metadata": {
+          "category": "security",
+          "cwe": "CWE-284: Improper Access Control",
+          "id": "swe-105",
+          "message": "Function `transferEther` lacks access control, making it accessible to anyone.",
+          "name": "unprotected-ether-withdrawal",
+          "references": [
+            "https://swcregistry.io/docs/SWC-105/",
+            "https://cwe.mitre.org/data/definitions/284.html"
+          ],
+          "severity": "High"
+        }
+      },
+      {
+        "matches": [
+          {
+            "end": {
+              "col": 52,
+              "line": 11,
+              "offset": 252
+            },
+            "lines": "        _recipient.transfer(address(this).balance);",
+            "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+            "start": {
+              "col": 9,
+              "line": 11,
+              "offset": 209
+            }
+          }
+        ],
+        "metadata": {
+          "category": "security",
+          "cwe": "CWE-665: Improper Initialization",
+          "id": "swe-134",
+          "message": "Be careful when use `send()`, `transfer()` or message `call` with hardcoded gas amount",
+          "name": "message-call-with-hardcoded-gas-amount",
+          "references": [
+            "https://swcregistry.io/docs/SWC-134/",
+            "https://cwe.mitre.org/data/definitions/655.html"
+          ],
+          "severity": "Medium"
+        }
+      },
+      {
+        "matches": [
+          {
+            "end": {
+              "col": 28,
+              "line": 11,
+              "offset": 228
+            },
+            "lines": "        _recipient.transfer(address(this).balance);",
+            "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+            "start": {
+              "col": 20,
+              "line": 11,
+              "offset": 220
+            }
+          }
+        ],
+        "metadata": {
+          "category": "security",
+          "cwe": "CWE-703: Improper Check or Handling of Exceptional Conditions",
+          "id": "swe-113",
+          "message": "External calls can fail accidentally or deliberately, which can cause a DoS condition in the contract.",
+          "name": "dos-with-failed-call",
+          "references": [
+            "https://swcregistry.io/docs/SWC-113/",
+            "https://cwe.mitre.org/data/definitions/703.html"
+          ],
+          "severity": "Low"
+        }
+      }
+    ],
+    "scan_time": 1.8165159225463867,
+    "success": true
+  },
+  "slither": {
+    "errors": [],
+    "findings": [
+      {
+        "matches": [
+          {
+            "name": "transferEther",
+            "source_mapping": {
+              "ending_column": 6,
+              "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "is_dependency": false,
+              "length": 117,
+              "lines": [
+                10,
+                11,
+                12
+              ],
+              "start": 141,
+              "starting_column": 5
+            },
+            "type": "function",
+            "type_specific_fields": {
+              "parent": {
+                "name": "VulnerableContract",
+                "source_mapping": {
+                  "ending_column": 0,
+                  "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "is_dependency": false,
+                  "length": 235,
+                  "lines": [
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14
+                  ],
+                  "start": 25,
+                  "starting_column": 1
+                },
+                "type": "contract"
+              },
+              "signature": "transferEther(address)"
+            }
+          },
+          {
+            "name": "_recipient.transfer(address(this).balance)",
+            "source_mapping": {
+              "ending_column": 51,
+              "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "is_dependency": false,
+              "length": 42,
+              "lines": [
+                11
+              ],
+              "start": 209,
+              "starting_column": 9
+            },
+            "type": "node",
+            "type_specific_fields": {
+              "parent": {
+                "name": "transferEther",
+                "source_mapping": {
+                  "ending_column": 6,
+                  "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "is_dependency": false,
+                  "length": 117,
+                  "lines": [
+                    10,
+                    11,
+                    12
+                  ],
+                  "start": 141,
+                  "starting_column": 5
+                },
+                "type": "function",
+                "type_specific_fields": {
+                  "parent": {
+                    "name": "VulnerableContract",
+                    "source_mapping": {
+                      "ending_column": 0,
+                      "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "is_dependency": false,
+                      "length": 235,
+                      "lines": [
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14
+                      ],
+                      "start": 25,
+                      "starting_column": 1
+                    },
+                    "type": "contract"
+                  },
+                  "signature": "transferEther(address)"
+                }
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "confidence": "Medium",
+          "description": "VulnerableContract.transferEther(address) (services/uploads/85d71808367244b2855596c38fd947ea.sol#10-12) sends eth to arbitrary user\n\tDangerous calls:\n\t- _recipient.transfer(address(this).balance) (services/uploads/85d71808367244b2855596c38fd947ea.sol#11)\n",
+          "duplicated": false,
+          "first_markdown_element": "services/uploads/85d71808367244b2855596c38fd947ea.sol#L10-L12",
+          "id": "arbitrary-send-eth",
+          "markdown": "[VulnerableContract.transferEther(address)](services/uploads/85d71808367244b2855596c38fd947ea.sol#L10-L12) sends eth to arbitrary user\n\tDangerous calls:\n\t- [_recipient.transfer(address(this).balance)](services/uploads/85d71808367244b2855596c38fd947ea.sol#L11)\n",
+          "severity": "High"
+        }
+      },
+      {
+        "matches": [
+          {
+            "name": "_recipient",
+            "source_mapping": {
+              "ending_column": 54,
+              "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "is_dependency": false,
+              "length": 26,
+              "lines": [
+                10
+              ],
+              "start": 164,
+              "starting_column": 28
+            },
+            "type": "variable",
+            "type_specific_fields": {
+              "parent": {
+                "name": "transferEther",
+                "source_mapping": {
+                  "ending_column": 6,
+                  "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "is_dependency": false,
+                  "length": 117,
+                  "lines": [
+                    10,
+                    11,
+                    12
+                  ],
+                  "start": 141,
+                  "starting_column": 5
+                },
+                "type": "function",
+                "type_specific_fields": {
+                  "parent": {
+                    "name": "VulnerableContract",
+                    "source_mapping": {
+                      "ending_column": 0,
+                      "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "is_dependency": false,
+                      "length": 235,
+                      "lines": [
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14
+                      ],
+                      "start": 25,
+                      "starting_column": 1
+                    },
+                    "type": "contract"
+                  },
+                  "signature": "transferEther(address)"
+                }
+              }
+            }
+          },
+          {
+            "name": "_recipient.transfer(address(this).balance)",
+            "source_mapping": {
+              "ending_column": 51,
+              "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "is_dependency": false,
+              "length": 42,
+              "lines": [
+                11
+              ],
+              "start": 209,
+              "starting_column": 9
+            },
+            "type": "node",
+            "type_specific_fields": {
+              "parent": {
+                "name": "transferEther",
+                "source_mapping": {
+                  "ending_column": 6,
+                  "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "is_dependency": false,
+                  "length": 117,
+                  "lines": [
+                    10,
+                    11,
+                    12
+                  ],
+                  "start": 141,
+                  "starting_column": 5
+                },
+                "type": "function",
+                "type_specific_fields": {
+                  "parent": {
+                    "name": "VulnerableContract",
+                    "source_mapping": {
+                      "ending_column": 0,
+                      "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "is_dependency": false,
+                      "length": 235,
+                      "lines": [
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14
+                      ],
+                      "start": 25,
+                      "starting_column": 1
+                    },
+                    "type": "contract"
+                  },
+                  "signature": "transferEther(address)"
+                }
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "confidence": "Medium",
+          "description": "VulnerableContract.transferEther(address)._recipient (services/uploads/85d71808367244b2855596c38fd947ea.sol#10) lacks a zero-check on :\n\t\t- _recipient.transfer(address(this).balance) (services/uploads/85d71808367244b2855596c38fd947ea.sol#11)\n",
+          "duplicated": false,
+          "first_markdown_element": "services/uploads/85d71808367244b2855596c38fd947ea.sol#L10",
+          "id": "missing-zero-check",
+          "markdown": "[VulnerableContract.transferEther(address)._recipient](services/uploads/85d71808367244b2855596c38fd947ea.sol#L10) lacks a zero-check on :\n\t\t- [_recipient.transfer(address(this).balance)](services/uploads/85d71808367244b2855596c38fd947ea.sol#L11)\n",
+          "severity": "Low"
+        }
+      },
+      {
+        "matches": [],
+        "metadata": {
+          "confidence": "High",
+          "description": "solc-0.8.0 is not recommended for deployment\n",
+          "duplicated": false,
+          "first_markdown_element": "",
+          "id": "solc-version",
+          "markdown": "solc-0.8.0 is not recommended for deployment\n",
+          "severity": "Informational"
+        }
+      },
+      {
+        "matches": [
+          {
+            "name": "^0.8.0",
+            "source_mapping": {
+              "ending_column": 24,
+              "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "is_dependency": false,
+              "length": 23,
+              "lines": [
+                1
+              ],
+              "start": 0,
+              "starting_column": 1
+            },
+            "type": "pragma",
+            "type_specific_fields": {
+              "directive": [
+                "solidity",
+                "^",
+                "0.8",
+                ".0"
+              ]
+            }
+          }
+        ],
+        "metadata": {
+          "confidence": "High",
+          "description": "Pragma version^0.8.0 (services/uploads/85d71808367244b2855596c38fd947ea.sol#1) allows old versions\n",
+          "duplicated": false,
+          "first_markdown_element": "services/uploads/85d71808367244b2855596c38fd947ea.sol#L1",
+          "id": "solc-version",
+          "markdown": "Pragma version[^0.8.0](services/uploads/85d71808367244b2855596c38fd947ea.sol#L1) allows old versions\n",
+          "severity": "Informational"
+        }
+      },
+      {
+        "matches": [
+          {
+            "additional_fields": {
+              "convention": "mixedCase",
+              "target": "parameter"
+            },
+            "name": "_recipient",
+            "source_mapping": {
+              "ending_column": 54,
+              "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "is_dependency": false,
+              "length": 26,
+              "lines": [
+                10
+              ],
+              "start": 164,
+              "starting_column": 28
+            },
+            "type": "variable",
+            "type_specific_fields": {
+              "parent": {
+                "name": "transferEther",
+                "source_mapping": {
+                  "ending_column": 6,
+                  "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "is_dependency": false,
+                  "length": 117,
+                  "lines": [
+                    10,
+                    11,
+                    12
+                  ],
+                  "start": 141,
+                  "starting_column": 5
+                },
+                "type": "function",
+                "type_specific_fields": {
+                  "parent": {
+                    "name": "VulnerableContract",
+                    "source_mapping": {
+                      "ending_column": 0,
+                      "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                      "is_dependency": false,
+                      "length": 235,
+                      "lines": [
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14
+                      ],
+                      "start": 25,
+                      "starting_column": 1
+                    },
+                    "type": "contract"
+                  },
+                  "signature": "transferEther(address)"
+                }
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "confidence": "High",
+          "description": "Parameter VulnerableContract.transferEther(address)._recipient (services/uploads/85d71808367244b2855596c38fd947ea.sol#10) is not in mixedCase\n",
+          "duplicated": false,
+          "first_markdown_element": "services/uploads/85d71808367244b2855596c38fd947ea.sol#L10",
+          "id": "naming-convention",
+          "markdown": "Parameter [VulnerableContract.transferEther(address)._recipient](services/uploads/85d71808367244b2855596c38fd947ea.sol#L10) is not in mixedCase\n",
+          "severity": "Informational"
+        }
+      },
+      {
+        "matches": [
+          {
+            "name": "owner",
+            "source_mapping": {
+              "ending_column": 25,
+              "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+              "is_dependency": false,
+              "length": 20,
+              "lines": [
+                4
+              ],
+              "start": 59,
+              "starting_column": 5
+            },
+            "type": "variable",
+            "type_specific_fields": {
+              "parent": {
+                "name": "VulnerableContract",
+                "source_mapping": {
+                  "ending_column": 0,
+                  "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_relative": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "filename_short": "services/uploads/85d71808367244b2855596c38fd947ea.sol",
+                  "is_dependency": false,
+                  "length": 235,
+                  "lines": [
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14
+                  ],
+                  "start": 25,
+                  "starting_column": 1
+                },
+                "type": "contract"
+              }
+            }
+          }
+        ],
+        "metadata": {
+          "confidence": "High",
+          "description": "VulnerableContract.owner (services/uploads/85d71808367244b2855596c38fd947ea.sol#4) should be immutable \n",
+          "duplicated": false,
+          "first_markdown_element": "services/uploads/85d71808367244b2855596c38fd947ea.sol#L4",
+          "id": "immutable-states",
+          "markdown": "[VulnerableContract.owner](services/uploads/85d71808367244b2855596c38fd947ea.sol#L4) should be immutable \n",
+          "severity": "Optimization"
+        }
+      }
+    ],
+    "scan_time": 0.5470802783966064,
+    "success": true
+  }
+}

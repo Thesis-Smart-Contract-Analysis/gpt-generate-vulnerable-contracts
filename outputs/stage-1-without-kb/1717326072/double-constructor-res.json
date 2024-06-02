@@ -1,0 +1,238 @@
+{
+    "mythril": {
+        "errors": [],
+        "findings": [],
+        "scan_time": 2.862639904022217,
+        "success": true
+    },
+    "semantic_grep": {
+        "errors": [],
+        "findings": [
+            {
+                "matches": [
+                    {
+                        "end": {
+                            "col": 6,
+                            "line": 8,
+                            "offset": 170
+                        },
+                        "lines": "    function DoubleConstructorVulnerability() public {\n        data = 100;\n    }",
+                        "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                        "start": {
+                            "col": 5,
+                            "line": 6,
+                            "offset": 94
+                        }
+                    }
+                ],
+                "metadata": {
+                    "category": "security",
+                    "id": "swe-146",
+                    "message": "There should only be one constructor in the contract for the Solidity version < 0.4.22",
+                    "name": "double-constructor",
+                    "severity": "High"
+                }
+            }
+        ],
+        "scan_time": 1.8922662734985352,
+        "success": true
+    },
+    "slither": {
+        "errors": [],
+        "findings": [
+            {
+                "matches": [
+                    {
+                        "name": "DoubleConstructorVulnerability",
+                        "source_mapping": {
+                            "ending_column": 0,
+                            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "filename_relative": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "filename_short": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "is_dependency": false,
+                            "length": 201,
+                            "lines": [
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14
+                            ],
+                            "start": 25,
+                            "starting_column": 1
+                        },
+                        "type": "contract"
+                    },
+                    {
+                        "name": "DoubleConstructorVulnerability",
+                        "source_mapping": {
+                            "ending_column": 6,
+                            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "filename_relative": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "filename_short": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "is_dependency": false,
+                            "length": 76,
+                            "lines": [
+                                6,
+                                7,
+                                8
+                            ],
+                            "start": 94,
+                            "starting_column": 5
+                        },
+                        "type": "function",
+                        "type_specific_fields": {
+                            "parent": {
+                                "name": "DoubleConstructorVulnerability",
+                                "source_mapping": {
+                                    "ending_column": 0,
+                                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                                    "filename_relative": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                                    "filename_short": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                                    "is_dependency": false,
+                                    "length": 201,
+                                    "lines": [
+                                        3,
+                                        4,
+                                        5,
+                                        6,
+                                        7,
+                                        8,
+                                        9,
+                                        10,
+                                        11,
+                                        12,
+                                        13,
+                                        14
+                                    ],
+                                    "start": 25,
+                                    "starting_column": 1
+                                },
+                                "type": "contract"
+                            },
+                            "signature": "DoubleConstructorVulnerability()"
+                        }
+                    },
+                    {
+                        "name": "constructor",
+                        "source_mapping": {
+                            "ending_column": 6,
+                            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "filename_relative": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "filename_short": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "is_dependency": false,
+                            "length": 48,
+                            "lines": [
+                                10,
+                                11,
+                                12
+                            ],
+                            "start": 176,
+                            "starting_column": 5
+                        },
+                        "type": "function",
+                        "type_specific_fields": {
+                            "parent": {
+                                "name": "DoubleConstructorVulnerability",
+                                "source_mapping": {
+                                    "ending_column": 0,
+                                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                                    "filename_relative": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                                    "filename_short": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                                    "is_dependency": false,
+                                    "length": 201,
+                                    "lines": [
+                                        3,
+                                        4,
+                                        5,
+                                        6,
+                                        7,
+                                        8,
+                                        9,
+                                        10,
+                                        11,
+                                        12,
+                                        13,
+                                        14
+                                    ],
+                                    "start": 25,
+                                    "starting_column": 1
+                                },
+                                "type": "contract"
+                            },
+                            "signature": "constructor()"
+                        }
+                    }
+                ],
+                "metadata": {
+                    "confidence": "High",
+                    "description": "DoubleConstructorVulnerability (services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#3-14) contains multiple constructors in the same contract:\n\t- DoubleConstructorVulnerability.DoubleConstructorVulnerability() (services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#6-8)\n\t- DoubleConstructorVulnerability.constructor() (services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#10-12)\n",
+                    "duplicated": true,
+                    "first_markdown_element": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#L3-L14",
+                    "id": "multiple-constructors",
+                    "markdown": "[DoubleConstructorVulnerability](services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#L3-L14) contains multiple constructors in the same contract:\n\t- [DoubleConstructorVulnerability.DoubleConstructorVulnerability()](services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#L6-L8)\n\t- [DoubleConstructorVulnerability.constructor()](services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#L10-L12)\n",
+                    "semgrep-id": "swe-146",
+                    "severity": "High"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "name": "0.4.22",
+                        "source_mapping": {
+                            "ending_column": 24,
+                            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "filename_relative": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "filename_short": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol",
+                            "is_dependency": false,
+                            "length": 23,
+                            "lines": [
+                                1
+                            ],
+                            "start": 0,
+                            "starting_column": 1
+                        },
+                        "type": "pragma",
+                        "type_specific_fields": {
+                            "directive": [
+                                "solidity",
+                                "0.4",
+                                ".22"
+                            ]
+                        }
+                    }
+                ],
+                "metadata": {
+                    "confidence": "High",
+                    "description": "Pragma version0.4.22 (services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#1) is known to contain severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n",
+                    "duplicated": false,
+                    "first_markdown_element": "services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#L1",
+                    "id": "solc-version",
+                    "markdown": "Pragma version[0.4.22](services/uploads/a8786edb126c48589e14dcb4b00816fa.sol#L1) is known to contain severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)\n",
+                    "severity": "Informational"
+                }
+            },
+            {
+                "matches": [],
+                "metadata": {
+                    "confidence": "High",
+                    "description": "solc-0.4.22 is known to contain severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)",
+                    "duplicated": false,
+                    "first_markdown_element": "",
+                    "id": "solc-version",
+                    "markdown": "solc-0.4.22 is known to contain severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)",
+                    "severity": "Informational"
+                }
+            }
+        ],
+        "scan_time": 0.6025443077087402,
+        "success": true
+    }
+}
