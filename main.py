@@ -1,6 +1,7 @@
-import os, openai, time, random, json, codecs
+import os, time, random, json, codecs
+from openai import OpenAI
 
-openai.api_key = "sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN"
+client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN")
 VULN_LIMIT = 10
 DIR_PREFIX = "stage-1"
 
@@ -32,7 +33,7 @@ def answer(query):
     persona = "You are a senior smart contract developer and understand security vulnerabilities well."
 
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             messages=[
                 {"role": "system", "content": persona},
                 {"role": "user", "content": query},
@@ -41,8 +42,8 @@ def answer(query):
             temperature=0,
         )
         return response
-    except openai.error.RateLimitError as e:
-        print(f"Rate limit exceeded")
+    except Exception as e:
+        print(f"Error querying: {e}")
         return {}
 
 
@@ -116,7 +117,8 @@ def write_to_file(dir_prefix, responses, kb):
             print(f"Error writing {vuln_id} to file: {e}")
 
 
-vulns = load_vulns()
-kb = build_kb(vulns, VULN_LIMIT)
-responses = query_vulns(vulns, kb)
-write_to_file(DIR_PREFIX, responses, kb)
+if __name__ == "__main__":
+    vulns = load_vulns()
+    kb = build_kb(vulns, VULN_LIMIT)
+    responses = query_vulns(vulns, kb)
+    write_to_file(DIR_PREFIX, responses, kb)
