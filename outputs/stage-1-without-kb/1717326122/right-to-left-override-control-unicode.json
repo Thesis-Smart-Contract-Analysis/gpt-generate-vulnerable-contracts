@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9VdFdRcryWfeNC20ArKvSVl5pEuii",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract VulnerableContract {\n    string public fileName;\n\n    constructor(string memory _fileName) {\n        fileName = _fileName;\n    }\n\n    function updateFileName(string memory _newFileName) public {\n        fileName = _newFileName;\n    }\n    \n    function maliciousFunction() public view returns string {\n        return \"my-text.'\\u202E'cod.exe\";\n    }\n}\n```\n\nDescription of the vulnerability in the generated smart contract:\n\nThe vulnerability lies in the `maliciousFunction` where the Right-To-Left Override Control Character (U+202E) is used to manipulate the display order of characters. In this case, the function returns a string that appears to be `my-text.exe.cod`, but due to the presence of the Right-To-Left Override character, the actual displayed value will be `my-text.cod.exe`.\n\n# Remediations\n\n- Avoid using characters like U+202E in user-provided input or within the smart contract code to prevent misleading or deceptive representations.\n- Implement input validation mechanisms to sanitize user inputs and reject any input containing potentially harmful characters like the Right-To-Left Override Control Character.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717326077,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 242,
+    "prompt_tokens": 388,
+    "total_tokens": 630
+  },
+  "vuln_id": "right-to-left-override-control-unicode",
+  "query": "You are a senior smart contract programmer and understand security vulnerabilities well.\n\nPlease generate the source code of a smart contract with the Right-To-Left Override Control Character vulnerability and suggest a fix based on your knowledge and the knowledge below:\n\nKẻ xấu có thể sử dụng ký tự ghi đè phải sang trái (right-to-left override) có điểm mã (code point) là U+202E để thay đổi chiều hiển thị của các ký tự.\nKý tự này thường được dùng để che giấu phần mở rộng thực sự của tập tin nhằm đánh lừa người dùng. Ví dụ, khi sử dụng nó trong chuỗi `my-text.'U+202E'cod.exe` thì giá trị được hiển thị sẽ là `my-text.exe.doc` @u202e.\nỞ trong mã nguồn, ký tự U+202E có thể được sử dụng để thay đổi thứ tự của các đối số.\n\nThe format of the result consists of two parts. The first part of the smart contract has a Right-To-Left Override Control Character vulnerability. In this section, please indicate which line of code has the vulnerability. The second part is the solutions. For example:\n\n# Smart contract\n\n```solidity\nYour generated vulnerable code // line number in smart contract\n```\n\nDescription of the vulnerability in the generated smart contract.\n\n# Remediations\n\n- Remediation 1\n- Remediation 2\n\nThe tone of the response should be professional and informative in English."
+}

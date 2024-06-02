@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9VdG4dzSQwvopwa3ceZunmsGfOHTS",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract TypoVulnerableContract {\n    uint public balance;\n\n    function deposit(uint _amount) public {\n        blance += _amount; // Typo on this line\n    }\n}\n```\n\nDescription of the vulnerability in the generated smart contract:\n\nThere is a Typographical Error vulnerability in the `deposit` function of the smart contract. The variable `balance` is misspelled as `blance`, which will lead to unintended behavior as the intended balance update will not occur.\n\n# Remediations\n\n- Remediation 1: Correct the typo in the code to ensure the intended functionality:\n  \n  ```solidity\n  pragma solidity ^0.8.0;\n\n  contract FixedTypoContract {\n      uint public balance;\n\n      function deposit(uint _amount) public {\n          balance += _amount; // Corrected spelling of 'balance'\n      }\n  }\n  ```\n\n- Remediation 2: Use code review tools and IDE plugins that can help catch such typographical errors during development to prevent such vulnerabilities from making it into the deployed smart contracts.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717326104,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 230,
+    "prompt_tokens": 204,
+    "total_tokens": 434
+  },
+  "vuln_id": "typographical-error",
+  "query": "You are a senior smart contract programmer and understand security vulnerabilities well.\n\nPlease generate the source code of a smart contract with the Typographical Error vulnerability and suggest a fix based on your knowledge and the knowledge below:\n\nLỗi đánh máy có thể dẫn đến những hành vi không mong muốn trong smart contract.\n\nThe format of the result consists of two parts. The first part of the smart contract has a Typographical Error vulnerability. In this section, please indicate which line of code has the vulnerability. The second part is the solutions. For example:\n\n# Smart contract\n\n```solidity\nYour generated vulnerable code // line number in smart contract\n```\n\nDescription of the vulnerability in the generated smart contract.\n\n# Remediations\n\n- Remediation 1\n- Remediation 2\n\nThe tone of the response should be professional and informative in English."
+}

@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9VdHB5vxK7jPsJ4MV5oj9f4B73P0E",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract TypoVulnerableContract {\n    uint public balance;\n\n    constructor() {\n        balance = 1000;\n    }\n\n    function withdraw(uint _amount) public {\n        balane -= _amount; // Typo on this line\n    }\n}\n```\n\nDescription of the vulnerability in the generated smart contract:\n\nThere is a Typographical Error vulnerability in the `withdraw` function of the smart contract. The line `balane -= _amount;` contains a typo where `balane` should be `balance`. This typo can lead to unintended behavior in the contract, potentially affecting the manipulation of the `balance` variable.\n\n# Remediations\n\n- Remediation 1: Review and double-check all variable names and function calls to ensure they are correctly spelled.\n- Remediation 2: Implement automated code analysis tools to catch common typos and errors during the development process.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717326173,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 193,
+    "prompt_tokens": 204,
+    "total_tokens": 397
+  },
+  "vuln_id": "typographical-error",
+  "query": "You are a senior smart contract programmer and understand security vulnerabilities well.\n\nPlease generate the source code of a smart contract with the Typographical Error vulnerability and suggest a fix based on your knowledge and the knowledge below:\n\nLỗi đánh máy có thể dẫn đến những hành vi không mong muốn trong smart contract.\n\nThe format of the result consists of two parts. The first part of the smart contract has a Typographical Error vulnerability. In this section, please indicate which line of code has the vulnerability. The second part is the solutions. For example:\n\n# Smart contract\n\n```solidity\nYour generated vulnerable code // line number in smart contract\n```\n\nDescription of the vulnerability in the generated smart contract.\n\n# Remediations\n\n- Remediation 1\n- Remediation 2\n\nThe tone of the response should be professional and informative in English."
+}
