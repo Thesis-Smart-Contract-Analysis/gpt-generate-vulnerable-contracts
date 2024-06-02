@@ -17,7 +17,7 @@ def load_vulns():
 
 
 def build_kb(vulns: list, limit: int):
-    kb = "Use the below information to do the task\n"
+    kb = ""
     count = 0
     for vuln in vulns:
         if count == limit:
@@ -29,20 +29,17 @@ def build_kb(vulns: list, limit: int):
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
             kb += content
-    
+
     return kb
 
 
-def answer(kb, query):
+def answer(query):
+    persona = "You are a senior smart contract developer and understand security vulnerabilities well."
+
     try:
         response = openai.ChatCompletion.create(
             messages=[
-                {
-                    "role": "system",
-                    "content": "You generate vulnerable smart contract and suggest remediation for the vulnerabilities.",
-                },
-                {"role": "user", "content": kb},
-                {"role": "assistant", "content": "Okay sure!"},
+                {"role": "system", "content": persona},
                 {"role": "user", "content": query},
             ],
             model="gpt-3.5-turbo",
@@ -64,20 +61,33 @@ def query_vulns(vulns: list, kb: str):
             random_index = random.randint(0, len(vulns) - 1)
             vuln_name = vulns[random_index]["name"]
             vuln_id = vulns[random_index]["id"]
-        
+
         print(f"Processing '{vuln_name}'...")
         already_queried.append(vuln_name)
 
         # Build query
-        query = f"Generate a smart contract that has {vuln_name} vulnerability and suggest remediation for the vulnerability."
+        query = build_query(vuln_name, kb)
+        if query == "":
+            continue
 
         # Query
-        res = answer(kb, query)
+        res = answer(query)
         res["query"] = query
         res["vuln_id"] = vuln_id
         responses.append(res)
 
     return responses
+
+
+def build_query(vuln_name, kb):
+    PROMPT_PATH = "prompt.md"
+    prompt, query = "", ""
+
+    with open(PROMPT_PATH, "r", encoding="utf-8") as f:
+        prompt = f.read()
+        query = prompt.replace("{{vuln_name}}", vuln_name).replace("{{kb}}", kb)
+
+    return query
 
 
 def write_to_file(dir_prefix, responses, kb):
