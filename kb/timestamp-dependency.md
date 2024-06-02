@@ -2,7 +2,7 @@
 
 ## Mô tả
 
-Smart contract có thể sử dụng các thuộc tính của block chẳng hạn như `block.timestamp` hoặc `block.number` làm điều kiện để thực thi một hành động nào đó. T  uy nhiên, việc smart contract phụ thuộc vào các giá trị này là không an toàn:
+Smart contract có thể sử dụng các thuộc tính của block chẳng hạn như `block.timestamp` hoặc `block.number` làm điều kiện để thực thi một hành động nào đó. Tuy nhiên, việc smart contract phụ thuộc vào các giá trị này là không an toàn:
 - Trong trường hợp của `block.timestamp`, miner có thể thay đổi nhãn thời gian#footnote[Tất nhiên là không được nhỏ hơn nhãn thời gian của block trước đó hoặc quá xa trong tương lai (không quá 900 giây - tương ứng với 15 phút @luu_2016_making).] của block nên giá trị của nó có thể không như lập trình viên smart contract mong đợi.
 - Trường hợp của `block.number` cũng tương tự, giá trị này có thể biến thiên nhanh hơn hoặc chậm đi tùy thuộc vào thời gian đào một block trong mạng blockchain. Mà thời gian đào một block không cố định và có thể thay đổi vì nhiều lý do chẳng hạn như blockchain tổ chức lại sau khi fork.
 
