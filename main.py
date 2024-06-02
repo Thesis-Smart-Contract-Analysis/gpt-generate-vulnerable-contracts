@@ -2,8 +2,10 @@ import os, time, random, json, codecs
 from openai import OpenAI
 
 client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN")
+ITERATIONS = 5
 VULN_LIMIT = 10
-DIR_PREFIX = "stage-1"
+WITH_KB = False
+DIR_PREFIX = "stage-1-without-kb"
 
 
 def load_vulns():
@@ -58,18 +60,26 @@ def query_vulns(vulns: list, kb: str):
             random_index = random.randint(0, len(vulns) - 1)
             vuln_name = vulns[random_index]["name"]
             vuln_id = vulns[random_index]["id"]
+            vuln_description = vulns[random_index]["description"]
 
         print(f"Processing '{vuln_name}'...")
         already_queried.append(vuln_name)
 
         # Build query
-        query = build_query(vuln_name, kb)
+        query = ""
+        if kb is not None:
+            query = build_query(vuln_name, kb)
+        else:
+            query = build_query_without_kb(vuln_name, vuln_description)
         if query == "":
             continue
 
         # Query
         res = answer(query)
+        res = json.loads(res.model_dump_json())
         res["vuln_id"] = vuln_id
+        if kb is None:
+            res["query"] = query
         responses.append(res)
 
         # Sleep for 1 second
@@ -89,6 +99,19 @@ def build_query(vuln_name, kb):
     return query
 
 
+def build_query_without_kb(vuln_name, vuln_description):
+    PROMPT_PATH = "prompt_without_kb.md"
+    prompt, query = "", ""
+
+    with open(PROMPT_PATH, "r", encoding="utf-8") as f:
+        prompt = f.read()
+        query = prompt.replace("{{vuln_name}}", vuln_name).replace(
+            "{{vuln_description}}", vuln_description
+        )
+
+    return query
+
+
 def write_to_file(dir_prefix, responses, kb):
     # Create a directory for the current timestamp
     timestamp = time.time().__str__().split(".")[0]
@@ -96,9 +119,10 @@ def write_to_file(dir_prefix, responses, kb):
     os.makedirs(f"{directory}", exist_ok=True)
 
     # Write kb if not exists
-    if not os.path.exists(f"outputs/{dir_prefix}/kb.md"):
-        with open(f"outputs/{dir_prefix}/kb.md", "w", encoding="utf-8") as f:
-            f.write(kb)
+    if kb is not None:
+        if not os.path.exists(f"outputs/{dir_prefix}/kb.md"):
+            with open(f"outputs/{dir_prefix}/kb.md", "w", encoding="utf-8") as f:
+                f.write(kb)
 
     for res in responses:
         # Build file path
@@ -119,6 +143,8 @@ def write_to_file(dir_prefix, responses, kb):
 
 if __name__ == "__main__":
     vulns = load_vulns()
-    kb = build_kb(vulns, VULN_LIMIT)
-    responses = query_vulns(vulns, kb)
-    write_to_file(DIR_PREFIX, responses, kb)
+    kb = build_kb(vulns, VULN_LIMIT) if WITH_KB else None
+    for i in range(0, ITERATIONS):
+        print(f"ITERATION {i+1}/{ITERATIONS}")
+        responses = query_vulns(vulns, kb)
+        write_to_file(DIR_PREFIX, responses, kb)
