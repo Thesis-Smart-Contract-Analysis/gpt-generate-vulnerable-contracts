@@ -1,4 +1,3 @@
-Use the below information to do the task
 # Function or State Variable Default Visibility
 
 ## Mô tả
@@ -64,7 +63,6 @@ contract HashForEther {
 
 }
 ```
-
 # Integer Overflow/Underflow <integer-overflow-underflow>
 
 ## Mô tả
@@ -109,7 +107,6 @@ Sử dụng một phiên bản trình biên dịch đã cũ có thể gây ra c�
 ## Cách khắc phục
 
 Sử dụng phiên bản trình biên dịch của Solidity gần đây nhất.
-
 # Floating Compiler Version
 
 ## Mô tả
@@ -204,7 +201,7 @@ contract ReturnValue {
 
 # Access Control Management
 
-# Mô tả
+## Mô tả
 
 Việc không kiểm soát quyền truy cập của hàm có thể khiến cho bất kỳ ai không có quyền cũng có thể thực thi hàm, đặc biệt là các hàm rút ETH hoặc gọi các hàm nguy hiểm chẳng hạn như `selfdestruct` #footnote[`selfdestruct` là một hàm dùng để xóa bytecode của smart contract ở trên blockchain và chuyển hết ETH còn lại trong smart contract đến địa chỉ được chỉ định.].
 
@@ -243,7 +240,7 @@ contract SimpleSuicide {
 
 Với ví dụ này, do không kiểm soát quyền truy cập nên bất kỳ ai cũng có thể gọi hàm `sudicideAnyone` và rút hết ETH thông qua hàm `selfdestruct`.
 
-# Cách khắc phục
+## Cách khắc phục
 
 Cần giới hạn lại quyền truy cập của hàm cho một số địa chỉ nhất định. Có thể sử dụng các biện pháp kiểm soát quyền truy cập chẳng hạn như smart contract Ownable của OpenZeppelin @openzeppelin-ownership.
 
@@ -588,7 +585,6 @@ contract DeprecatedSimpleFixed {
 
 }
 ```
-
 # Delegatecall to Untrusted Callee
 
 ## Hàm `delegatecall`

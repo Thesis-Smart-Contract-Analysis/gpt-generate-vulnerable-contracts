@@ -1,0 +1,24 @@
+{
+  "id": "chatcmpl-9Vc311gV9SYySbL1R2Zsqyp23r5sb",
+  "object": "chat.completion",
+  "created": 1717321451,
+  "model": "gpt-3.5-turbo-0125",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "# Smart contract\n\n```solidity\npragma solidity ^0.4.24;\n\ncontract StackSizeLimitVulnerable {\n    \n    uint256 public result;\n    \n    function calculate(uint256 input) public {\n        if (input == 0) {\n            return;\n        }\n        \n        result = input + 1;\n        calculate(input - 1);\n    }\n}\n```\n\nThe vulnerability lies in the recursive function `calculate` where it keeps calling itself without any termination condition based on the input value. This can lead to a stack overflow if the input value is large, causing the contract to run out of gas and fail.\n\n# Remediations\n\n- Implement a termination condition in the recursive function to prevent stack overflow.\n- Use iterative solutions instead of recursive functions for operations that involve potentially large input values."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 8465,
+    "completion_tokens": 161,
+    "total_tokens": 8626
+  },
+  "system_fingerprint": null,
+  "vuln_id": "stack-size-limit"
+}

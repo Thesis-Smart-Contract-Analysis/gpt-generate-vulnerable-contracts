@@ -1,0 +1,24 @@
+{
+  "id": "chatcmpl-9Vbx9Q6OLaYMk8y4DiNzuYrasnKPH",
+  "object": "chat.completion",
+  "created": 1717321087,
+  "model": "gpt-3.5-turbo-0125",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "# Smart contract with Incorrect Inheritance Order vulnerability\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract IncorrectInheritanceOrder {\n    // Incorrect Inheritance Order vulnerability on the following line\n    contract A {\n        uint public num;\n\n        constructor(uint _num) {\n            num = _num;\n        }\n    }\n\n    contract B is A {\n        uint public data;\n\n        constructor(uint _num, uint _data) A(_num) {\n            data = _data;\n        }\n    }\n}\n```\n\n## Description\n\nIn the above smart contract, the vulnerability lies in the incorrect order of inheritance. Contract `B` is inheriting from contract `A`, but contract `A` is defined inside contract `B`. This can lead to unexpected behavior and potential security risks.\n\n## Remediations\n\n- Define contract `A` outside of contract `B` to ensure proper inheritance order.\n- Ensure that the inheritance hierarchy is clearly defined and follows the correct order to avoid any ambiguity or vulnerabilities."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 8467,
+    "completion_tokens": 203,
+    "total_tokens": 8670
+  },
+  "system_fingerprint": null,
+  "vuln_id": "incorrect-inheritance-order"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "chatcmpl-9Vc2tJiePFrjDP5Ovd87QAOdrtG78",
+  "object": "chat.completion",
+  "created": 1717321443,
+  "model": "gpt-3.5-turbo-0125",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "# Smart contract with Function Selector Clashing vulnerability\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract FunctionSelectorClash {\n    \n    function transfer(address _to, uint _amount) public {\n        // Transfer tokens to the specified address\n    }\n    \n    function transfer(uint _amount, address _to) public {\n        // Transfer tokens to the specified address\n    }\n    \n}\n```\n\nIn the above smart contract, the vulnerability lies in having two functions with the same name `transfer` but with different parameter order. This can lead to confusion for external callers and may result in unexpected behavior.\n\n# Remediations\n\n- Use unique function names to avoid function selector clashes.\n- Ensure that functions with the same name have different parameter types or order to prevent ambiguity."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 8467,
+    "completion_tokens": 157,
+    "total_tokens": 8624
+  },
+  "system_fingerprint": null,
+  "vuln_id": "function-selector-clashing"
+}

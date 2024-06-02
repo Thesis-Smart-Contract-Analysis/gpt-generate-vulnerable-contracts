@@ -1,0 +1,24 @@
+{
+  "id": "chatcmpl-9VbxSGorBPtCRGfMnKqZfYBJYdsMj",
+  "object": "chat.completion",
+  "created": 1717321106,
+  "model": "gpt-3.5-turbo-0125",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "# Smart contract with Typographical Error Vulnerability\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract TypoVulnerable {\n  \n  uint256 public balance = 1000;\n\n  function withdraw(uint256 _amount) public {\n    require(msg.sender == tx.origin);\n    balance -= _amount;\n    msg.sender.transfer(_amount);\n  }\n\n}\n```\n\n## Description\n\nIn the smart contract `TypoVulnerable` above, there is a Typographical Error vulnerability in the `withdraw` function. The line `require(msg.sender == tx.origin);` is intended to ensure that the original sender of the transaction is the one calling the `withdraw` function. However, there is a typo in `tx.origin` where it should be `msg.sender`.\n\n## Remediation\n\n- Change `require(msg.sender == tx.origin);` to `require(msg.sender == msg.sender);` to fix the Typographical Error vulnerability."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 8465,
+    "completion_tokens": 189,
+    "total_tokens": 8654
+  },
+  "system_fingerprint": null,
+  "vuln_id": "typographical-error"
+}

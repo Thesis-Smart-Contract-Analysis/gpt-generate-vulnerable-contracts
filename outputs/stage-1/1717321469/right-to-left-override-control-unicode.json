@@ -1,0 +1,24 @@
+{
+  "id": "chatcmpl-9Vc3FrBY5BsYCq71uC7J7NGi0qCFB",
+  "object": "chat.completion",
+  "created": 1717321465,
+  "model": "gpt-3.5-turbo-0125",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "# Smart contract\n\n```solidity\npragma solidity ^0.4.24;\n\ncontract VulnerableContract {\n    string public name;\n\n    function setName(string _name) public {\n        name = _name;\n    }\n\n    function setNameWithOverride(string _name) public {\n        name = \"\\u202e\" + _name; // Right-To-Left Override Control Character vulnerability\n    }\n}\n```\n\nDescription: The `setNameWithOverride` function in the smart contract `VulnerableContract` contains a vulnerability where the `name` variable is set with a Right-To-Left Override Control Character. This character can be used maliciously to visually reverse text and potentially deceive users.\n\n# Remediations\n\n- Ensure that user input is properly validated and sanitized before setting any string variables.\n- Avoid using special characters that can alter the visual representation of text in sensitive areas of the smart contract."
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 8473,
+    "completion_tokens": 178,
+    "total_tokens": 8651
+  },
+  "system_fingerprint": null,
+  "vuln_id": "right-to-left-override-control-unicode"
+}
