@@ -2,37 +2,13 @@ import os, time, random, json, codecs
 from openai import OpenAI
 
 client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN")
-ITERATIONS = 5
-VULN_LIMIT = 10
-WITH_KB = False
-DIR_PREFIX = "stage-1-without-kb"
 
-
-def load_vulns():
-    with open(f"kb/vulns.json", "r", encoding="UTF-8") as f:
-        vulns = f.read()
-    return json.loads(vulns)
-
-
-def build_kb(vulns: list, limit: int):
-    kb = ""
-    count = 0
-    for vuln in vulns:
-        if count == limit:
-            break
-        count += 1
-
-        vuln_id = vuln["id"]
-        file_path = f"kb/{vuln_id}.md"
-        with open(file_path, "r", encoding="utf-8") as f:
-            content = f.read()
-            kb += content
-
-    return kb
-
+DIR_PREFIX = "vuln-founds"
+DIR_SMART_CONTRACTS = "smart-contracts"
+SEVERITIES = ['critical', 'high', 'medium', 'low', 'informational']
 
 def answer(query):
-    persona = "You are a senior smart contract developer and understand security vulnerabilities well."
+    persona = "You are an expert in identifying and analyzing vulnerabilities in Solidity-based smart contracts."
 
     try:
         response = client.chat.completions.create(
@@ -49,37 +25,21 @@ def answer(query):
         return {}
 
 
-def query_vulns(vulns: list, kb: str):
-    already_queried = []
-    vuln_name = ""
+def query_smart_contract(source_code: str, file_name: str):
     responses = []
 
-    for i in range(0, VULN_LIMIT):
-        # Get a random vulnerability
-        while vuln_name in already_queried or vuln_name == "":
-            random_index = random.randint(0, len(vulns) - 1)
-            vuln_name = vulns[random_index]["name"]
-            vuln_id = vulns[random_index]["id"]
-            vuln_description = vulns[random_index]["description"]
-
-        print(f"Processing '{vuln_name}'...")
-        already_queried.append(vuln_name)
-
+    for severity in SEVERITIES:
         # Build query
-        query = ""
-        if kb is not None:
-            query = build_query(vuln_name, kb)
-        else:
-            query = build_query_without_kb(vuln_name, vuln_description)
-        if query == "":
-            continue
-
+        query = build_query(severity, source_code)
+        
         # Query
         res = answer(query)
         res = json.loads(res.model_dump_json())
-        res["vuln_id"] = vuln_id
-        if kb is None:
-            res["query"] = query
+
+        res["smart_contract"] = file_name
+        res["query"] = query
+        res["severity"] = severity
+
         responses.append(res)
 
         # Sleep for 1 second
@@ -88,46 +48,33 @@ def query_vulns(vulns: list, kb: str):
     return responses
 
 
-def build_query(vuln_name, kb):
+def build_query(severity_type : str, source_code: str):
     PROMPT_PATH = "prompt.md"
     prompt, query = "", ""
 
     with open(PROMPT_PATH, "r", encoding="utf-8") as f:
         prompt = f.read()
-        query = prompt.replace("{{vuln_name}}", vuln_name).replace("{{kb}}", kb)
+        query = prompt.replace("{{severity_type}}", severity_type).replace("{{source_code}}", source_code)
 
     return query
 
 
-def build_query_without_kb(vuln_name, vuln_description):
-    PROMPT_PATH = "prompt_without_kb.md"
-    prompt, query = "", ""
-
-    with open(PROMPT_PATH, "r", encoding="utf-8") as f:
-        prompt = f.read()
-        query = prompt.replace("{{vuln_name}}", vuln_name).replace(
-            "{{vuln_description}}", vuln_description
-        )
-
-    return query
-
-
-def write_to_file(dir_prefix, responses, kb):
+def write_to_file(dir_prefix, responses):
     # Create a directory for the current timestamp
     timestamp = time.time().__str__().split(".")[0]
     directory = f"outputs/{dir_prefix}/{timestamp}"
     os.makedirs(f"{directory}", exist_ok=True)
 
-    # Write kb if not exists
-    if kb is not None:
-        if not os.path.exists(f"outputs/{dir_prefix}/kb.md"):
-            with open(f"outputs/{dir_prefix}/kb.md", "w", encoding="utf-8") as f:
-                f.write(kb)
-
     for res in responses:
+        smart_contract = res["smart_contract"]
+        severity = res["severity"]
+
+        # Make directory for each severity
+        severity_directory = f"{directory}/{severity}"
+        os.makedirs(f"{severity_directory}", exist_ok=True)
+
         # Build file path
-        vuln_id = res["vuln_id"]
-        file_path = f"{directory}/{vuln_id}"
+        file_path = f"{severity_directory}/{smart_contract}"
 
         try:
             # Write json
@@ -137,14 +84,25 @@ def write_to_file(dir_prefix, responses, kb):
             # Write md
             with open(f"{file_path}.md", "w", encoding="utf-8") as f:
                 f.write(res["choices"][0]["message"]["content"])
+
         except Exception as e:
-            print(f"Error writing {vuln_id} to file: {e}")
+            print(f"Error writing {smart_contract} to file: {e}")
 
 
 if __name__ == "__main__":
-    vulns = load_vulns()
-    kb = build_kb(vulns, VULN_LIMIT) if WITH_KB else None
-    for i in range(0, ITERATIONS):
-        print(f"ITERATION {i+1}/{ITERATIONS}")
-        responses = query_vulns(vulns, kb)
-        write_to_file(DIR_PREFIX, responses, kb)
+    smart_contracts = []
+    smart_contracts = os.listdir(DIR_SMART_CONTRACTS)
+
+    for smart_contract in smart_contracts:
+        with open(f"{DIR_SMART_CONTRACTS}/{smart_contract}", "r", encoding="UTF-8") as f:
+            # Read smart contract source code
+            source_code = f.read()
+            
+            print(f"Processing {smart_contract} ...")
+
+            # Query on smart contract
+            file_name = smart_contract.split(".")[0]
+            responses = query_smart_contract(source_code, file_name)
+
+            # Write query result to file
+            write_to_file(DIR_PREFIX, responses)

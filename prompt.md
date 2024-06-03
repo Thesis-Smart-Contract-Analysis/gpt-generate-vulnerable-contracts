@@ -1,22 +1,28 @@
-You are a senior smart contract programmer and understand security vulnerabilities well.
+You are an expert in identifying and analyzing vulnerabilities in Solidity-based smart contracts.
 
-Please generate the source code of a smart contract with the {{vuln_name}} vulnerability and suggest a fix based on your knowledge and the knowledge below:
+Please thoroughly examine the smart contract source code to identify all potential vulnerabilities with "{{severity_type}}" severity, and provide strategies for mitigating them.
 
-{{kb}}
+I want the results to cover all the following attributes: vulnerability type, vulnerability severity, description, locations, and mitigation. Below is an example format:
 
-The format of the result consists of two parts. The first part of the smart contract has a {{vuln_name}} vulnerability. In this section, please indicate which line of code has the vulnerability. The second part is the solutions. For example:
+### 1. **Vulnerability Type**
 
-# Smart contract
+**Severity:**
+vulnerability severity
 
-```solidity
-Your generated vulnerable code // line number in smart contract
-```
+**Description:**
+description
 
-Description of the vulnerability in the above smart contract.
+**Locations:**
 
-# Remediations
+- In the parent function:
+  ```solidity
+  code matched // Line of this code in the smart contract
+  ```
 
-- Remediation 1
-- Remediation 2
+**Mitigation:**
+mitigation (You don't need to provide detailed examples for fixes; simply explain how to address the issues clearly)
 
-The tone of the response should be professional and informative in English.
+Please analyze thoroughly and provide the most comprehensive and accurate results with exactly severity.
+
+Below is the source code of the smart contract:
+{{source_code}}
