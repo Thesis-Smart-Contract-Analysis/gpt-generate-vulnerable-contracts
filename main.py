@@ -40,7 +40,7 @@ def answer(query):
                 {"role": "system", "content": persona},
                 {"role": "user", "content": query},
             ],
-            model="gpt-4-turbo",
+            model="gpt-3.5-turbo",
             temperature=0,
         )
         return response
