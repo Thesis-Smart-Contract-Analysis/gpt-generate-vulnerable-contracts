@@ -22,7 +22,7 @@ show description here
 **Mitigation:**
 show mitigation here (You don't need to provide detailed examples for fixes; simply explain how to address the issues clearly)
 
-Please analyze thoroughly and provide the most comprehensive and accurate results with exactly severity.
+Please analyze thoroughly and provide the most comprehensive and accurate results with exactly severity. Remember to show line of code for me in Location section please !!!
 
 Below is the source code of the smart contract:
 {{source_code}}

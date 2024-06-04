@@ -5,7 +5,7 @@ client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQz
 
 DIR_PREFIX = "vuln-founds"
 DIR_SMART_CONTRACTS = "smart-contracts"
-SEVERITIES = ['high', 'medium', 'low', 'informational', 'optimization']
+SEVERITIES = ['High', 'Medium', 'Low', 'Informational', 'Optimization']
 
 def answer(query):
     persona = "You are an expert in identifying and analyzing vulnerabilities in Solidity-based smart contracts."
@@ -49,7 +49,7 @@ def query_smart_contract(source_code: str, file_name: str):
 
 
 def build_query(severity_type : str, source_code: str):
-    PROMPT_PATH = "prompt.md"
+    PROMPT_PATH = "prompt.txt"
     prompt, query = "", ""
 
     with open(PROMPT_PATH, "r", encoding="utf-8") as f:
