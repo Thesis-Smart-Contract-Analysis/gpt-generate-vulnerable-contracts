@@ -4,7 +4,7 @@ from openai import OpenAI
 client = OpenAI(api_key="sk-proj-0E2m3CHZ3VFJNrWzveQiT3BlbkFJi5VMPBOf1SHlkgfSDD5T")
 ITERATIONS = 1
 WITH_KB = False
-DIR_PREFIX = "scenario-2-without-kb"
+DIR_PREFIX = "scenario-2-without-kb-3.5-turbo"
 
 def load_vulns():
     with open(f"kb/vulns.json", "r", encoding="UTF-8") as f:

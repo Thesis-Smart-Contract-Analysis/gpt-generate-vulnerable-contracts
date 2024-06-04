@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9WN5epSdsA08jc7TMq0oZ4mLT4UKr",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\n// Vulnerable smart contract with Stack Size Limit vulnerability\npragma solidity ^0.8.0;\n\ncontract StackSizeVulnerable {\n    uint256 public result;\n\n    function calculate(uint256 n) public {\n        if (n == 0) {\n            return;\n        }\n        \n        result += n;\n        this.calculate(n - 1); // Vulnerable line\n    }\n}\n```\n\nDescription of the vulnerability in the generated smart contract:\nThe vulnerability in the smart contract lies in the recursive function `calculate(uint256 n)` where the function calls itself using `this.calculate(n - 1)`. Each recursive call increases the call stack by one frame. If the function is called with a large value of `n`, it can lead to exceeding the call stack limit of 1024 frames, causing an exception.\n\n# Remediations\n\n- Avoid using recursive function calls that can potentially lead to exceeding the call stack limit. Instead, consider using iterative solutions or optimizing the algorithm to reduce the depth of the call stack.\n- Implement checks to ensure that the function does not recurse too deeply, preventing the call stack from reaching its limit.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717502282,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 235,
+    "prompt_tokens": 436,
+    "total_tokens": 671
+  },
+  "vuln_id": "stack-size-limit",
+  "query": "You are a senior smart contract programmer and understand security vulnerabilities well.\n\nPlease generate the source code of a smart contract with the Stack Size Limit vulnerability and suggest a fix based on your knowledge and the knowledge below:\n\nMỗi lần smart contract gọi thực thi hàm của  smart contract khác (hoặc gọi đến chính nó thông qua `this.f()`), call stack tương ứng với giao dịch sẽ tăng lên một frame @atzei_2017_a. Giới hạn của call stack cho mỗi giao dịch là 1024 @solidity-1024-call-stack-depth. Khi chạm đến giới hạn này, tất cả các lời gọi hàm đến bên ngoài smart contract (hoặc `this.f()`) đều gây ra ngoại lệ.\nKẻ tấn công có thể khai thác tính chất này để tạo ra một giao dịch có call stack gần đầy trước khi gọi hàm trong smart contract để gây ra ngoại lệ. Nếu ngoại lệ không được xử lý thì smart contract có thể rơi vào trạng thái từ chối dịch vụ.\n\nThe format of the result consists of two parts. The first part of the smart contract has a Stack Size Limit vulnerability. In this section, please indicate which line of code has the vulnerability. The second part is the solutions. For example:\n\n# Smart contract\n\n```solidity\nYour generated vulnerable code // line number in smart contract\n```\n\nDescription of the vulnerability in the generated smart contract.\n\n# Remediations\n\n- Remediation 1\n- Remediation 2\n\nThe tone of the response should be professional and informative in English."
+}
