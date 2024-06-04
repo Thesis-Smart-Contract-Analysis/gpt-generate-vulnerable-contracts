@@ -1,18 +1,18 @@
 import os, time, random, json, codecs
 from openai import OpenAI
 
-client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN")
-ITERATIONS = 5
-VULN_LIMIT = 10
+client = OpenAI(api_key="sk-proj-0E2m3CHZ3VFJNrWzveQiT3BlbkFJi5VMPBOf1SHlkgfSDD5T")
+ITERATIONS = 1
 WITH_KB = False
-DIR_PREFIX = "stage-1-without-kb"
-
+DIR_PREFIX = "scenario-2-without-kb"
 
 def load_vulns():
     with open(f"kb/vulns.json", "r", encoding="UTF-8") as f:
         vulns = f.read()
     return json.loads(vulns)
 
+VULNS = load_vulns()
+VULN_LIMIT = len(VULNS)
 
 def build_kb(vulns: list, limit: int):
     kb = ""
@@ -40,7 +40,7 @@ def answer(query):
                 {"role": "system", "content": persona},
                 {"role": "user", "content": query},
             ],
-            model="gpt-3.5-turbo",
+            model="gpt-4-turbo",
             temperature=0,
         )
         return response
@@ -142,9 +142,8 @@ def write_to_file(dir_prefix, responses, kb):
 
 
 if __name__ == "__main__":
-    vulns = load_vulns()
-    kb = build_kb(vulns, VULN_LIMIT) if WITH_KB else None
+    kb = build_kb(VULNS, VULN_LIMIT) if WITH_KB else None
     for i in range(0, ITERATIONS):
         print(f"ITERATION {i+1}/{ITERATIONS}")
-        responses = query_vulns(vulns, kb)
+        responses = query_vulns(VULNS, kb)
         write_to_file(DIR_PREFIX, responses, kb)
