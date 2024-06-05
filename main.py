@@ -5,7 +5,7 @@ client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQz
 
 DIR_PREFIX = "vuln-founds"
 DIR_SMART_CONTRACTS = "smart-contracts"
-SEVERITIES = ['High', 'Medium', 'Low', 'Informational', 'Optimization']
+SEVERITIES = ['High', 'Medium', 'Low', 'Informational']
 
 def answer(query):
     persona = "You are an expert in identifying and analyzing vulnerabilities in Solidity-based smart contracts."
