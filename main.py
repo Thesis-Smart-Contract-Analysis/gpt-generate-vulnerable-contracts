@@ -6,8 +6,8 @@ ITERATIONS = 1
 WITH_KB = False
 SINGLE_VULN = True
 VULN_ID = "assert-and-require-violation"
-DIR_PREFIX = "scenario-2-without-kb"
-MODEL = "gpt-4-turbo"
+DIR_PREFIX = "scenario-2-without-kb-3.5-turbo"
+MODEL = "gpt-3.5-turbo"
 
 
 def load_vulns():
