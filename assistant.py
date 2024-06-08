@@ -1,7 +1,7 @@
 import json, random, time, os
 from openai import OpenAI, AssistantEventHandler
 from typing_extensions import override
-from main import VULNS, VULN_LIMIT, build_kb, build_query, build_query_without_kb
+from main import VULNS, VULN_LIMIT, build_kb, build_query_with_kb, build_query_without_kb
 
 DIR_PREFIX = "scenario-2-with-assistant"
 
