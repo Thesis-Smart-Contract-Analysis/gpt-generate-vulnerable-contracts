@@ -3,10 +3,10 @@ from openai import OpenAI
 
 client = OpenAI(api_key="sk-proj-0E2m3CHZ3VFJNrWzveQiT3BlbkFJi5VMPBOf1SHlkgfSDD5T")
 ITERATIONS = 1
-WITH_KB = True
+WITH_KB = False
 SINGLE_VULN = True
 VULN_ID = "assert-and-require-violation"
-DIR_PREFIX = "scenario-2-with-kb"
+DIR_PREFIX = "scenario-2-without-kb"
 MODEL = "gpt-4-turbo"
 
 
@@ -78,7 +78,7 @@ def query_vulns(vulns: list, kb: str):
 
         # Query
         res = send_query(query, vuln_id)
-        print(f"Response: {json.dumps(res, indent=2)}")
+        print(f"Response: {json.dumps(res, indent=2, ensure_ascii=False)}")
         responses.append(res)
 
         # Sleep for 1 second
@@ -92,7 +92,7 @@ def query_vuln(vuln: dict, kb: dict) -> dict:
     print(f"Processing '{vuln_name}'...")
     query = build_query(vuln_name, vuln_description, kb)
     res = send_query(query, vuln_id)
-    print(f"Response: {json.dumps(res, indent=2)}")
+    print(f"Response: {json.dumps(res, indent=2, ensure_ascii=False)}")
     return res
 
 
