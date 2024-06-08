@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9XltKMtLcQlk05N40VI7Be3Iec0I2",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract BuiltInSymbolShadowing {\n    \n    uint256 msg; // Overshadows built-in message variable.\n\n    function block() public view returns (uint256) {\n        return block.number; // Overshadows built-in block function.\n    }\n\n}\n```\n\nDescription of the vulnerability in the above smart contract:\n\nThe vulnerability in the smart contract is the Built-in Symbol Shadowing issue. In this contract, the variable `msg` overshadows the built-in `msg` variable, and the function `block` overshadows the built-in `block` function. This can lead to unexpected behavior and potential security risks.\n\n# Remediations\n\n- Rename the variable `msg` to something that does not conflict with built-in variables or functions, such as `userMsg`.\n- Rename the function `block` to a different name that does not conflict with built-in functions, such as `getBlockNumber`.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717835946,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 197,
+    "prompt_tokens": 502,
+    "total_tokens": 699
+  },
+  "vuln_id": "built-in-symbol-shadowing",
+  "kb": "# Built-in Symbol Shadowing\n\n## Mô tả\n\nLỗ hổng này xảy ra khi lập trình viên dùng các định danh (identifier) có sẵn của Solidity để đặt tên cho biến, hàm, modifier hoặc sự kiện. Điều này có thể thay đổi hành vi mặc định của ngôn ngữ và gây ra các lỗi nghiệp vụ @zaazaa_2023_unveiling.\n\nVí dụ:\n\n```sol\n// source: https://github.com/crytic/slither/wiki/Detector-Documentation#builtin-symbol-shadowing\npragma solidity ^0.4.24;\n\ncontract Bug {\n  \n    uint now; // Overshadows current time stamp.\n\n    function assert(bool condition) public {\n        // Overshadows built-in symbol for providing assertions.\n    }\n\n    function get_next_expiration(uint earlier_time) private returns (uint) {\n        return now + 259200; // References overshadowed timestamp.\n    }\n    \n}\n```\n\nTrong ví dụ trên, định danh `now` được đặt tên cho biến còn định danh `assert` được đặt tên cho hàm.\n\n## Cách khắc phục\n\nThay đổi tên của biến, hàm, modifier hoặc sự kiện mà trùng với tên định danh.\n"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9XlrpPwk1yH2Fc044CwTFoyb5fWqy",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\npragma solidity 0.4.24;\n\ncontract Missing {\n  \n  address private owner;\n\n  modifier onlyowner {\n    require(msg.sender==owner);\n    _;\n  }\n\n  function missing() public { // Line with Incorrect Constructor Name vulnerability\n    owner = msg.sender;\n  }\n\n  function () payable { } \n\n  function withdraw() public onlyowner {\n   owner.transfer(this.balance);\n  }\n  \n}\n```\n\nDescription of the vulnerability: The smart contract `Missing` has a vulnerability due to the incorrect constructor name. The function `missing` is intended to be a constructor but is named differently, allowing anyone to call it and become the owner of the contract.\n\n# Remediations\n\n- Upgrade the Solidity version to 0.4.22 or higher where the constructor name should be explicitly defined as `constructor`.\n- Rename the function `missing` to `constructor` to ensure it functions as the actual constructor of the smart contract.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717835853,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 197,
+    "prompt_tokens": 635,
+    "total_tokens": 832
+  },
+  "vuln_id": "incorrect-constructor-name",
+  "kb": "# Incorrect Constructor Name\n\n## Mô tả\n\nTrong hàm tạo của Solidity thường thực hiện những hành động đặc quyền chẳng hạn như thiết lập chủ sở hữu của smart contract. Trước phiên bản 0.4.22, hàm tạo có tên trùng với tên smart contract. Tuy nhiên, nếu một hàm đáng lẽ được dùng làm hàm tạo nhưng có tên không trùng với tên của smart contract thì nó sẽ trở thành một hàm bình thường và có thể được gọi bởi bất kỳ ai.\n\nVí dụ:\n\n```sol\n/*\n * @source: https://github.com/trailofbits/not-so-smart-contracts/blob/master/wrong_constructor_name/incorrect_constructor.sol\n * @author: Ben Perez\n * Modified by Gerhard Wagner\n */\n\npragma solidity 0.4.24;\n\ncontract Missing {\n  \n  address private owner;\n\n  modifier onlyowner {\n    require(msg.sender==owner);\n    _;\n  }\n\n  function missing() public {\n    owner = msg.sender;\n  }\n\n  function () payable { } \n\n  function withdraw() public onlyowner {\n   owner.transfer(this.balance);\n  }\n  \n}\n```\n\nTrong ví dụ trên, hàm `missing` đáng lẽ là hàm tạo nhưng có tên không trùng với tên của smart contract `Missing`. Điều này khiến cho bất kỳ ai cũng có thể gọi hàm `missing` để trở thành chủ sở hữu của smart contract.\n\n## Cách khắc phục\n\nKể từ phiên bản 0.4.22, hàm tạo có tên là `constructor`. Lập trình viên nên nâng cấp phiên bản của smart contract để tránh lỗ hổng này.\n"
+}

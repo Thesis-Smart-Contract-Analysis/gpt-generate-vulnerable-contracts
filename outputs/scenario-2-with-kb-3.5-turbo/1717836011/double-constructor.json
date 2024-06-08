@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9XltHofaxyWmgc2mPetuUWav1lKj5",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\npragma solidity ^0.4.22;\n\ncontract DoubleConstructorVulnerable {\n    address public admin;\n\n    function DoubleConstructorVulnerable() public {\n        admin = address(0x0);\n    }\n\n    constructor() public {\n        admin = msg.sender;\n    }\n}\n```\n\nDescription of the vulnerability: The smart contract `DoubleConstructorVulnerable` contains both a function with the same name as the contract and a `constructor` function. This can lead to unexpected behavior as the order of execution of these functions is not guaranteed.\n\n# Remediations\n\n- Use only one constructor function in the smart contract to avoid ambiguity and ensure predictable behavior.\n- Upgrade to Solidity versions after 0.4.22 where the double constructor issue is resolved.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717835943,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 157,
+    "prompt_tokens": 407,
+    "total_tokens": 564
+  },
+  "vuln_id": "double-constructor",
+  "kb": "# Double Constructor\n\n## Mô tả\n\nTại phiên bản 0.4.22, smart contract có thể sử dụng cùng lúc hai loại hàm tạo: hàm tạo trùng tên với smart contract và hàm tạo có tên là `constructor`. Hàm tạo nào được định nghĩa trước sẽ được thực thi.\n\nVí dụ:\n\n```sol\ncontract Example {\n\n  address public admin;\n\n  function Example() public {\n    admin = address(0x0);\n  }\n\n  constructor() public {\n    admin = msg.sender;\n  }\n  \n}\n```\n\nViệc dùng hai hàm tạo có thể khiến cho smart contract hoạt động không như mong đợi của lập trình viên.\n\n## Cách khắc phục\n\nChỉ sử dụng một hàm tạo hoặc sử dụng các phiên bản Solidity sau 0.4.22.\n"
+}

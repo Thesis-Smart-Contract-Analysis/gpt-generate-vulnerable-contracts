@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9XlrMHJKuipKibs2MwRiuzuJKFqKW",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract with Use of Deprecated Solidity Functions Vulnerability\n\n```solidity\ncontract DeprecatedSimple {\n\n  function DeprecatedSimple() public { } // Line 3\n\n  function useDeprecated() public constant { // Line 5\n    bytes32 blockhash = block.blockhash(0); // Line 6\n    bytes32 hashofhash = sha3(blockhash); // Line 7\n\n    uint gas = msg.gas; // Line 9\n\n    if (gas == 0) { // Line 11\n      throw; // Line 12\n    }\n\n    address(this).callcode(); // Line 14\n\n    var a = [1,2,3]; // Line 16\n\n    var (x, y, z) = (false, \"test\", 0); // Line 18\n\n    suicide(address(0)); // Line 20\n  }\n\n  function () public {} // Line 22\n}\n```\n\nDescription: The smart contract `DeprecatedSimple` contains the Use of Deprecated Solidity Functions vulnerability due to the usage of deprecated functions like `block.blockhash`, `sha3`, `msg.gas`, `callcode`, and `suicide`.\n\n# Remediations\n\n- Update `block.blockhash(0)` to `blockhash(0)` and `sha3` to `keccak256`.\n- Replace `msg.gas` with `gasleft`.\n- Change `address(this).callcode()` to `address(this).delegatecall()`.\n- Use explicit data types instead of `var`.\n- Replace `suicide(address(0))` with `selfdestruct(address(0))`.\n- Consider using the `view` modifier instead of `constant`.\n- Rename the constructor function to `constructor`.\n\nBy applying these remediations, the smart contract can mitigate the Use of Deprecated Solidity Functions vulnerability and ensure compatibility with newer compiler versions.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717835824,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 384,
+    "prompt_tokens": 822,
+    "total_tokens": 1206
+  },
+  "vuln_id": "use-of-deprecated-solidity-functions",
+  "kb": "# Use of Deprecated Solidity Functions\n\n## Mô tả\n\nVới các phiên bản mới của trình biên dịch, việc sử dụng các định danh (identifier) cũ đã bị loại bỏ có thể dẫn đến các lỗi biên dịch hoặc các hành vi không mong muốn.\n\nVí dụ bên dưới có chứa các định danh cũ không còn sử dụng trong các phiên bản trình biên dịch sau này:\n\n```sol\ncontract DeprecatedSimple {\n\n  function DeprecatedSimple() public { }\n\n  function useDeprecated() public constant {\n    bytes32 blockhash = block.blockhash(0);\n    bytes32 hashofhash = sha3(blockhash);\n\n    uint gas = msg.gas;\n\n    if (gas == 0) {\n      throw;\n    }\n\n    address(this).callcode();\n\n    var a = [1,2,3];\n\n    var (x, y, z) = (false, \"test\", 0);\n\n    suicide(address(0));\n  }\n\n  function () public {}\n}\n```\n\n## Cách khắc phục\n\nSử dụng các định danh thay thế trong smart contract.\n\n#figure(\n  table(\n    columns: (auto, auto),\n    align: horizon,\n    table.header(\"Cũ\", \"Thay thế\"),\n    `suicide(address)`, `selfdestruct(address)`,\n    `block.blockhash(uint)`,\t`blockhash(uint)`,\n    `sha3(...)`, `keccak256(...)`,\n    `callcode(...)`, `delegatecall(...)`,\n    `throw`,\t`revert()`,\n    `msg.gas`,\t`gasleft`,\n    `constant`,\t`view`,\n    `var`,\t[tên kiểu dữ liệu tương ứng],\n    [`function ()`], [`receive()` hoặc `fallback()`],\n    [Hàm tạo trùng tên với smart contract], `constructor()`\n  ),\n  caption: [Các định danh cũ và định danh thay thế tương ứng]\n)\n\nĐối với ví dụ của smart contract `DeprecatedSimple` ở trên, có thể sửa lại như sau:\n\n```sol\ncontract DeprecatedSimpleFixed {\n\n  constructor() { }\n  \n  function useDeprecatedFixed() public view {\n    bytes32 bhash = blockhash(0);\n    bytes32 hashofhash = keccak256(bhash);\n\n    uint gas = gasleft();\n\n    if (gas == 0) {\n      revert();\n    }\n\n    address(this).delegatecall();\n\n    uint8[3] memory a = [1,2,3];\n\n    (bool x, string memory y, uint8 z) = (false, \"test\", 0);\n\n    selfdestruct(address(0));\n  }\n\n  receive() external payable { }\n\n}\n```\n"
+}

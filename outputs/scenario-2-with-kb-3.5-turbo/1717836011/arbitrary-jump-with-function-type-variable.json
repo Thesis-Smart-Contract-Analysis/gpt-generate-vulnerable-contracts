@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9XlsZfii2ROILteuJcrxDfM8RiOpi",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\n/*\n * @source: https://gist.github.com/wadeAlexC/7a18de852693b3f890560ab6a211a2b8\n * @author: Alexander Wade\n */\n\npragma solidity ^0.4.25;\n\ncontract FunctionTypes {\n\n  constructor() public payable { require(msg.value != 0); }\n\n  function withdraw() private {\n    require(msg.value == 0, 'dont send funds!'); // Vulnerable line\n    address(msg.sender).transfer(address(this).balance);\n  }\n\n  function frwd() internal { \n    withdraw(); \n  }\n\n  struct Func { \n    function () internal f; \n  }\n\n  function breakIt() public payable {\n    require(msg.value != 0, 'send funds!');\n    Func memory func;\n    func.f = frwd;\n    assembly { \n      mstore(func, add(mload(func), callvalue))\n    }\n    func.f();\n  }\n}\n```\n\nDescription of the vulnerability: The vulnerability lies in the `breakIt()` function where the attacker can manipulate the `func` variable using assembly code to jump to an arbitrary location in the bytecode, bypassing the `require()` statement in the `withdraw()` function.\n\n# Remediations\n\n- Avoid using assembly code whenever possible, as it introduces complexities and potential vulnerabilities.\n- Restrict the ability for users to assign arbitrary values to function type variables to prevent such manipulation.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717835899,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 296,
+    "prompt_tokens": 1287,
+    "total_tokens": 1583
+  },
+  "vuln_id": "arbitrary-jump-with-function-type-variable",
+  "kb": "# Arbitrary Jump with Function Type Variable\n\n## Kiểu dữ liệu hàm trong Solidity\n\nLà một tham chiếu đến hàm với một nguyên mẫu hàm cụ thể. Biến thuộc kiểu dữ liệu này có thể được gọi thực thi tương tự như các hàm thông thường.\n\nVí dụ, đoạn mã sau giúp thay đổi hàm cần thực thi giữa `add` và `sub` một cách linh động khi chạy:\n\n```sol\n// source: https://medium.com/authio/solidity-ctf-part-2-safe-execution-ad6ded20e042\npragma solidity ^0.4.23;\n\ncontract AddSub {\n    \n  function add(uint a, uint b) internal pure returns (uint) {\n    return a + b;\n  }\n  \n  function sub(uint a, uint b) internal pure returns (uint) {\n    return a - b;\n  }\n  \n  function math(uint _a, uint _b, bool _add) public pure returns (uint) {\n    function (uint, uint) internal pure returns (uint) func;\n    func = _add ? add : sub;\n    return func(_a, _b);\n  }\n}\n```\n\n## Mô tả\n\nKẻ tấn công có thể sử dụng các chỉ thị hợp ngữ (assembly instruction) chẳng hạn như `mstore` hoặc toán tử gán bằng để thay đổi tham chiếu của biến có kiểu là hàm đến bất kỳ chỉ thị nào nhằm phá vỡ các giới hạn truy cập và thay đổi các biến trạng thái.\n\nTrong ví dụ bên dưới, cách duy nhất để kẻ tấn công gọi hàm `withdraw()` để rút ETH là thông qua hàm `breakIt()`. Tuy nhiên, câu lệnh `require()` trong hai hàm này mâu thuẫn với nhau và mục tiêu của kẻ tấn công là vượt qua được câu lệnh `require()` ở trong hàm `withdraw()`.\n\n```sol\n/*\n * @source: https://gist.github.com/wadeAlexC/7a18de852693b3f890560ab6a211a2b8\n * @author: Alexander Wade\n */\n\npragma solidity ^0.4.25;\n\ncontract FunctionTypes {\n\n  constructor() public payable { require(msg.value != 0); }\n\n  function withdraw() private {\n    require(msg.value == 0, 'dont send funds!');\n    address(msg.sender).transfer(address(this).balance);\n  }\n\n  function frwd() internal { \n    withdraw(); \n  }\n\n  struct Func { \n    function () internal f; \n  }\n\n  function breakIt() public payable {\n    require(msg.value != 0, 'send funds!');\n    Func memory func;\n    func.f = frwd;\n    assembly { \n      mstore(func, add(mload(func), callvalue))\n    }\n    func.f();\n  }\n}\n```\n\nLỗ hổng tồn tại trong đoạn mã hợp ngữ giúp trỏ biến `func` đến vị trí của một chỉ thị ở trong bytecode.\n\n- Mã lệnh `mstore` có nguyên mẫu hàm là `mstore(p, v)` và được dùng để lưu giá trị `v` vào vùng nhớ `p`. \n- Giá trị sẽ được lưu vào vùng nhớ là `add(mload(func), callvalue)`. Với:\n  - Mã lệnh `callvalue` giúp đẩy `msg.value` vào ngăn xếp.\n  - Mã lệnh `mload` giúp đẩy giá trị vùng nhớ ban đầu của `func` lên ngăn xếp.\n\nĐể nhảy đến một ví trí bất kỳ, mà cụ thể là sau câu lệnh `require()` ở trong hàm `withdraw()`, kẻ tấn công chỉ cần dựa trên giá trị ban đầu của `func` và vị trí của chỉ thị cần nhảy đến ở trong bytecode để tìm ra giá trị `msg.value` cần sử dụng.\n\n## Cách khắc phục\n\nHạn chế việc sử dụng hợp ngữ và không cho phép người dùng có thể gán các giá trị tùy ý cho các biến có kiểu là hàm.\n"
+}
