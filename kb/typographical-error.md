@@ -6,7 +6,7 @@ Lỗi đánh máy có thể dẫn đến những hành vi không mong muốn tro
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity ^0.4.25;
 
 contract TypoOneCommand {

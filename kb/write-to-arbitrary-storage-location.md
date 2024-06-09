@@ -6,7 +6,7 @@ Smart contract cần phải đảm bảo rằng các vị trí lưu trữ dữ l
 
 Ví dụ @solidity-array-overflow:
 
-```sol
+```solidity
 pragma solidity ^0.4.17; 
 
 contract ArrayLengthManipulation{

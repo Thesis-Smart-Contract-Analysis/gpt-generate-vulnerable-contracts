@@ -6,7 +6,7 @@ EVM sẽ dựa vào 4 byte đầu tiên trong dữ liệu của một giao dịc
 
 Xét proxy contract ở @proxy-pattern[phụ lục] với logic contract có dạng như sau @a2019_beware-of-the-proxy-learn-how-to-exploit-function-clashing:
 
-```sol
+```solidity
 pragma solidity ^0.5.0;
 
 import "openzeppelin-eth/contracts/token/ERC20/ERC20Burnable.sol";
@@ -33,7 +33,7 @@ contract BurnableToken is Initializable, ERC20Burnable, ERC20Detailed {
 
 Smart contract `ERC20Burnable` @openzeppelin-contracts-token-erc20-extensions-erc20-burnable.sol có hàm `burn` như sau:
 
-```sol
+```solidity
 import {ERC20} from "../ERC20.sol";
 import {Context} from "../../../utils/Context.sol";
 
@@ -50,7 +50,7 @@ abstract contract ERC20Burnable is Context, ERC20 {
 
 Kẻ tấn công có thể thiết lập một hàm backdoor giúp rút ETH của người dùng ở trong proxy contract như sau @a2019_beware-of-the-proxy-learn-how-to-exploit-function-clashing:
 
-```sol
+```solidity
 pragma solidity ^0.5.0;
 
 contract Proxy {

@@ -6,7 +6,7 @@ Các kiểu dữ liệu lưu trữ số nguyên (bao gồm có dấu và không 
 
 Trong ví dụ dưới, nếu ta gọi hàm `run` với `input` là `2` thì giá trị của biến `count` sẽ là $1 -2 = -1 = 2^{256} - 1$ (kiểu `uint` thực chất là `uint256`).
 
-```sol
+```solidity
 //Single transaction overflow
 //Post-transaction effect: overflow escapes to publicly-readable storage
 

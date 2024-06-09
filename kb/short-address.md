@@ -6,7 +6,7 @@ Lỗ hổng này liên quan đến cách mà EVM decode dữ liệu giao dịch.
 
 Xét ví dụ sau:
 
-```sol
+```solidity
 //source: https://ericrafaloff.com/analyzing-the-erc20-short-address-attack/
 pragma solidity ^0.4.11;
  
@@ -77,7 +77,7 @@ Thực hiện kiểm tra kích thước của dữ liệu giao dịch.
 
 Ví dụ:
 
-```sol
+```solidity
 // source: https://www.reddit.com/r/ethereum/comments/63s917/comment/dfwmhc3/
 contract NonPayloadAttackableToken {
   

@@ -6,7 +6,7 @@ Tại phiên bản 0.4.22, smart contract có thể sử dụng cùng lúc hai l
 
 Ví dụ:
 
-```sol
+```solidity
 contract Example {
 
   address public admin;

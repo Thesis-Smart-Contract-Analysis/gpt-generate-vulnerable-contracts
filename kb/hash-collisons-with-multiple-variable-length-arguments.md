@@ -24,7 +24,7 @@ Hàm này sẽ trả về giá trị `0xffff42000348656c6c6f2c20776f726c6421`, l
 
 Việc sử dụng hàm `abi.encodePacked` với đối số là các mảng có kích thước không cố định có thể gây ra đụng độ giá trị băm (hash collision). Lý do là vì hàm này đóng gói các phần tử mà không quan tâm đến việc chúng có thuộc một mảng nào đó hay không. Cụ thể, hai dòng sau đây sẽ cho ra kết quả tương đương:
 
-```sol
+```solidity
 abi.encodePacked([addr1, addr2], [addr3, addr4]);
 abi.encodePacked([addr1, addr2, addr3], [addr4]);
 ```
@@ -33,7 +33,7 @@ Nếu smart contract sử dụng giá trị của hàm `abi.encodePacked` để 
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @author: Steve Marx
  * Modified by Kaden Zipfel
@@ -74,13 +74,13 @@ contract AccessControl {
 
 Người dùng có thể được thêm vào smart contract thông qua hàm `addUsers` bằng cách truyền vào mảng các admin, mảng các người dùng thông thường cùng với chữ ký của admin:
 
-```sol
+```solidity
 addUsers([addr1, addr2], [addr3, <attacker's address>, addr4], sig)
 ```
 
 Kẻ tấn công có thể gọi hàm `addUsers` như sau:
 
-```sol
+```solidity
 addUser([addr1, addr2, addr3, <attacker's address>], [addr4], sig)
 ```
 
@@ -94,7 +94,7 @@ Trong ví dụ của smart contract `AccessControl` trên, chỉ cho phép thêm
 
 Ví dụ thêm 1 người dùng:
 
-```sol
+```solidity
 /*
  * @author: Steve Marx
  * Modified by Kaden Zipfel
@@ -134,7 +134,7 @@ contract AccessControl {
 
 Ví dụ thêm 3 người dùng:
 
-```sol
+```solidity
 /*
  * @author: Steve Marx
  * Modified by Kaden Zipfel

@@ -6,7 +6,7 @@ Các lời gọi đến bên ngoài smart contract (thực thi hàm hoặc chuy�
 
 Ví dụ:
 
-```sol
+```solidity
 contract DistributeTokens {
   address public owner; // gets set somewhere
   address[] investors; // array of investors
@@ -33,7 +33,7 @@ Trong ví dụ này, kẻ tấn công có thể tạo ra một lượng lớn c�
 
 Ví dụ khác, smart contract sau đây thực hiện gửi ETH cho người đặt cược cao nhất.
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -58,7 +58,7 @@ contract BadAuction {
 
 Smart contract này có thể bị tấn công DoS nếu kẻ tấn công luôn làm cho hàm `transfer` gây ra ngoại lệ:
 
-```sol
+```solidity
 contract Attacker {
   
   BadAuction badAuction;
@@ -91,7 +91,7 @@ Những điều cần lưu ý khi thực hiện gọi đến bên ngoài smart c
 
 Ví dụ:
 
-```sol
+```solidity
 contract PullOverPush {
 
   mapping(address => uint) credits;

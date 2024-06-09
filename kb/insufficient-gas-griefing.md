@@ -6,7 +6,7 @@ Xảy ra khi smart contract không kiểm tra xem nó có đủ gas để gọi 
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @source: https://consensys.github.io/smart-contract-best-practices/known_attacks/#insufficient-gas-griefing
  * @author: ConsenSys Diligence
@@ -58,7 +58,7 @@ Kiểm tra xem lượng gas được cung cấp có đủ để thực thi lời
 
 Ví dụ @oualid_2022_smart-contract-gas-griefing-attack:
 
-```sol
+```solidity
 pragma solidity ^0.5.0;
 
 contract Relayer {

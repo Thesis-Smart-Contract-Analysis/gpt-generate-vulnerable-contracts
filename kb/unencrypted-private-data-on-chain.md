@@ -8,7 +8,7 @@ Do tính chất này, smart contract không nên lưu những dữ liệu riêng
 
 Ví dụ, xét smart contract `OddEven` sau:
 
-```sol
+```solidity
 /*
  * @source: https://gist.github.com/manojpramesh/336882804402bee8d6b99bea453caadd#file-odd-even-sol
  * @author: https://github.com/manojpramesh
@@ -65,7 +65,7 @@ Lưu dữ liệu riêng tư ở bên ngoài blockchain hoặc sử dụng mã h�
 
 Đối với smart contracrt `OddEven` ở trên, có thể áp dụng mô hình commit-reveal tương tự như phần @weak-sources-of-randomness-from-chain-attributes-remediation[]. Cụ thể, các biến trạng thái và cấu trúc trong smart contract phục vụ cho trò chơi sẽ có dạng như sau:
 
-```sol
+```solidity
 /*
  * @source: https://github.com/yahgwai/rps
  * @author: Chris Buckland
@@ -99,7 +99,7 @@ contract OddEven {
 
 Trò chơi sẽ bao gồm 3 giai đoạn. Giai đoạn đầu tiên là giai đoạn commit:
 
-```sol
+```solidity
 contract OddEven {
   
   // ...
@@ -135,7 +135,7 @@ Ngoài ra, người chơi cũng cần phải gửi thêm 1 ETH nhằm đảm b�
 
 Giai đoạn thứ hai là giai đoạn tiết lộ bí mật:
 
-```sol
+```solidity
 contract OddEven {
 
   // ...
@@ -174,7 +174,7 @@ contract OddEven {
 
 Giai đoạn cuối cùng là giai đoạn tính toán kết quả và phân bố ETH:
 
-```sol
+```solidity
 contract OddEven {
 
   // ...

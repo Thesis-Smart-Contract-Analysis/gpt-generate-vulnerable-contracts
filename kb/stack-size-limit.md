@@ -8,7 +8,7 @@ Kẻ tấn công có thể khai thác tính chất này để tạo ra một gia
 
 Ví dụ, xét smart contract sau:
 
-```sol
+```solidity
 contract Government {
 
   // ...
@@ -37,7 +37,7 @@ contract Government {
 
 Kẻ tấn công có thể là chủ sở hữu smart contract và ý định của người này là không chuyển ETH cho người chiến thắng. Để khai thác lỗ hổng, kẻ tấn công xây dựng một smart contract như sau:
 
-```sol
+```solidity
 contract Attacker {
   
   function attack(address target, uint count) {

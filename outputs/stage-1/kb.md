@@ -4,7 +4,7 @@
 
 Trạng thái hiển thị (visibility) mặc định của các hàm là `public`. Việc không khai báo trạng thái hiển thị một cách tường minh có thể gây ra các hành vi không mong muốn trong smart contract. Ví dụ, các hàm vốn chỉ được dùng trong nội bộ bên trong smart contract có thể bị gọi sử dụng một cách công khai bởi bất kỳ ai.
 
-```sol
+```solidity
 /*
  * @source: https://github.com/sigp/solidity-security-blog#visibility
  * @author: SigmaPrime 
@@ -40,7 +40,7 @@ Mặc dù vậy, lập trình viên cũng nên xem xét cẩn thận việc sử
 
 Đối với ví dụ của smart contract `HashForEther` ở trên, có thể thêm vào các visibility như sau:
 
-```sol
+```solidity
 /*
  * @source: https://github.com/sigp/solidity-security-blog#visibility
  * @author: SigmaPrime
@@ -71,7 +71,7 @@ Các kiểu dữ liệu lưu trữ số nguyên (bao gồm có dấu và không 
 
 Trong ví dụ dưới, nếu ta gọi hàm `run` với `input` là `2` thì giá trị của biến `count` sẽ là $1 -2 = -1 = 2^{256} - 1$ (kiểu `uint` thực chất là `uint256`).
 
-```sol
+```solidity
 //Single transaction overflow
 //Post-transaction effect: overflow escapes to publicly-readable storage
 
@@ -115,7 +115,7 @@ Một contract có thể được biên dịch bởi nhiều phiên bản của 
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity >=0.4.0 < 0.6.0;
 pragma solidity >=0.4.0<0.6.0;
 pragma solidity >=0.4.14 <0.6.0;
@@ -140,7 +140,7 @@ Trong ví dụ trên, smart contract khai báo rất nhiều phiên bản của 
 
 Cần phải cố định phiên bản của trình biên dịch được sử dụng cho smart contract, ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.25;
 // or
 pragma solidity =0.4.25;
@@ -159,7 +159,7 @@ Nếu có ngoại lệ xảy ra trong smart contract khác thì các hàm trên 
 
 Ví dụ bên dưới dùng hàm `call` để gọi hàm `foo` của smart contract có địa chỉ là `_addr` với hai đối số lần lượt là `"call foo"` và `123`:
 
-```sol
+```solidity
 contract UsingCall {
   
   function invokeFunction(address payable _addr) public payable {
@@ -182,7 +182,7 @@ Luôn kiểm tra giá trị của biến luận lý được trả về từ cá
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.25;
 
 contract ReturnValue {
@@ -207,7 +207,7 @@ Việc không kiểm soát quyền truy cập của hàm có thể khiến cho b
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity ^0.4.22;
 
 contract SimpleEtherDrain {
@@ -226,7 +226,7 @@ Trong ví dụ trên, hàm `withdrawAllAnyone` không áp dụng các biện ph�
 
 Một ví dụ khác:
 
-```sol
+```solidity
 pragma solidity ^0.4.22;
 
 contract SimpleSuicide {
@@ -246,7 +246,7 @@ Cần giới hạn lại quyền truy cập của hàm cho một số địa ch�
 
 Ví dụ:
 
-```sol
+```solidity
 import "./Ownable.sol"
 
 contract MyContract is Ownable {
@@ -277,7 +277,7 @@ Là một kiểu tấn công đệ quy tương hỗ xảy ra giữa smart contra
 
 Ví dụ bên dưới là phiên bản đơn giản của smart contract được dùng để vận hành DAO #footnote[DAO (Decentralized Autonomous Organizations) là một tập các smart contract hoạt động như một quỹ đầu tư tự động.]:
 
-```sol
+```solidity
 /*
  * @source: http://blockchain.unica.it/projects/ethereum-survey/attacks.html#simpledao
  * @author: Atzei N., Bartoletti M., Cimoli T
@@ -311,7 +311,7 @@ Trong ví dụ trên, smart contract cho phép quyên góp một lượng `msg.v
 
 Kẻ tấn công có thể xây dựng một smart contract dùng để tấn công như sau:
 
-```sol
+```solidity
 pragma solidity 0.4.24;
 
 contract Attacker {
@@ -351,7 +351,7 @@ Mẫu bảo mật Check-Effect-Interaction xếp lời gọi đến smart contra
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.24;
 
 contract SimpleDAO {
@@ -390,7 +390,7 @@ Trước khi phân tích lỗ hổng, ta cần hiểu về cách Solidity lưu c
 
 Xét ví dụ sau:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
@@ -405,7 +405,7 @@ Do mỗi biến `x`, `y` và `z` đều có kích thước là 32 byte nên chú
 
 Trong trường hợp kích thước của các biến là nhỏ và vừa đủ một slot, chúng sẽ được đặt cạnh nhau. Ví dụ:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
@@ -420,7 +420,7 @@ contract StorageLayout {
 
 Khi dùng hàm `web3.eth.getStorageAt(contractAddress, slotPosition)` của thư viện web3.js để truy vấn giá trị được lưu ở slot 0, ta thu được giá trị sau:
 
-```sol
+```solidity
 slot[0] = 0x0000000000000000000000000000000000000000000000000000000300020001
 ```
 
@@ -428,7 +428,7 @@ Có thể thấy, ba biến `x`, `y` và `z` được đặt cạnh nhau. Ngoài
 
 Trong trường hợp các biến không thể lưu vừa trong một slot, chúng sẽ được lưu vào nhiều slot. Ví dụ:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
@@ -441,7 +441,7 @@ contract StorageLayout {
 
 Giá trị của các biến lưu trong các slot là:
 
-```sol
+```solidity
 slot[0] = 0x0000000000000000000000000000000000000000000000000000000000000001
 slot[1] = 0x0000000000000000000000000000000000000000000000000000000000000002
 slot[2] = 0x0000000000000000000000000000000000000000000000000000000000000003
@@ -453,7 +453,7 @@ Các biến cục bộ có vị trí dữ liệu (data location) là `storage` b
 
 Xét smart contract sau:
 
-```sol
+```solidity
 // A Locked Name Registrar
 contract NameRegistrar {
 
@@ -504,7 +504,7 @@ Với các phiên bản mới của trình biên dịch, việc sử dụng các
 
 Ví dụ bên dưới có chứa các định danh cũ không còn sử dụng trong các phiên bản trình biên dịch sau này:
 
-```sol
+```solidity
 contract DeprecatedSimple {
 
   function DeprecatedSimple() public { }
@@ -557,7 +557,7 @@ Sử dụng các định danh thay thế trong smart contract.
 
 Đối với ví dụ của smart contract `DeprecatedSimple` ở trên, có thể sửa lại như sau:
 
-```sol
+```solidity
 contract DeprecatedSimpleFixed {
 
   constructor() { }
@@ -595,7 +595,7 @@ Tuy nhiên, khi một smart contract A gọi thực thi hàm của smart contrac
 
 Ví dụ:
 
-```sol
+```solidity
 // NOTE: Deploy this contract first
 contract B {
   
@@ -644,7 +644,7 @@ Việc sử dụng hàm `delegatecall` để gọi hàm của các smart contrac
 
 Ví dụ, cho smart contract `Proxy` như sau:
 
-```sol
+```solidity
 contract Proxy {
 
   address owner;
@@ -667,7 +667,7 @@ contract Proxy {
 
 Hàm `forward` sẽ gọi đến hàm của smart contract có địa chỉ là `callee` thông qua hàm `delegatecall`. Kẻ tấn công có thể xây dựng một smart contract như sau để tấn công:
 
-```sol
+```solidity
 contract Attacker {
     
   address owner;

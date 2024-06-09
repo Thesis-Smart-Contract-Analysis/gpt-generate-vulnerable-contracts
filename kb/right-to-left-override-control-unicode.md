@@ -8,7 +8,7 @@ Ký tự này thường được dùng để che giấu phần mở rộng thự
 
 Ở trong mã nguồn, ký tự U+202E có thể được sử dụng để thay đổi thứ tự của các đối số:
 
-```sol
+```solidity
 /*
  * @source: https://youtu.be/P_Mtd5Fc_3E
  * @author: Shahar Zini

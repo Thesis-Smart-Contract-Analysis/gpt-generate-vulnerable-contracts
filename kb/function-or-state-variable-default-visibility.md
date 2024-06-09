@@ -4,7 +4,7 @@
 
 Trạng thái hiển thị (visibility) mặc định của các hàm là `public`. Việc không khai báo trạng thái hiển thị một cách tường minh có thể gây ra các hành vi không mong muốn trong smart contract. Ví dụ, các hàm vốn chỉ được dùng trong nội bộ bên trong smart contract có thể bị gọi sử dụng một cách công khai bởi bất kỳ ai.
 
-```sol
+```solidity
 /*
  * @source: https://github.com/sigp/solidity-security-blog#visibility
  * @author: SigmaPrime 
@@ -40,7 +40,7 @@ Mặc dù vậy, lập trình viên cũng nên xem xét cẩn thận việc sử
 
 Đối với ví dụ của smart contract `HashForEther` ở trên, có thể thêm vào các visibility như sau:
 
-```sol
+```solidity
 /*
  * @source: https://github.com/sigp/solidity-security-blog#visibility
  * @author: SigmaPrime

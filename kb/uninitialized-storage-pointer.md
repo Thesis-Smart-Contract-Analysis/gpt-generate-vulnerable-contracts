@@ -6,7 +6,7 @@ Trước khi phân tích lỗ hổng, ta cần hiểu về cách Solidity lưu c
 
 Xét ví dụ sau:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
@@ -21,7 +21,7 @@ Do mỗi biến `x`, `y` và `z` đều có kích thước là 32 byte nên chú
 
 Trong trường hợp kích thước của các biến là nhỏ và vừa đủ một slot, chúng sẽ được đặt cạnh nhau. Ví dụ:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
@@ -36,7 +36,7 @@ contract StorageLayout {
 
 Khi dùng hàm `web3.eth.getStorageAt(contractAddress, slotPosition)` của thư viện web3.js để truy vấn giá trị được lưu ở slot 0, ta thu được giá trị sau:
 
-```sol
+```solidity
 slot[0] = 0x0000000000000000000000000000000000000000000000000000000300020001
 ```
 
@@ -44,7 +44,7 @@ Có thể thấy, ba biến `x`, `y` và `z` được đặt cạnh nhau. Ngoài
 
 Trong trường hợp các biến không thể lưu vừa trong một slot, chúng sẽ được lưu vào nhiều slot. Ví dụ:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
@@ -57,7 +57,7 @@ contract StorageLayout {
 
 Giá trị của các biến lưu trong các slot là:
 
-```sol
+```solidity
 slot[0] = 0x0000000000000000000000000000000000000000000000000000000000000001
 slot[1] = 0x0000000000000000000000000000000000000000000000000000000000000002
 slot[2] = 0x0000000000000000000000000000000000000000000000000000000000000003
@@ -69,7 +69,7 @@ Các biến cục bộ có vị trí dữ liệu (data location) là `storage` b
 
 Xét smart contract sau:
 
-```sol
+```solidity
 // A Locked Name Registrar
 contract NameRegistrar {
 

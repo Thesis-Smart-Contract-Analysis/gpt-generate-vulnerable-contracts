@@ -6,7 +6,7 @@ Lỗ hổng này xảy ra khi smart contract dùng giá trị `tx.origin` để 
 
 Ví dụ, xét hai smart contract sau:
 
-```sol
+```solidity
 contract VictimContract {
   
   address owner;

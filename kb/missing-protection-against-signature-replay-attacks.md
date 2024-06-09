@@ -6,7 +6,7 @@ Lỗ hổng này xảy ra khi smart contract thực hiện xác thực chữ ký
 
 Ví dụ @signature-replay-ref:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -77,7 +77,7 @@ Có thể lưu lại danh sách các chữ ký đã được sử dụng và th�
 
 Ví dụ @signature-replay-ref:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 

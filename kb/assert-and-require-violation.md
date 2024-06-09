@@ -20,7 +20,7 @@ Mỗi internal error sẽ tương ứng với một mã lỗi, một số intern
 
 Ví dụ bên dưới minh họa cho việc sử dụng `require` và `assert`:
 
-```sol
+```solidity
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.5.0 <0.9.0;
 
@@ -42,7 +42,7 @@ contract Sharer {
 
 Kiểu `error` còn có thể được định nghĩa và sử dụng với câu lệnh `revert` như sau:
 
-```sol
+```solidity
 pragma solidity ^0.8.4;
 
 error InsufficientBalance(uint256 available, uint256 required);
@@ -71,7 +71,7 @@ Các hàm hoạt động đúng không nên gây ra `Panic(uint256)`, kể cả 
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @source: ChainSecurity
  * @author: Anton Permenev
@@ -99,7 +99,7 @@ Trong ví dụ trên, hàm `assert` có đối số là `b > a`. Tuy nhiên, tha
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity ^0.4.25;
 
 contract Bar {
@@ -129,7 +129,7 @@ Hàm `doubleBaz` của smart contract `Bar` gọi hàm `baz` của smart contrac
 
 Trong ví dụ của smart contract `GasModel` ở trên, cần sửa lại biểu thức luận lý truyền vào hàm `assert` như sau:
 
-```sol
+```solidity
 /*
  * @source: ChainSecurity
  * @author: Anton Permenev
@@ -153,7 +153,7 @@ contract GasModelFixed{
 
 Trong ví dụ của smart contract `Bar` và `Foo` ở trên, có thể sửa lại bằng cách thay đổi đối số truyền vào hàm `baz` hoặc sửa kiểu dữ liệu của tham số `x` thành số nguyên không dấu:
 
-```sol
+```solidity
 pragma solidity ^0.4.25;
 
 contract Bar {

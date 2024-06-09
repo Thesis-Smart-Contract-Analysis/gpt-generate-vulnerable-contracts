@@ -6,7 +6,7 @@ Là một kiểu tấn công đệ quy tương hỗ xảy ra giữa smart contra
 
 Ví dụ bên dưới là phiên bản đơn giản của smart contract được dùng để vận hành DAO #footnote[DAO (Decentralized Autonomous Organizations) là một tập các smart contract hoạt động như một quỹ đầu tư tự động.]:
 
-```sol
+```solidity
 /*
  * @source: http://blockchain.unica.it/projects/ethereum-survey/attacks.html#simpledao
  * @author: Atzei N., Bartoletti M., Cimoli T
@@ -40,7 +40,7 @@ Trong ví dụ trên, smart contract cho phép quyên góp một lượng `msg.v
 
 Kẻ tấn công có thể xây dựng một smart contract dùng để tấn công như sau:
 
-```sol
+```solidity
 pragma solidity 0.4.24;
 
 contract Attacker {
@@ -80,7 +80,7 @@ Mẫu bảo mật Check-Effect-Interaction xếp lời gọi đến smart contra
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.24;
 
 contract SimpleDAO {

@@ -10,7 +10,7 @@ Lỗ hổng này xảy ra khi kẻ tấn công (có thể là miner) theo dõi d
 
 Ví dụ @manning_2018_sigpsoliditysecurityblog:
 
-```sol
+```solidity
 contract FindThisHash {
   
   bytes32 constant public hash = 0xb5b5b97fafd9855eec9b41f74dfb6c38f5951141f9a3ecd7f44d5479b630ee0a;

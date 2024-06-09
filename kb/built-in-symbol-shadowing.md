@@ -6,7 +6,7 @@ Lỗ hổng này xảy ra khi lập trình viên dùng các định danh (identi
 
 Ví dụ:
 
-```sol
+```solidity
 // source: https://github.com/crytic/slither/wiki/Detector-Documentation#builtin-symbol-shadowing
 pragma solidity ^0.4.24;
 

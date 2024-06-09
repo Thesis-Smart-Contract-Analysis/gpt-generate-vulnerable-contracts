@@ -6,7 +6,7 @@ Trong hàm tạo của Solidity thường thực hiện những hành động đ
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @source: https://github.com/trailofbits/not-so-smart-contracts/blob/master/wrong_constructor_name/incorrect_constructor.sol
  * @author: Ben Perez

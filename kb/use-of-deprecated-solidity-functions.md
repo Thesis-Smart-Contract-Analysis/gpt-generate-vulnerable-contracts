@@ -6,7 +6,7 @@ Với các phiên bản mới của trình biên dịch, việc sử dụng các
 
 Ví dụ bên dưới có chứa các định danh cũ không còn sử dụng trong các phiên bản trình biên dịch sau này:
 
-```sol
+```solidity
 contract DeprecatedSimple {
 
   function DeprecatedSimple() public { }
@@ -59,7 +59,7 @@ Sử dụng các định danh thay thế trong smart contract.
 
 Đối với ví dụ của smart contract `DeprecatedSimple` ở trên, có thể sửa lại như sau:
 
-```sol
+```solidity
 contract DeprecatedSimpleFixed {
 
   constructor() { }

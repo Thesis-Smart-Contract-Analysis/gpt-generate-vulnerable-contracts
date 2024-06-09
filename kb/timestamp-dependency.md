@@ -8,7 +8,7 @@ Smart contract có thể sử dụng các thuộc tính của block chẳng hạ
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity ^0.5.0;
 
 contract TimedCrowdsale {

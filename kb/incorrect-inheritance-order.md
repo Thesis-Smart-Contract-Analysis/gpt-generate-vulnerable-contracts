@@ -6,7 +6,7 @@ Solidity hỗ trợ đa kế thừa nên nếu một smart contract kế thừa 
 
 Giả sử có smart contract `A` như sau @on-crowdsales-and-multiple-inheritance:
 
-```sol
+```solidity
 contract A {
   
   function f() {
@@ -18,7 +18,7 @@ contract A {
 
 Smart contract `B` và `C` kế thừa `A`. Hai smart contract này đều ghi đè hàm `f`:
 
-```sol
+```solidity
 contract B is A {
 
   function f() {
@@ -40,7 +40,7 @@ contract C is A {
 
 Cuối cùng, smart contract `D` kế thừa `B` và `C`:
 
-```sol
+```solidity
 contract D is B, C {
   
   function f() { 
@@ -59,7 +59,7 @@ Nói một cách đơn giản, khi một hàm được sử dụng trong smart c
 
 Trong ví dụ trên, Solidity sẽ gọi hàm theo thứ tự sau:
 
-```sol
+```solidity
 somethingD(); 
 somethingC(); 
 somethingB(); 

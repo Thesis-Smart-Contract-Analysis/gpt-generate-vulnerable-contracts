@@ -8,7 +8,7 @@ Tuy nhiên, khi một smart contract A gọi thực thi hàm của smart contrac
 
 Ví dụ:
 
-```sol
+```solidity
 // NOTE: Deploy this contract first
 contract B {
   
@@ -57,7 +57,7 @@ Việc sử dụng hàm `delegatecall` để gọi hàm của các smart contrac
 
 Ví dụ, cho smart contract `Proxy` như sau:
 
-```sol
+```solidity
 contract Proxy {
 
   address owner;
@@ -80,7 +80,7 @@ contract Proxy {
 
 Hàm `forward` sẽ gọi đến hàm của smart contract có địa chỉ là `callee` thông qua hàm `delegatecall`. Kẻ tấn công có thể xây dựng một smart contract như sau để tấn công:
 
-```sol
+```solidity
 contract Attacker {
     
   address owner;

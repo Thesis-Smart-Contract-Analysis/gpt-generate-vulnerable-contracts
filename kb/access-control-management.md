@@ -6,7 +6,7 @@ Việc không kiểm soát quyền truy cập của hàm có thể khiến cho b
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity ^0.4.22;
 
 contract SimpleEtherDrain {
@@ -25,7 +25,7 @@ Trong ví dụ trên, hàm `withdrawAllAnyone` không áp dụng các biện ph�
 
 Một ví dụ khác:
 
-```sol
+```solidity
 pragma solidity ^0.4.22;
 
 contract SimpleSuicide {
@@ -45,7 +45,7 @@ Cần giới hạn lại quyền truy cập của hàm cho một số địa ch�
 
 Ví dụ:
 
-```sol
+```solidity
 import "./Ownable.sol"
 
 contract MyContract is Ownable {

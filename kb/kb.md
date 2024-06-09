@@ -4,7 +4,7 @@
 
 Trạng thái hiển thị (visibility) mặc định của các hàm là `public`. Việc không khai báo trạng thái hiển thị một cách tường minh có thể gây ra các hành vi không mong muốn trong smart contract. Ví dụ, các hàm vốn chỉ được dùng trong nội bộ bên trong smart contract có thể bị gọi sử dụng một cách công khai bởi bất kỳ ai.
 
-```sol
+```solidity
 /*
  * @source: https://github.com/sigp/solidity-security-blog#visibility
  * @author: SigmaPrime 
@@ -40,7 +40,7 @@ Mặc dù vậy, lập trình viên cũng nên xem xét cẩn thận việc sử
 
 Đối với ví dụ của smart contract `HashForEther` ở trên, có thể thêm vào các visibility như sau:
 
-```sol
+```solidity
 /*
  * @source: https://github.com/sigp/solidity-security-blog#visibility
  * @author: SigmaPrime
@@ -71,7 +71,7 @@ Các kiểu dữ liệu lưu trữ số nguyên (bao gồm có dấu và không 
 
 Trong ví dụ dưới, nếu ta gọi hàm `run` với `input` là `2` thì giá trị của biến `count` sẽ là $1 -2 = -1 = 2^{256} - 1$ (kiểu `uint` thực chất là `uint256`).
 
-```sol
+```solidity
 //Single transaction overflow
 //Post-transaction effect: overflow escapes to publicly-readable storage
 
@@ -115,7 +115,7 @@ Một contract có thể được biên dịch bởi nhiều phiên bản của 
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity >=0.4.0 < 0.6.0;
 pragma solidity >=0.4.0<0.6.0;
 pragma solidity >=0.4.14 <0.6.0;
@@ -140,7 +140,7 @@ Trong ví dụ trên, smart contract khai báo rất nhiều phiên bản của 
 
 Cần phải cố định phiên bản của trình biên dịch được sử dụng cho smart contract, ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.25;
 // or
 pragma solidity =0.4.25;
@@ -159,7 +159,7 @@ Nếu có ngoại lệ xảy ra trong smart contract khác thì các hàm trên 
 
 Ví dụ bên dưới dùng hàm `call` để gọi hàm `foo` của smart contract có địa chỉ là `_addr` với hai đối số lần lượt là `"call foo"` và `123`:
 
-```sol
+```solidity
 contract UsingCall {
   
   function invokeFunction(address payable _addr) public payable {
@@ -182,7 +182,7 @@ Luôn kiểm tra giá trị của biến luận lý được trả về từ cá
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.25;
 
 contract ReturnValue {
@@ -207,7 +207,7 @@ Việc không kiểm soát quyền truy cập của hàm có thể khiến cho b
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity ^0.4.22;
 
 contract SimpleEtherDrain {
@@ -226,7 +226,7 @@ Trong ví dụ trên, hàm `withdrawAllAnyone` không áp dụng các biện ph�
 
 Một ví dụ khác:
 
-```sol
+```solidity
 pragma solidity ^0.4.22;
 
 contract SimpleSuicide {
@@ -246,7 +246,7 @@ Cần giới hạn lại quyền truy cập của hàm cho một số địa ch�
 
 Ví dụ:
 
-```sol
+```solidity
 import "./Ownable.sol"
 
 contract MyContract is Ownable {
@@ -277,7 +277,7 @@ Là một kiểu tấn công đệ quy tương hỗ xảy ra giữa smart contra
 
 Ví dụ bên dưới là phiên bản đơn giản của smart contract được dùng để vận hành DAO #footnote[DAO (Decentralized Autonomous Organizations) là một tập các smart contract hoạt động như một quỹ đầu tư tự động.]:
 
-```sol
+```solidity
 /*
  * @source: http://blockchain.unica.it/projects/ethereum-survey/attacks.html#simpledao
  * @author: Atzei N., Bartoletti M., Cimoli T
@@ -311,7 +311,7 @@ Trong ví dụ trên, smart contract cho phép quyên góp một lượng `msg.v
 
 Kẻ tấn công có thể xây dựng một smart contract dùng để tấn công như sau:
 
-```sol
+```solidity
 pragma solidity 0.4.24;
 
 contract Attacker {
@@ -351,7 +351,7 @@ Mẫu bảo mật Check-Effect-Interaction xếp lời gọi đến smart contra
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.24;
 
 contract SimpleDAO {
@@ -390,7 +390,7 @@ Trước khi phân tích lỗ hổng, ta cần hiểu về cách Solidity lưu c
 
 Xét ví dụ sau:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
@@ -405,7 +405,7 @@ Do mỗi biến `x`, `y` và `z` đều có kích thước là 32 byte nên chú
 
 Trong trường hợp kích thước của các biến là nhỏ và vừa đủ một slot, chúng sẽ được đặt cạnh nhau. Ví dụ:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
@@ -420,7 +420,7 @@ contract StorageLayout {
 
 Khi dùng hàm `web3.eth.getStorageAt(contractAddress, slotPosition)` của thư viện web3.js để truy vấn giá trị được lưu ở slot 0, ta thu được giá trị sau:
 
-```sol
+```solidity
 slot[0] = 0x0000000000000000000000000000000000000000000000000000000300020001
 ```
 
@@ -428,7 +428,7 @@ Có thể thấy, ba biến `x`, `y` và `z` được đặt cạnh nhau. Ngoài
 
 Trong trường hợp các biến không thể lưu vừa trong một slot, chúng sẽ được lưu vào nhiều slot. Ví dụ:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8;
 
@@ -441,7 +441,7 @@ contract StorageLayout {
 
 Giá trị của các biến lưu trong các slot là:
 
-```sol
+```solidity
 slot[0] = 0x0000000000000000000000000000000000000000000000000000000000000001
 slot[1] = 0x0000000000000000000000000000000000000000000000000000000000000002
 slot[2] = 0x0000000000000000000000000000000000000000000000000000000000000003
@@ -453,7 +453,7 @@ Các biến cục bộ có vị trí dữ liệu (data location) là `storage` b
 
 Xét smart contract sau:
 
-```sol
+```solidity
 // A Locked Name Registrar
 contract NameRegistrar {
 
@@ -504,7 +504,7 @@ Với các phiên bản mới của trình biên dịch, việc sử dụng các
 
 Ví dụ bên dưới có chứa các định danh cũ không còn sử dụng trong các phiên bản trình biên dịch sau này:
 
-```sol
+```solidity
 contract DeprecatedSimple {
 
   function DeprecatedSimple() public { }
@@ -557,7 +557,7 @@ Sử dụng các định danh thay thế trong smart contract.
 
 Đối với ví dụ của smart contract `DeprecatedSimple` ở trên, có thể sửa lại như sau:
 
-```sol
+```solidity
 contract DeprecatedSimpleFixed {
 
   constructor() { }
@@ -595,7 +595,7 @@ Tuy nhiên, khi một smart contract A gọi thực thi hàm của smart contrac
 
 Ví dụ:
 
-```sol
+```solidity
 // NOTE: Deploy this contract first
 contract B {
   
@@ -644,7 +644,7 @@ Việc sử dụng hàm `delegatecall` để gọi hàm của các smart contrac
 
 Ví dụ, cho smart contract `Proxy` như sau:
 
-```sol
+```solidity
 contract Proxy {
 
   address owner;
@@ -667,7 +667,7 @@ contract Proxy {
 
 Hàm `forward` sẽ gọi đến hàm của smart contract có địa chỉ là `callee` thông qua hàm `delegatecall`. Kẻ tấn công có thể xây dựng một smart contract như sau để tấn công:
 
-```sol
+```solidity
 contract Attacker {
     
   address owner;
@@ -699,7 +699,7 @@ Các lời gọi đến bên ngoài smart contract (thực thi hàm hoặc chuy�
 
 Ví dụ:
 
-```sol
+```solidity
 contract DistributeTokens {
   address public owner; // gets set somewhere
   address[] investors; // array of investors
@@ -726,7 +726,7 @@ Trong ví dụ này, kẻ tấn công có thể tạo ra một lượng lớn c�
 
 Ví dụ khác, smart contract sau đây thực hiện gửi ETH cho người đặt cược cao nhất.
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -751,7 +751,7 @@ contract BadAuction {
 
 Smart contract này có thể bị tấn công DoS nếu kẻ tấn công luôn làm cho hàm `transfer` gây ra ngoại lệ:
 
-```sol
+```solidity
 contract Attacker {
   
   BadAuction badAuction;
@@ -784,7 +784,7 @@ Những điều cần lưu ý khi thực hiện gọi đến bên ngoài smart c
 
 Ví dụ:
 
-```sol
+```solidity
 contract PullOverPush {
 
   mapping(address => uint) credits;
@@ -813,7 +813,7 @@ Lỗ hổng này xảy ra khi smart contract dùng giá trị `tx.origin` để 
 
 Ví dụ, xét hai smart contract sau:
 
-```sol
+```solidity
 contract VictimContract {
   
   address owner;
@@ -892,7 +892,7 @@ Các hệ thống chữ ký mật mã của Ethereum được hiện thực vớ
 
 Ví dụ bên dưới minh họa cho quá trình xác thực chữ ký trong Solidity:
 
-```sol
+```solidity
 // source: https://medium.com/draftkings-engineering/signature-malleability-7a804429b14a
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -935,7 +935,7 @@ Các dòng mã hợp ngữ trong hàm `recoverSigner` được dùng để tách
 
 Kẻ tấn công có thể xây dựng smart contract như sau:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -989,7 +989,7 @@ Trong hàm tạo của Solidity thường thực hiện những hành động đ
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @source: https://github.com/trailofbits/not-so-smart-contracts/blob/master/wrong_constructor_name/incorrect_constructor.sol
  * @author: Ben Perez
@@ -1033,7 +1033,7 @@ Xảy ra khi một smart contract kế thừa smart contract khác và cả hai 
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.24;
 
 contract Tokensale {
@@ -1063,7 +1063,7 @@ Trong ví dụ trên, giá trị trả về khi gọi hàm `fetchCap` từ smart
 
 Nếu muốn ghi đè biến trạng thái của smart contract được kế thừa, ta có thể gán giá trị mới cho nó ở trong hàm tạo của smart contract kế thừa. Ví dụ:
 
-```sol
+```solidity
 contract Presale is Tokensale {
   
   // uint hardcap = 1000 ether;
@@ -1088,7 +1088,7 @@ Việc sử dụng `blockhash` hoặc `block.difficulty` cũng tương tự vì 
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @source: https://capturetheether.com/challenges/lotteries/guess-the-random-number/
  * @author: Steve Marx
@@ -1151,7 +1151,7 @@ Lỗ hổng này xảy ra khi smart contract thực hiện xác thực chữ ký
 
 Ví dụ @signature-replay-ref:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -1222,7 +1222,7 @@ Có thể lưu lại danh sách các chữ ký đã được sử dụng và th�
 
 Ví dụ @signature-replay-ref:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -1289,7 +1289,7 @@ Smart contract cần phải đảm bảo rằng các vị trí lưu trữ dữ l
 
 Ví dụ @solidity-array-overflow:
 
-```sol
+```solidity
 pragma solidity ^0.4.17; 
 
 contract ArrayLengthManipulation{
@@ -1364,7 +1364,7 @@ Solidity hỗ trợ đa kế thừa nên nếu một smart contract kế thừa 
 
 Giả sử có smart contract `A` như sau @on-crowdsales-and-multiple-inheritance:
 
-```sol
+```solidity
 contract A {
   
   function f() {
@@ -1376,7 +1376,7 @@ contract A {
 
 Smart contract `B` và `C` kế thừa `A`. Hai smart contract này đều ghi đè hàm `f`:
 
-```sol
+```solidity
 contract B is A {
 
   function f() {
@@ -1398,7 +1398,7 @@ contract C is A {
 
 Cuối cùng, smart contract `D` kế thừa `B` và `C`:
 
-```sol
+```solidity
 contract D is B, C {
   
   function f() { 
@@ -1417,7 +1417,7 @@ Nói một cách đơn giản, khi một hàm được sử dụng trong smart c
 
 Trong ví dụ trên, Solidity sẽ gọi hàm theo thứ tự sau:
 
-```sol
+```solidity
 somethingD(); 
 somethingC(); 
 somethingB(); 
@@ -1441,7 +1441,7 @@ Xảy ra khi smart contract không kiểm tra xem nó có đủ gas để gọi 
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @source: https://consensys.github.io/smart-contract-best-practices/known_attacks/#insufficient-gas-griefing
  * @author: ConsenSys Diligence
@@ -1493,7 +1493,7 @@ Kiểm tra xem lượng gas được cung cấp có đủ để thực thi lời
 
 Ví dụ @oualid_2022_smart-contract-gas-griefing-attack:
 
-```sol
+```solidity
 pragma solidity ^0.5.0;
 
 contract Relayer {
@@ -1537,7 +1537,7 @@ Là một tham chiếu đến hàm với một nguyên mẫu hàm cụ thể. Bi
 
 Ví dụ, đoạn mã sau giúp thay đổi hàm cần thực thi giữa `add` và `sub` một cách linh động khi chạy:
 
-```sol
+```solidity
 // source: https://medium.com/authio/solidity-ctf-part-2-safe-execution-ad6ded20e042
 pragma solidity ^0.4.23;
 
@@ -1565,7 +1565,7 @@ Kẻ tấn công có thể sử dụng các chỉ thị hợp ngữ (assembly in
 
 Trong ví dụ bên dưới, cách duy nhất để kẻ tấn công gọi hàm `withdraw()` để rút ETH là thông qua hàm `breakIt()`. Tuy nhiên, câu lệnh `require()` trong hai hàm này mâu thuẫn với nhau và mục tiêu của kẻ tấn công là vượt qua được câu lệnh `require()` ở trong hàm `withdraw()`.
 
-```sol
+```solidity
 /*
  * @source: https://gist.github.com/wadeAlexC/7a18de852693b3f890560ab6a211a2b8
  * @author: Alexander Wade
@@ -1633,7 +1633,7 @@ Lỗi đánh máy có thể dẫn đến những hành vi không mong muốn tro
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity ^0.4.25;
 
 contract TypoOneCommand {
@@ -1662,7 +1662,7 @@ Ký tự này thường được dùng để che giấu phần mở rộng thự
 
 Ở trong mã nguồn, ký tự U+202E có thể được sử dụng để thay đổi thứ tự của các đối số:
 
-```sol
+```solidity
 /*
  * @source: https://youtu.be/P_Mtd5Fc_3E
  * @author: Shahar Zini
@@ -1709,7 +1709,7 @@ Việc giả định rằng ETH chỉ đến từ các hàm `payable` và thực
 
 Ví dụ sau đây @self-destruct-ref là một trò chơi cho phép các người chơi đặt ETH vào smart contract thông qua hàm `deposit`. 
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -1740,7 +1740,7 @@ Có thể thấy, mỗi người chơi chỉ có thể đặt 1 ETH một lần 
 
 Kẻ tấn công có thể xây dựng một smart contract như sau:
 
-```sol
+```solidity
 contract Attacker {
   
   EtherGame etherGame;
@@ -1765,7 +1765,7 @@ Còn một cách khác để ép smart contract nhận ETH mà không thông qua
 
 Công thức dùng để tính toán địa chỉ của smart contract:
 
-```sol
+```solidity
 keccak256(rlp.encode([<account_address>, <transaction_nonce>]))
 ```
 
@@ -1781,7 +1781,7 @@ Không sử dụng giá trị `this.balance` làm điều kiện để thực th
 
 Ví dụ, đối với smart contract `EtherGame` trên, có thể dùng thêm biến `depositedEther` như sau:
 
-```sol
+```solidity
 contract EtherGame {
   
   uint256 public targetAmount = 7 ether;
@@ -1833,7 +1833,7 @@ Hàm này sẽ trả về giá trị `0xffff42000348656c6c6f2c20776f726c6421`, l
 
 Việc sử dụng hàm `abi.encodePacked` với đối số là các mảng có kích thước không cố định có thể gây ra đụng độ giá trị băm (hash collision). Lý do là vì hàm này đóng gói các phần tử mà không quan tâm đến việc chúng có thuộc một mảng nào đó hay không. Cụ thể, hai dòng sau đây sẽ cho ra kết quả tương đương:
 
-```sol
+```solidity
 abi.encodePacked([addr1, addr2], [addr3, addr4]);
 abi.encodePacked([addr1, addr2, addr3], [addr4]);
 ```
@@ -1842,7 +1842,7 @@ Nếu smart contract sử dụng giá trị của hàm `abi.encodePacked` để 
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @author: Steve Marx
  * Modified by Kaden Zipfel
@@ -1883,13 +1883,13 @@ contract AccessControl {
 
 Người dùng có thể được thêm vào smart contract thông qua hàm `addUsers` bằng cách truyền vào mảng các admin, mảng các người dùng thông thường cùng với chữ ký của admin:
 
-```sol
+```solidity
 addUsers([addr1, addr2], [addr3, <attacker's address>, addr4], sig)
 ```
 
 Kẻ tấn công có thể gọi hàm `addUsers` như sau:
 
-```sol
+```solidity
 addUser([addr1, addr2, addr3, <attacker's address>], [addr4], sig)
 ```
 
@@ -1903,7 +1903,7 @@ Trong ví dụ của smart contract `AccessControl` trên, chỉ cho phép thêm
 
 Ví dụ thêm 1 người dùng:
 
-```sol
+```solidity
 /*
  * @author: Steve Marx
  * Modified by Kaden Zipfel
@@ -1943,7 +1943,7 @@ contract AccessControl {
 
 Ví dụ thêm 3 người dùng:
 
-```sol
+```solidity
 /*
  * @author: Steve Marx
  * Modified by Kaden Zipfel
@@ -1990,7 +1990,7 @@ Nếu mã nguồn có các hàm `payable` nhưng không có hàm rút ETH thì s
 
 Ví dụ:
 
-```sol
+```solidity
 // source: https://github.com/crytic/slither/wiki/Detector-Documentation#contracts-that-lock-ether
 
 pragma solidity 0.4.24;
@@ -2015,7 +2015,7 @@ Kẻ tấn công có thể cài đặt mã độc ở trong hàm fallback chẳn
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.6.12;
 
 contract CallToTheUnknown {
@@ -2036,7 +2036,7 @@ Việc gọi hàm thông qua thực thể của smart contract cũng xảy ra v�
 
 Ví dụ:
 
-```sol
+```solidity
 contract Alice {
   
     function ping(uint) returns (uint256);
@@ -2067,7 +2067,7 @@ Trong Solidity, bất kỳ địa chỉ nào cũng có thể được ép kiểu
 
 Trong ví dụ dưới, kẻ tấn công triển khai `Foo` ở trên chuỗi khối với đối số hàm tạo là địa chỉ của `Mal`. Trong hàm tạo, `Foo` ép kiểu đối số thành một thực thể của `Bar`.
 
-```sol
+```solidity
 // source: https://solidity-by-example.org/hacks/hiding-malicious-code-with-external-contract/
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
@@ -2112,7 +2112,7 @@ Có thể sử dụng những cách sau:
 
 Minh họa:
 
-```sol
+```solidity
 contract Foo {
   Bar public bar;
   // ...
@@ -2130,7 +2130,7 @@ Tại phiên bản 0.4.22, smart contract có thể sử dụng cùng lúc hai l
 
 Ví dụ:
 
-```sol
+```solidity
 contract Example {
 
   address public admin;
@@ -2159,7 +2159,7 @@ Lỗ hổng này xảy ra khi lập trình viên dùng các định danh (identi
 
 Ví dụ:
 
-```sol
+```solidity
 // source: https://github.com/crytic/slither/wiki/Detector-Documentation#builtin-symbol-shadowing
 pragma solidity ^0.4.24;
 
@@ -2189,7 +2189,7 @@ Thay đổi tên của biến, hàm, modifier hoặc sự kiện mà trùng vớ
 
 Một số smart contract kiểm tra xem một địa chỉ có phải là smart contract hay không thông qua opcode `extcodesize`.
 
-```sol
+```solidity
 contract OnlyForHuman {
   
   function isContract(address addr) returns (bool) {
@@ -2207,7 +2207,7 @@ Tuy nhiên, kẻ tấn công có thể thực thi hàm ở trong hàm tạo và 
 
 Ví dụ @how-does-a-contract-find-out-if-another-address-is-a-contract:
 
-```sol
+```solidity
 pragma solidity 0.4.25;
 
 contract Victim {
@@ -2242,7 +2242,7 @@ Trong ví dụ trên, sau khi smart contract `Attacker` được triển khai �
 
 Để nhận biết một địa chỉ không phải là smart contract, có thể so sánh giá trị `tx.origin` với giá trị `msg.sender`.
 
-```sol
+```solidity
 contract OnlyForHuman {
   
   modifier isHuman() {
@@ -2284,7 +2284,7 @@ Kẻ tấn công có thể khai thác tính chất này để tạo ra một gia
 
 Ví dụ, xét smart contract sau:
 
-```sol
+```solidity
 contract Government {
 
   // ...
@@ -2313,7 +2313,7 @@ contract Government {
 
 Kẻ tấn công có thể là chủ sở hữu smart contract và ý định của người này là không chuyển ETH cho người chiến thắng. Để khai thác lỗ hổng, kẻ tấn công xây dựng một smart contract như sau:
 
-```sol
+```solidity
 contract Attacker {
   
   function attack(address target, uint count) {
@@ -2366,7 +2366,7 @@ EVM sẽ dựa vào 4 byte đầu tiên trong dữ liệu của một giao dịc
 
 Xét proxy contract ở @proxy-pattern[phụ lục] với logic contract có dạng như sau @a2019_beware-of-the-proxy-learn-how-to-exploit-function-clashing:
 
-```sol
+```solidity
 pragma solidity ^0.5.0;
 
 import "openzeppelin-eth/contracts/token/ERC20/ERC20Burnable.sol";
@@ -2393,7 +2393,7 @@ contract BurnableToken is Initializable, ERC20Burnable, ERC20Detailed {
 
 Smart contract `ERC20Burnable` @openzeppelin-contracts-token-erc20-extensions-erc20-burnable.sol có hàm `burn` như sau:
 
-```sol
+```solidity
 import {ERC20} from "../ERC20.sol";
 import {Context} from "../../../utils/Context.sol";
 
@@ -2410,7 +2410,7 @@ abstract contract ERC20Burnable is Context, ERC20 {
 
 Kẻ tấn công có thể thiết lập một hàm backdoor giúp rút ETH của người dùng ở trong proxy contract như sau @a2019_beware-of-the-proxy-learn-how-to-exploit-function-clashing:
 
-```sol
+```solidity
 pragma solidity ^0.5.0;
 
 contract Proxy {
@@ -2451,7 +2451,7 @@ Việc sử dụng hàm `call` với mức gas cố định cũng tương tự.
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @author: Bernhard Mueller (ConsenSys / MythX)
  */
@@ -2499,7 +2499,7 @@ Lỗ hổng này liên quan đến cách mà EVM decode dữ liệu giao dịch.
 
 Xét ví dụ sau:
 
-```sol
+```solidity
 //source: https://ericrafaloff.com/analyzing-the-erc20-short-address-attack/
 pragma solidity ^0.4.11;
  
@@ -2570,7 +2570,7 @@ Thực hiện kiểm tra kích thước của dữ liệu giao dịch.
 
 Ví dụ:
 
-```sol
+```solidity
 // source: https://www.reddit.com/r/ethereum/comments/63s917/comment/dfwmhc3/
 contract NonPayloadAttackableToken {
   
@@ -2603,7 +2603,7 @@ Lỗ hổng này xảy ra khi kẻ tấn công (có thể là miner) theo dõi d
 
 Ví dụ @manning_2018_sigpsoliditysecurityblog:
 
-```sol
+```solidity
 contract FindThisHash {
   
   bytes32 constant public hash = 0xb5b5b97fafd9855eec9b41f74dfb6c38f5951141f9a3ecd7f44d5479b630ee0a;
@@ -2644,7 +2644,7 @@ Smart contract có thể sử dụng các thuộc tính của block chẳng hạ
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity ^0.5.0;
 
 contract TimedCrowdsale {
@@ -2686,7 +2686,7 @@ Do tính chất này, smart contract không nên lưu những dữ liệu riêng
 
 Ví dụ, xét smart contract `OddEven` sau:
 
-```sol
+```solidity
 /*
  * @source: https://gist.github.com/manojpramesh/336882804402bee8d6b99bea453caadd#file-odd-even-sol
  * @author: https://github.com/manojpramesh
@@ -2743,7 +2743,7 @@ Lưu dữ liệu riêng tư ở bên ngoài blockchain hoặc sử dụng mã h�
 
 Đối với smart contracrt `OddEven` ở trên, có thể áp dụng mô hình commit-reveal tương tự như phần @weak-sources-of-randomness-from-chain-attributes-remediation[]. Cụ thể, các biến trạng thái và cấu trúc trong smart contract phục vụ cho trò chơi sẽ có dạng như sau:
 
-```sol
+```solidity
 /*
  * @source: https://github.com/yahgwai/rps
  * @author: Chris Buckland
@@ -2777,7 +2777,7 @@ contract OddEven {
 
 Trò chơi sẽ bao gồm 3 giai đoạn. Giai đoạn đầu tiên là giai đoạn commit:
 
-```sol
+```solidity
 contract OddEven {
   
   // ...
@@ -2813,7 +2813,7 @@ Ngoài ra, người chơi cũng cần phải gửi thêm 1 ETH nhằm đảm b�
 
 Giai đoạn thứ hai là giai đoạn tiết lộ bí mật:
 
-```sol
+```solidity
 contract OddEven {
 
   // ...
@@ -2852,7 +2852,7 @@ contract OddEven {
 
 Giai đoạn cuối cùng là giai đoạn tính toán kết quả và phân bố ETH:
 
-```sol
+```solidity
 contract OddEven {
 
   // ...

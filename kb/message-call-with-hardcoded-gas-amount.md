@@ -10,7 +10,7 @@ Việc sử dụng hàm `call` với mức gas cố định cũng tương tự.
 
 Ví dụ:
 
-```sol
+```solidity
 /*
  * @author: Bernhard Mueller (ConsenSys / MythX)
  */

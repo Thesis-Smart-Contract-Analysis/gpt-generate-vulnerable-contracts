@@ -6,7 +6,7 @@ Một contract có thể được biên dịch bởi nhiều phiên bản của 
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity >=0.4.0 < 0.6.0;
 pragma solidity >=0.4.0<0.6.0;
 pragma solidity >=0.4.14 <0.6.0;
@@ -31,7 +31,7 @@ Trong ví dụ trên, smart contract khai báo rất nhiều phiên bản của 
 
 Cần phải cố định phiên bản của trình biên dịch được sử dụng cho smart contract, ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.25;
 // or
 pragma solidity =0.4.25;

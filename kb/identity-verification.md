@@ -4,7 +4,7 @@
 
 Một số smart contract kiểm tra xem một địa chỉ có phải là smart contract hay không thông qua opcode `extcodesize`.
 
-```sol
+```solidity
 contract OnlyForHuman {
   
   function isContract(address addr) returns (bool) {
@@ -22,7 +22,7 @@ Tuy nhiên, kẻ tấn công có thể thực thi hàm ở trong hàm tạo và 
 
 Ví dụ @how-does-a-contract-find-out-if-another-address-is-a-contract:
 
-```sol
+```solidity
 pragma solidity 0.4.25;
 
 contract Victim {
@@ -57,7 +57,7 @@ Trong ví dụ trên, sau khi smart contract `Attacker` được triển khai �
 
 Để nhận biết một địa chỉ không phải là smart contract, có thể so sánh giá trị `tx.origin` với giá trị `msg.sender`.
 
-```sol
+```solidity
 contract OnlyForHuman {
   
   modifier isHuman() {

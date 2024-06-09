@@ -10,7 +10,7 @@ Nếu có ngoại lệ xảy ra trong smart contract khác thì các hàm trên 
 
 Ví dụ bên dưới dùng hàm `call` để gọi hàm `foo` của smart contract có địa chỉ là `_addr` với hai đối số lần lượt là `"call foo"` và `123`:
 
-```sol
+```solidity
 contract UsingCall {
   
   function invokeFunction(address payable _addr) public payable {
@@ -33,7 +33,7 @@ Luôn kiểm tra giá trị của biến luận lý được trả về từ cá
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.25;
 
 contract ReturnValue {

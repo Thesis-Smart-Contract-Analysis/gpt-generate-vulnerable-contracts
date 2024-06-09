@@ -8,7 +8,7 @@ Kẻ tấn công có thể cài đặt mã độc ở trong hàm fallback chẳn
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.6.12;
 
 contract CallToTheUnknown {
@@ -29,7 +29,7 @@ Việc gọi hàm thông qua thực thể của smart contract cũng xảy ra v�
 
 Ví dụ:
 
-```sol
+```solidity
 contract Alice {
   
     function ping(uint) returns (uint256);

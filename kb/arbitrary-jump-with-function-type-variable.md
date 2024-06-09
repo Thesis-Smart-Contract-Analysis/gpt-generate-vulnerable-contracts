@@ -6,7 +6,7 @@ Là một tham chiếu đến hàm với một nguyên mẫu hàm cụ thể. Bi
 
 Ví dụ, đoạn mã sau giúp thay đổi hàm cần thực thi giữa `add` và `sub` một cách linh động khi chạy:
 
-```sol
+```solidity
 // source: https://medium.com/authio/solidity-ctf-part-2-safe-execution-ad6ded20e042
 pragma solidity ^0.4.23;
 
@@ -34,7 +34,7 @@ Kẻ tấn công có thể sử dụng các chỉ thị hợp ngữ (assembly in
 
 Trong ví dụ bên dưới, cách duy nhất để kẻ tấn công gọi hàm `withdraw()` để rút ETH là thông qua hàm `breakIt()`. Tuy nhiên, câu lệnh `require()` trong hai hàm này mâu thuẫn với nhau và mục tiêu của kẻ tấn công là vượt qua được câu lệnh `require()` ở trong hàm `withdraw()`.
 
-```sol
+```solidity
 /*
  * @source: https://gist.github.com/wadeAlexC/7a18de852693b3f890560ab6a211a2b8
  * @author: Alexander Wade

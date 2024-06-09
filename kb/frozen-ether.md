@@ -6,7 +6,7 @@ Nếu mã nguồn có các hàm `payable` nhưng không có hàm rút ETH thì s
 
 Ví dụ:
 
-```sol
+```solidity
 // source: https://github.com/crytic/slither/wiki/Detector-Documentation#contracts-that-lock-ether
 
 pragma solidity 0.4.24;

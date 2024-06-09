@@ -6,7 +6,7 @@ Xảy ra khi một smart contract kế thừa smart contract khác và cả hai 
 
 Ví dụ:
 
-```sol
+```solidity
 pragma solidity 0.4.24;
 
 contract Tokensale {
@@ -36,7 +36,7 @@ Trong ví dụ trên, giá trị trả về khi gọi hàm `fetchCap` từ smart
 
 Nếu muốn ghi đè biến trạng thái của smart contract được kế thừa, ta có thể gán giá trị mới cho nó ở trong hàm tạo của smart contract kế thừa. Ví dụ:
 
-```sol
+```solidity
 contract Presale is Tokensale {
   
   // uint hardcap = 1000 ether;

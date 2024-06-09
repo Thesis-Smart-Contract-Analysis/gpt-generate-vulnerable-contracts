@@ -8,7 +8,7 @@ Việc giả định rằng ETH chỉ đến từ các hàm `payable` và thực
 
 Ví dụ sau đây @self-destruct-ref là một trò chơi cho phép các người chơi đặt ETH vào smart contract thông qua hàm `deposit`. 
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
@@ -39,7 +39,7 @@ Có thể thấy, mỗi người chơi chỉ có thể đặt 1 ETH một lần 
 
 Kẻ tấn công có thể xây dựng một smart contract như sau:
 
-```sol
+```solidity
 contract Attacker {
   
   EtherGame etherGame;
@@ -64,7 +64,7 @@ Còn một cách khác để ép smart contract nhận ETH mà không thông qua
 
 Công thức dùng để tính toán địa chỉ của smart contract:
 
-```sol
+```solidity
 keccak256(rlp.encode([<account_address>, <transaction_nonce>]))
 ```
 
@@ -80,7 +80,7 @@ Không sử dụng giá trị `this.balance` làm điều kiện để thực th
 
 Ví dụ, đối với smart contract `EtherGame` trên, có thể dùng thêm biến `depositedEther` như sau:
 
-```sol
+```solidity
 contract EtherGame {
   
   uint256 public targetAmount = 7 ether;

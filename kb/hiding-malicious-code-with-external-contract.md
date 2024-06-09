@@ -6,7 +6,7 @@ Trong Solidity, bất kỳ địa chỉ nào cũng có thể được ép kiểu
 
 Trong ví dụ dưới, kẻ tấn công triển khai `Foo` ở trên chuỗi khối với đối số hàm tạo là địa chỉ của `Mal`. Trong hàm tạo, `Foo` ép kiểu đối số thành một thực thể của `Bar`.
 
-```sol
+```solidity
 // source: https://solidity-by-example.org/hacks/hiding-malicious-code-with-external-contract/
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
@@ -51,7 +51,7 @@ Có thể sử dụng những cách sau:
 
 Minh họa:
 
-```sol
+```solidity
 contract Foo {
   Bar public bar;
   // ...

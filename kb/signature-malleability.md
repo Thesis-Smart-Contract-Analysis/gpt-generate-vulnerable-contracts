@@ -33,7 +33,7 @@ Các hệ thống chữ ký mật mã của Ethereum được hiện thực vớ
 
 Ví dụ bên dưới minh họa cho quá trình xác thực chữ ký trong Solidity:
 
-```sol
+```solidity
 // source: https://medium.com/draftkings-engineering/signature-malleability-7a804429b14a
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -76,7 +76,7 @@ Các dòng mã hợp ngữ trong hàm `recoverSigner` được dùng để tách
 
 Kẻ tấn công có thể xây dựng smart contract như sau:
 
-```sol
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
