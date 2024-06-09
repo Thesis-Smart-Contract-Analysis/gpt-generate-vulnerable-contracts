@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9Xlsp50SgwrxSdaVsYVE6u1ztn7tV",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\npragma solidity ^0.5.0;\n\ncontract MaliciousToken {\n    string public name;\n\n    constructor(string memory _name) public {\n        name = _name;\n    }\n\n    function setName(string memory _name) public {\n        name = _name;\n    }\n}\n```\n\nDescription of the vulnerability in the above smart contract:\n\nThe vulnerability in the smart contract lies in the `setName` function where an attacker can exploit the Right-To-Left Override Control Character vulnerability by inserting the U+202E character to manipulate the display order of characters in the `_name` parameter. This can lead to misleading or obfuscated information being displayed to users, potentially causing confusion or deception.\n\n# Remediations\n\n- Implement input validation: Before setting the `name` variable, validate the input string to ensure it does not contain any control characters, including the Right-To-Left Override Control Character (U+202E). Reject any input that contains such characters.\n- Sanitize user input: Use a function to sanitize user input by removing or replacing any potentially harmful characters, including control characters like U+202E, before assigning the input to the `name` variable. This helps prevent unexpected behavior due to maliciously crafted input.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717835915,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 252,
+    "prompt_tokens": 775,
+    "total_tokens": 1027
+  },
+  "vuln_id": "right-to-left-override-control-unicode",
+  "kb": "# Right-To-Left Override Control Character\n\n## Mô tả\n\nKẻ xấu có thể sử dụng ký tự ghi đè phải sang trái (right-to-left override) có điểm mã (code point) là U+202E để thay đổi chiều hiển thị của các ký tự. \n\nKý tự này thường được dùng để che giấu phần mở rộng thực sự của tập tin nhằm đánh lừa người dùng. Ví dụ, khi sử dụng nó trong chuỗi `my-text.'U+202E'cod.exe` thì giá trị được hiển thị sẽ là `my-text.exe.doc` @u202e.\n\nỞ trong mã nguồn, ký tự U+202E có thể được sử dụng để thay đổi thứ tự của các đối số:\n\n```sol\n/*\n * @source: https://youtu.be/P_Mtd5Fc_3E\n * @author: Shahar Zini\n */\npragma solidity ^0.5.0;\n\ncontract GuessTheNumber {\n  \n  // ...\n  \n  function guess(uint n) payable public {\n    require(msg.value == 1 ether);\n\n    uint p = address(this).balance;\n    checkAndTransferPrize(/*The prize‮/*rebmun desseug*/n , p/*‭\n            /*The user who should benefit */,msg.sender);\n  }\n  \n  // ...\n}\n```\n\nTrong ví dụ trên, thoạt nhìn thì có vẻ như biến `p` là đối số đầu tiên còn biến `n` là đối số thứ hai của hàm `checkAndTransferPrize`. Tuy nhiên, do tác dụng của ký tự U+202E, thứ tự thực sự của hai đối số này đã bị đảo ngược\n\nThứ tự gốc của chúng là:\n\n#figure(\n  image(\"/ethereum/imgs/Right-To-Left-Override.png\"),\n  caption: [Sử dụng ký tự U+202E để thay đổi thứ tự hiển thị của các đối số],\n)\n\nVới U+202D là ký tự ghi đè trái sang phải, được dùng để khôi phục chiều hiển thị.\n\n## Cách khắc phục\n\nCần loại bỏ ký tự ghi đè phải sang trái trong mã nguồn.\n"
+}

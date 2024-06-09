@@ -40,6 +40,11 @@
         "description": "Các biến cục bộ có vị trí dữ liệu (data location) là `storage` bên trong hàm nếu không được khởi tạo có thể trỏ đến các biến trạng thái có vị trí dữ liệu là `storage` trong smart contract. Điều này có thể dẫn đến việc giá trị của các biến trạng thái bị sửa đổi thông qua các biến cục bộ."
     },
     {
+        "id": "assert-and-require-violation",
+        "name": "Assert and Require Violation",
+        "description": "Solidity sử dụng các ngoại lệ hoàn trả trạng thái (state-reverting exception) để xử lý lỗi. Cụ thể, các ngoại lệ này sẽ hủy bỏ các sự thay đổi trên các biến trạng thái. Khi ngoại lệ xảy ra trong một lời gọi hàm đến smart contract khác, nó sẽ được lan truyền đến smart contract hiện tại trừ khi được xử lý bởi câu lệnh `try/catch`.\nCác ngoại lệ chứa một thực thể thuộc kiểu `error`. Có hai loại thực thể `error` có sẵn là `Panic(uint256)` và `Error(string)`.\n`Panic(uint256)` được gây ra bởi hàm `assert`. Hàm này chỉ nên được sử dụng để kiểm tra các lỗi bên trong (internal error) và các giá trị bất biến (invariant). Nếu có ngoại lệ xảy ra, `assert` sẽ tiêu thụ hết lượng gas còn lại.\n`Error(string)` được gây ra bởi hàm `require`. Hàm này được sử dụng để kiểm tra dữ liệu đầu vào và giá trị trả về của lời gọi hàm đến các smart contract khác. Nếu có ngoại lệ xảy ra, `require` sẽ hoàn trả lại lượng gas còn lại.\nCác hàm hoạt động đúng không nên gây ra `Panic(uint256)`, kể cả khi dữ liệu đầu vào không đúng. Nếu điều này xảy ra thì đồng nghĩa với việc dùng `assert` sai mục đích hoặc smart contract tồn tại lỗi cần phải sửa chữa.\nĐối với `require`, nếu hàm này luôn hoàn trả giao dịch và lượng gas còn lại thì đó có thể là dấu hiệu của việc:\n- Tồn tại lỗi trong smart contract cần phải sửa chữa.\n- Biểu thức luận lý truyền vào hàm `require` khó thỏa mãn."
+    },
+    {
         "id": "use-of-deprecated-solidity-functions",
         "name": "Use of Deprecated Solidity Functions",
         "description": "Với các phiên bản mới của trình biên dịch, việc sử dụng các định danh (identifier) cũ đã bị loại bỏ có thể dẫn đến các lỗi biên dịch hoặc các hành vi không mong muốn."

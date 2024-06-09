@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9Xlti5vnlKTMnECQVWfzmEzZg8RYi",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract\n\n```solidity\npragma solidity ^0.5.0;\n\nimport \"openzeppelin-eth/contracts/token/ERC20/ERC20Burnable.sol\";\nimport \"openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol\";\nimport \"zos-lib/contracts/Initializable.sol\";\n\ncontract BurnableToken is Initializable, ERC20Burnable, ERC20Detailed {\n\n  function initialize(\n    string memory name,\n    string memory symbol,\n    uint8 decimals,\n    uint256 initialSupply\n  ) \n    public \n    initializer\n  {\n    super.initialize(name, symbol, decimals);\n    _mint(msg.sender, initialSupply);\n  }\n\n  // Vulnerability: Function Selector Clashing vulnerability present in the following function\n  function collate_propagate_storage(bytes16) external {\n    implementation.delegatecall(abi.encodeWithSignature(\n        \"transfer(address,uint256)\", proxyOwner, 1000\n    ));\n  }\n  \n}\n```\n\nDescription of the vulnerability: The `collate_propagate_storage` function in the `BurnableToken` contract contains the Function Selector Clashing vulnerability. The function's 4-byte function selector hash clashes with another function's selector hash, potentially leading to unintended function execution.\n\n# Remediations\n\n- Implement unique function signatures: Ensure that each function in a contract has a unique function signature to prevent clashes with other function selectors. This can be achieved by carefully designing function names and parameters to avoid collisions.\n- Use function modifiers: Utilize function modifiers to add additional checks or conditions before executing critical functions, reducing the risk of unauthorized or unintended function calls.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717835970,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 329,
+    "prompt_tokens": 1116,
+    "total_tokens": 1445
+  },
+  "vuln_id": "function-selector-clashing",
+  "kb": "# Function Selector Clashing\n\n## Mô tả\n\nEVM sẽ dựa vào 4 byte đầu tiên trong dữ liệu của một giao dịch gọi hàm để thực thi hàm tương ứng. Tuy nhiên, 4 byte này dễ bị đụng độ giá trị băm và có thể dẫn đến việc smart contract thực thi một hàm nào đó mà người dùng không mong muốn.\n\nXét proxy contract ở @proxy-pattern[phụ lục] với logic contract có dạng như sau @a2019_beware-of-the-proxy-learn-how-to-exploit-function-clashing:\n\n```sol\npragma solidity ^0.5.0;\n\nimport \"openzeppelin-eth/contracts/token/ERC20/ERC20Burnable.sol\";\nimport \"openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol\";\nimport \"zos-lib/contracts/Initializable.sol\";\n\ncontract BurnableToken is Initializable, ERC20Burnable, ERC20Detailed {\n\n  function initialize(\n    string memory name,\n    string memory symbol,\n    uint8 decimals,\n    uint256 initialSupply\n  ) \n    public \n    initializer\n  {\n    super.initialize(name, symbol, decimals);\n    _mint(msg.sender, initialSupply);\n  }\n  \n}\n```\n\nSmart contract `ERC20Burnable` @openzeppelin-contracts-token-erc20-extensions-erc20-burnable.sol có hàm `burn` như sau:\n\n```sol\nimport {ERC20} from \"../ERC20.sol\";\nimport {Context} from \"../../../utils/Context.sol\";\n\nabstract contract ERC20Burnable is Context, ERC20 {\n\n    // ...\n    function burn(uint256 value) public virtual {\n      _burn(_msgSender(), value);\n    }\n    // ...\n    \n}\n```\n\nKẻ tấn công có thể thiết lập một hàm backdoor giúp rút ETH của người dùng ở trong proxy contract như sau @a2019_beware-of-the-proxy-learn-how-to-exploit-function-clashing:\n\n```sol\npragma solidity ^0.5.0;\n\ncontract Proxy {\n\n  address public proxyOwner;\n  address public implementation;\n\n  // ...\n  function collate_propagate_storage(bytes16) external {\n    implementation.delegatecall(abi.encodeWithSignature(\n        \"transfer(address,uint256)\", proxyOwner, 1000\n    ));\n  }\n    \n}\n```\n\nGiả sử có một người dùng sử dụng smart contract `Proxy` của kẻ tấn công để gọi hàm `burn` của `ERC20Burnable`. Khi người dùng gọi hàm `burn`, 4 byte đầu tiên trong giao dịch gọi hàm `burn` sẽ là `0x42966c68`. Tuy nhiên, 4 byte đầu tiên trong giá trị băm của hàm `collate_propagate_storage` cũng là `0x42966c68`. \n\nTheo nguyên tắc, EVM sẽ thực thi hàm có giá trị băm của signature khớp với 4 byte này ở trong proxy contract. Dẫn đến, hàm `collate_propagate_storage` sẽ được thực thi thay vì hàm fallback.\n\n## Cách khắc phục\n\nĐiều kiện của lỗ hổng là phải có sự tồn tại của proxy contract bởi vì trình biên dịch sẽ phát hiện ra hai hàm trong cùng một smart contract có 4 byte đầu trong giá trị băm trùng nhau.\n\nNgoài ra, có thể sử dụng một số công cụ phân tích chẳng hạn như Slither @slither-upgradeability để phát hiện lỗ hổng này.\n\nNgười dùng cũng nên xem xét mã nguồn của proxy contract một cách cẩn thận trước khi sử dụng.\n"
+}

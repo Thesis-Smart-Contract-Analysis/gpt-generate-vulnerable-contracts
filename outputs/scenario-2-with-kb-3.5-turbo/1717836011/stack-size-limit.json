@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-9Xltf7p5pB492Z0oQAzkq5td7ZDcd",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "# Smart contract with Stack Size Limit vulnerability\n\n```solidity\npragma solidity ^0.8.0;\n\ncontract StackSizeVulnerable {\n    uint public counter = 0;\n\n    function increaseCounter() public {\n        if (counter < 10) {\n            counter++;\n            this.increaseCounter(); // Vulnerable line\n        }\n    }\n}\n```\n\nDescription of the vulnerability in the above smart contract:\nThe vulnerability lies in the recursive function `increaseCounter` that calls itself without any termination condition based on the call stack depth. This can lead to a stack overflow issue when the function is recursively called multiple times, exceeding the call stack limit.\n\n# Remediations\n\n- **Remediation 1:** Implement a termination condition in the recursive function to prevent excessive call stack depth. For example, limit the number of recursive calls or introduce a condition to exit the recursion based on a specific criteria.\n\n- **Remediation 2:** Refactor the logic to avoid recursive calls altogether. Consider using iterative approaches or breaking down the logic into smaller functions that do not rely on recursive calls to achieve the desired outcome.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null
+      }
+    }
+  ],
+  "created": 1717835967,
+  "model": "gpt-3.5-turbo-0125",
+  "object": "chat.completion",
+  "system_fingerprint": null,
+  "usage": {
+    "completion_tokens": 224,
+    "prompt_tokens": 1334,
+    "total_tokens": 1558
+  },
+  "vuln_id": "stack-size-limit",
+  "kb": "# Stack Size Limit\n\n## Mô tả\n\nMỗi lần smart contract gọi thực thi hàm của  smart contract khác (hoặc gọi đến chính nó thông qua `this.f()`), call stack tương ứng với giao dịch sẽ tăng lên một frame @atzei_2017_a. Giới hạn của call stack cho mỗi giao dịch là 1024 @solidity-1024-call-stack-depth. Khi chạm đến giới hạn này, tất cả các lời gọi hàm đến bên ngoài smart contract (hoặc `this.f()`) đều gây ra ngoại lệ.\n\nKẻ tấn công có thể khai thác tính chất này để tạo ra một giao dịch có call stack gần đầy trước khi gọi hàm trong smart contract để gây ra ngoại lệ. Nếu ngoại lệ không được xử lý thì smart contract có thể rơi vào trạng thái từ chối dịch vụ.\n\nVí dụ, xét smart contract sau:\n\n```sol\ncontract Government {\n\n  // ...\n  function lendGovernmentMoney() returns (bool) {\n    uint amount = msg.value;\n    if (lastTimeOfNewCredit + ONE_MINUTE < block.timestamp) {\n      // Return money to sender\n      msg.sender.send(amount);\n      // Sends all contract money to the last creditor\n      creditorAddresses[creditorAddresses.length - 1].send(profitFromCrash);\n      corruptElite.send(this.balance);\n      // Reset contract state\n      lastTimeOfNewCredit = block.timestamp;\n      profitFromCrash = 0;\n      creditorAddresses = new address[](0);\n      creditorAmounts = new uint[](0);\n      round += 1;\n      return false;\n    }\n    // ...\n  }\n  // ...\n  \n}\n```\n\nKẻ tấn công có thể là chủ sở hữu smart contract và ý định của người này là không chuyển ETH cho người chiến thắng. Để khai thác lỗ hổng, kẻ tấn công xây dựng một smart contract như sau:\n\n```sol\ncontract Attacker {\n  \n  function attack(address target, uint count) {\n    if (0 <= count && count < 1023) {\n      this.attack.gas(msg.gas - 2000)(target, count + 1);\n    } else {\n      Governmental(target).lendGovernmentMoney();\n    }\n  }\n  \n}\n```\n\nCó thể thấy, hàm `attack` của `Attacker` tự gọi đến chính nó 1022 lần. Sau đó, nó gọi đến hàm `lendGovernmentMoney` của `Governmental`. Độ sâu của call stack lúc này là 1023.\n\nKhi `lendGovernmentMoney` gọi hàm `send` lần đầu tiên (`msg.sender.send(amount)`), call stack sẽ có độ sâu là 1024. Điều này sẽ gây ra ngoại lệ và khiến giao dịch bị hoàn trả.\n\n## Cách khắc phục\n\nSau khi có EIP-150 @eip-150, smart contract gọi hàm chỉ cung cấp 63/64 lượng gas còn lại cho smart contract khác. \n\nCụ thể, lượng gas R được giữ lại ở smart contract gọi hàm sẽ là @eip-150-and-the-63-64-rule-for-gas:\n\n$\nR = A - 63/64 * A\n$\n\nVới $A$ là lượng gas khả dụng tối đa ở độ sâu $N$ của call stack (không tính lượng gas tiêu thụ bởi những thao tác khác trong hàm). Giá trị này được tính như sau:\n\n$\nA = I * (63/64)^N\n$\n\nVới I là lượng gas ban đầu (tại độ sâu 0 của call stack).\n\nVí dụ, gas ban đầu là 3000 thì:\n- Độ sâu $N = 10$ sẽ có $3000 * (63/64)^{10} = 2562$ gas khả dụng.\n- Độ sâu $N = 20$ sẽ có $3000 * (63/64)^{20} = 2189$ gas khả dụng.\n\n\n\n#figure(image(\"imgs/Gas available graph.png\"), caption: [Minh họa tỷ lệ gas khả dụng theo độ sâu của ngăn xếp])\n\nCó thể thấy, lượng gas khả dụng giảm rất nhanh xuống 0 và giúp tránh được việc call stack bị tràn.\n"
+}

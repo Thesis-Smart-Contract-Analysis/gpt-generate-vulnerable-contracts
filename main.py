@@ -16,7 +16,7 @@ def answer(query):
                 {"role": "system", "content": persona},
                 {"role": "user", "content": query},
             ],
-            model="gpt-3.5-turbo",
+            model=MODEL,
             temperature=0,
         )
         return response
@@ -76,7 +76,6 @@ def write_to_file(dir_prefix, responses):
         # Build file path
         file_path = f"{severity_directory}/{smart_contract}"
 
-        try:
             # Write json
             with codecs.open(f"{file_path}.json", "w", encoding="utf-8") as f:
                 json.dump(res, f, ensure_ascii=False, indent=2)
