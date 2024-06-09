@@ -1,9 +1,10 @@
 import os, time, random, json, codecs
 from openai import OpenAI
 
-client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN")
+client = OpenAI(api_key="sk-proj-0E2m3CHZ3VFJNrWzveQiT3BlbkFJi5VMPBOf1SHlkgfSDD5T")
 
-DIR_PREFIX = "vuln-founds"
+# DIR_PREFIX = "vuln-founds"
+DIR_PREFIX = "vuln-founds-gpt-4-turbo"
 DIR_SMART_CONTRACTS = "smart-contracts"
 SEVERITIES = ['High', 'Medium', 'Low', 'Informational']
 
@@ -16,7 +17,7 @@ def answer(query):
                 {"role": "system", "content": persona},
                 {"role": "user", "content": query},
             ],
-            model=MODEL,
+            model="gpt-4-turbo",
             temperature=0,
         )
         return response
@@ -76,6 +77,7 @@ def write_to_file(dir_prefix, responses):
         # Build file path
         file_path = f"{severity_directory}/{smart_contract}"
 
+        try:
             # Write json
             with codecs.open(f"{file_path}.json", "w", encoding="utf-8") as f:
                 json.dump(res, f, ensure_ascii=False, indent=2)
@@ -93,15 +95,16 @@ if __name__ == "__main__":
     smart_contracts = os.listdir(DIR_SMART_CONTRACTS)
 
     for smart_contract in smart_contracts:
-        with open(f"{DIR_SMART_CONTRACTS}/{smart_contract}", "r", encoding="UTF-8") as f:
-            # Read smart contract source code
-            source_code = f.read()
-            
-            print(f"Processing {smart_contract} ...")
+        if(smart_contract != 'relayer.sol') :
+            with open(f"{DIR_SMART_CONTRACTS}/{smart_contract}", "r", encoding="UTF-8") as f:
+                # Read smart contract source code
+                source_code = f.read()
+                
+                print(f"Processing {smart_contract} ...")
 
-            # Query on smart contract
-            file_name = smart_contract.split(".")[0]
-            responses = query_smart_contract(source_code, file_name)
+                # Query on smart contract
+                file_name = smart_contract.split(".")[0]
+                responses = query_smart_contract(source_code, file_name)
 
-            # Write query result to file
-            write_to_file(DIR_PREFIX, responses)
+                # Write query result to file
+                write_to_file(DIR_PREFIX, responses)
