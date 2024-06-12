@@ -3,9 +3,16 @@
 Kế hoạch thực hiện:
 - Chuyển lỗ hổng thành file markdown
 - Gom tất cả các lỗ hổng vào 1 context (KB)
-- Lần lượt lặp qua tên của các lỗ hổng (theo thứ tự ngẫu nhiên) và query. Nhớ cho câu query vào output json
+- Lần lượt lặp qua tên của các lỗ hổng và truy vấn
 - Các giai đoạn thực hiện:
-    1. 10 lỗ hổng - 10 lần (có những lần hỏi những lỗ hổng ngoài KB) => đánh giá xem có thể biết được pattern lỗ hổng của Solidity hay không
-    2. 20 lỗ hổng - 10 lần (tiêu chí và đánh giá tương tự)
-    3. all - 10 lần
-- Không dùng KB và lặp lại giai đoạn 1 và 3 (đánh giá độ chính xác bằng tay) => so sánh được hiệu quả của KB
+    1. Dùng KB: mỗi lỗ hổng sẽ có context là kb của chính nó (không gom lại nữa)
+    2. Không dùng KB:
+        1. 4.0 turbo
+        2. 3.5 turbo
+
+Các tiêu chí đánh giá:
+- Tính chính xác của nội dung
+    - Code
+    - Mô tả
+    - Cách khắc phục
+- Tool nào phát hiện được
