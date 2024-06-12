@@ -1,14 +1,18 @@
 import os, time, random, json, codecs
 from openai import OpenAI
 
-client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN")
+client = OpenAI(api_key="sk-proj-0E2m3CHZ3VFJNrWzveQiT3BlbkFJi5VMPBOf1SHlkgfSDD5T")
 
 WITH_KB = True
-DIR_PREFIX = "scenario-2-with-kb-3.5-turbo"
-MODEL = "gpt-3.5-turbo"
+DIR_PREFIX = "scenario-2-with-kb"
+MODEL = "gpt-4-turbo"
 
-SINGLE_VULN = False
-VULN_ID = "assert-and-require-violation"
+SINGLE_VULN = True
+VULN_ID = "typographical-error"
+
+WITH_COMBINATION_KB = True
+COMBINATION_KB_PATH = "kb/combination-kb.md"
+COMBINATION_KB = ""
 
 
 def load_vulns() -> dict:
@@ -24,6 +28,12 @@ def load_kb(vulns: list):
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
             vuln["kb"] = content
+
+
+def load_combination_kb():
+    global COMBINATION_KB
+    with open(COMBINATION_KB_PATH, "r", encoding="utf-8") as f:
+        COMBINATION_KB = f.read()
 
 
 def answer(query):
@@ -79,7 +89,10 @@ def query_vuln(vuln: dict) -> dict:
         vuln["kb"] if "kb" in vuln else None,
     )
 
-    print(f"Processing '{name}'...")
+    if WITH_COMBINATION_KB:
+        kb = COMBINATION_KB
+
+    print(f"Request '{name}'...")
     query = build_query(name, description, kb)
 
     res = send_query(query, id, kb)
@@ -97,7 +110,7 @@ def build_query(name: str, description: str, kb: str) -> str:
 
 
 def build_query_with_kb(name, kb) -> str:
-    PROMPT_PATH = "prompt.md"
+    PROMPT_PATH = "prompts/prompt.md"
     prompt, query = "", ""
 
     with open(PROMPT_PATH, "r", encoding="utf-8") as f:
@@ -108,7 +121,7 @@ def build_query_with_kb(name, kb) -> str:
 
 
 def build_query_without_kb(name, description) -> str:
-    PROMPT_PATH = "prompt_without_kb.md"
+    PROMPT_PATH = "prompts/prompt_without_kb.md"
     prompt, query = "", ""
 
     with open(PROMPT_PATH, "r", encoding="utf-8") as f:
@@ -124,10 +137,7 @@ def send_query(query: str, id: str, kb: str) -> dict:
     res = answer(query)
     res = json.loads(res.model_dump_json())
     res["vuln_id"] = id
-    if kb is None:
-        res["query"] = query
-    else:
-        res["kb"] = kb
+    res["query"] = query
     return res
 
 
@@ -156,7 +166,10 @@ def write_to_file(dir_prefix: str, responses: list):
 
 if __name__ == "__main__":
     vulns = load_vulns()
-    load_kb(vulns)
+    if WITH_KB:
+        load_kb(vulns)
+    if WITH_COMBINATION_KB:
+        load_combination_kb()
 
     if SINGLE_VULN:
         for vuln in vulns:

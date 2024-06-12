@@ -1,35 +1,18 @@
 import json, random, time, os
 from openai import OpenAI, AssistantEventHandler
 from typing_extensions import override
-from main import load_vulns
+from main import load_vulns, build_combination_kb
 
 DIR_PREFIX = "scenario-2-with-assistant"
 
 client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN")
 
 
-def build_kb(vulns: list, limit: int):
-    kb = ""
-    count = 0
-    for vuln in vulns:
-        if count == limit:
-            break
-        count += 1
-
-        vuln_id = vuln["id"]
-        file_path = f"kb/{vuln_id}.md"
-        with open(file_path, "r", encoding="utf-8") as f:
-            content = f.read()
-            kb += content
-
-    return kb
-
-
 def build_instructions(vulns: list):
-    PROMPT_PATH = "assistant_instructions.md"
+    PROMPT_PATH = "prompts/assistant_instructions.md"
     prompt, instructions = "", ""
 
-    kb = build_kb(vulns, len(vulns))
+    kb = build_combination_kb(vulns, len(vulns))
     with open(PROMPT_PATH, "r", encoding="utf-8") as f:
         prompt = f.read()
         instructions = prompt.replace("{{kb}}", kb)
