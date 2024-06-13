@@ -1,0 +1,442 @@
+[
+    {
+        "no": 1,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/access-control-management.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 2,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/arbitrary-jump-with-function-type-variable.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Code và description sao chép từ KB."
+    },
+    {
+        "no": 3,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/assert-and-require-violation.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 4,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/authorization-through-tx.origin.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Code và mô tả đề cập đến việc gán `tx.origin` là owner của smart contract. Mặc dù việc gán như vậy đồng nghĩa với việc sử dụng nó để xác thực."
+    },
+    {
+        "no": 5,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/built-in-symbol-shadowing.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 6,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/call-to-the-unknown.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Code và description lấy từ KB. Cách khắc phục 1 hơi mơ hồ."
+    },
+    {
+        "no": 7,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/delegatecall-to-untrusted-callee.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Đoạn code không có hàm nào có thể thay đổi địa chỉ của smart contract gọi đến theo như mô tả đã đề cập. Điều này khiến cho smart contract không thực sự có lỗ hổng do việc sử dụng `delegatecall` với địa chỉ `trustedCallee` là an toàn nếu như người dùng có review mã nguồn của `trustedCallee`."
+    },
+    {
+        "no": 8,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/denial-of-service-with-block-gas-limit.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Cách khắc phục 1: hàm `addData` chỉ cho phép thêm 1 phần tử nên không cần phải thêm cơ chế để giới hạn số phần tử được phép thêm vào mảng."
+    },
+    {
+        "no": 9,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/denial-of-service-with-failed-call.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 10,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/double-constructor.md",
+        "validity": {
+            "code": "✅",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Mô tả đề cập đến việc thứ tự thực thi các hàm tạo sẽ không được đảm bảo. Tuy nhiên, chỉ có một hàm tạo sẽ được thực thi."
+    },
+    {
+        "no": 11,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/ether-lost-in-transfer.md",
+        "validity": {
+            "code": "✅",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Mô tả: việc kiểm tra địa chỉ là smart contract hay EOA không đảm bảo được rằng nó là địa chỉ có tồn tại. Ngoài ra, nếu smart contract nhận ETH không có hàm payable thì ETH sẽ được hoàn trả chứ không bị mất."
+    },
+    {
+        "no": 12,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/floating-compiler-version.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB."
+    },
+    {
+        "no": 13,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/frozen-ether.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 14,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/function-or-state-variable-default-visibility.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB."
+    },
+    {
+        "no": 15,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/function-selector-clashing.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "🌗"
+        },
+        "note": "Code và mô tả không sử dụng proxy contract, vốn là điều kiện cần để lỗ hổng xảy ra. Cách khắc phục 2 không giải quyết được lỗ hổng."
+    },
+    {
+        "no": 16,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/hash-collisons-with-multiple-variable-length-arguments.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Code và description sao chép từ KB."
+    },
+    {
+        "no": 17,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/hiding-malicious-code-with-external-contract.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB."
+    },
+    {
+        "no": 18,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/identity-verification.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Code và description sao chép từ KB."
+    },
+    {
+        "no": 19,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/immutable-bugs.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Code và mô tả bị thiên kiến và chung chung."
+    },
+    {
+        "no": 20,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/incorrect-constructor-name.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB."
+    },
+    {
+        "no": 21,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/incorrect-inheritance-order.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "❌"
+        },
+        "note": "Code và description không chứa lỗ hổng bảo mật do không đề cập đến việc thứ tự kế thừa ảnh hưởng ra sao đến luồng thực thi. Cách khắc phục cũng dựa vào lỗ hổng sai mà code đưa ra."
+    },
+    {
+        "no": 22,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/insufficient-gas-griefing.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB và thiếu cách khắc phục liên quan đến việc giới hạn danh sách các địa chỉ tin cậy có thể thực hiện chuyển tiếp hàm."
+    },
+    {
+        "no": 23,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/integer-overflow-underflow.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB."
+    },
+    {
+        "no": 24,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/lack-of-proper-signature-verification.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Hàm được đánh dấu là có lỗ hổng không có đối số là chữ ký số."
+    },
+    {
+        "no": 25,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/message-call-with-hardcoded-gas-amount.md",
+        "validity": {
+            "code": "🌗",
+            "description": "❌",
+            "remediations": "🌗"
+        },
+        "note": "Việc gán cứng gas không dẫn đến lỗ hổng re-entrancy. Code và remediations sao chép từ KB. Không có cảnh báo khi dùng `call` như trong KB."
+    },
+    {
+        "no": 26,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/missing-protection-against-signature-replay-attacks.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Code sao chép từ KB. Mô tả chung chung."
+    },
+    {
+        "no": 27,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/outdated-compiler-version.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 28,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/re-entrancy.md",
+        "validity": {
+            "code": "🌗",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Code sao chép từ KB. Cách khắc phục 1: comment không khớp với code."
+    },
+    {
+        "no": 29,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/right-to-left-override-control-unicode.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "❌"
+        },
+        "note": ""
+    },
+    {
+        "no": 30,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/shadowing-state-variables.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 31,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/short-address.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Code và description sao chép từ KB. Cách khắc phục 2 đề cập đến modifier `onlyPayloadSize` nhưng không giải thích nó là gì."
+    },
+    {
+        "no": 32,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/signature-malleability.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Code và description sao chép từ KB. Tuy nhiên, việc sao chép này là không chính xác do smart contract được nhắc đến là một smart contract dùng để tấn công."
+    },
+    {
+        "no": 33,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/stack-size-limit.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Nếu chỉ gọi hàm `increaseCounter` mà không nạp sẵn một call stack gần đầy, code không thể gây ra tràn stack do có câu lệnh `if`. Ngoài ra, lỗ hổng stack-size-limit liên quan đến ngoại lệ out-of-gas hơn là stack overflow như trong mô tả đã đề cập."
+    },
+    {
+        "no": 34,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/timestamp-dependency.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB."
+    },
+    {
+        "no": 35,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/transaction-ordering-dependency.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "🌗"
+        },
+        "note": "Smart contract không có lỗ hổng theo như description bởi vì attacker không thể giả mạo giá trị `msg.sender` để rút hết ETH từ nạn nhân. Cách khắc phục 2 dùng để chống re-entrancy nên không liên quan."
+    },
+    {
+        "no": 36,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/typographical-error.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 37,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/unchecked-return-value.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "🌗"
+        },
+        "note": "Cách khắc phục 2 giống cách khắc phục 1."
+    },
+    {
+        "no": 38,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/unencrypted-private-data-on-chain.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "❌"
+        },
+        "note": "Sao chép từ KB. Cách khắc phục 2: không thể giải mã dữ liệu ở trên smart contract."
+    },
+    {
+        "no": 39,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/unexpected-balance.md",
+        "validity": {
+            "code": "🌗",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Description: việc dùng `this.balance` để kiểm tra số dư không giúp attacker có thể gửi ETH đến smart contract một cách không đoán trước."
+    },
+    {
+        "no": 40,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/uninitialized-storage-pointer.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB."
+    },
+    {
+        "no": 41,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/untrustworthy-data-feeds.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "🌗"
+        },
+        "note": "Code và description: đề cập đến access control chứ không liên quan đến việc sử dụng dữ liệu bên ngoài. Cách khắc phục 2 cũng tương tự."
+    },
+    {
+        "no": 42,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/use-of-deprecated-solidity-functions.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB."
+    },
+    {
+        "no": 43,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/weak-sources-of-randomness-from-chain-attributes.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Sao chép từ KB."
+    },
+    {
+        "no": 44,
+        "path": "outputs/scenario-2-with-kb-3.5-turbo/1717836011/write-to-arbitrary-storage-location.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Code và mô tả bị thiên kiến. Không có cách khắc phục trong KB."
+    }
+]

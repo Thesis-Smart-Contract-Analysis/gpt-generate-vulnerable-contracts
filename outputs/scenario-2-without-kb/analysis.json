@@ -1,0 +1,442 @@
+[
+    {
+        "no": 1,
+        "path": "outputs/scenario-2-without-kb/1717498184/access-control-management.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 2,
+        "path": "outputs/scenario-2-without-kb/1717498184/arbitrary-jump-with-function-type-variable.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Code không đúng cú pháp."
+    },
+    {
+        "no": 3,
+        "path": "outputs/scenario-2-without-kb/1717834317/assert-and-require-violation.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Response cho rằng việc require bị vi phạm là hợp lý và chỉ là vấn đề nếu giao diện hoặc các contract phụ thuộc không xử lý."
+    },
+    {
+        "no": 4,
+        "path": "outputs/scenario-2-without-kb/1717498184/authorization-through-tx.origin.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 5,
+        "path": "outputs/scenario-2-without-kb/1717498184/built-in-symbol-shadowing.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "`gas` không phải là một built-in symbol."
+    },
+    {
+        "no": 6,
+        "path": "outputs/scenario-2-without-kb/1717498184/call-to-the-unknown.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 7,
+        "path": "outputs/scenario-2-without-kb/1717498184/delegatecall-to-untrusted-callee.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 8,
+        "path": "outputs/scenario-2-without-kb/1717498184/denial-of-service-with-block-gas-limit.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Giống denial-of-service-with-failed-call hơn."
+    },
+    {
+        "no": 9,
+        "path": "outputs/scenario-2-without-kb/1717498184/denial-of-service-with-failed-call.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 10,
+        "path": "outputs/scenario-2-without-kb/1717498184/double-constructor.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 11,
+        "path": "outputs/scenario-2-without-kb/1717498184/ether-lost-in-transfer.md",
+        "validity": {
+            "code": "✅",
+            "description": "❌",
+            "remediations": "🌗"
+        },
+        "note": "Mô tả: việc chuyển ETH đến smart contract không có hàm nhận ETH không khiến cho ETH bị mất. Cách khắc phục 1: việc kiểm tra địa chỉ có là smart contract hay không thông qua opcode `extcodesize` là không hợp lý do địa chỉ vẫn có thể là EOA và điều này còn có thể dẫn đến lỗ hổng identity-verification. Hơn thế nữa, cho dù địa chỉ là smart contract thì cũng không chắc nó có hàm nhận ETH."
+    },
+    {
+        "no": 12,
+        "path": "outputs/scenario-2-without-kb/1717498184/floating-compiler-version.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 13,
+        "path": "outputs/scenario-2-without-kb/1717498184/frozen-ether.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 14,
+        "path": "outputs/scenario-2-without-kb/1717498184/function-or-state-variable-default-visibility.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 15,
+        "path": "outputs/scenario-2-without-kb/1717498184/function-selector-clashing.md",
+        "validity": {
+            "code": "🌗",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Smart contract trong response vẫn chưa hẳn là proxy contract do nó không thực hiện gọi đến smart contract khác. Ngoài ra, chưa có cách khắc phục nào đề cập đến việc xem xét proxy contract một cách cẩn thận trước khi sử dụng."
+    },
+    {
+        "no": 16,
+        "path": "outputs/scenario-2-without-kb/1717498184/hash-collisons-with-multiple-variable-length-arguments.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 17,
+        "path": "outputs/scenario-2-without-kb/1717498184/hiding-malicious-code-with-external-contract.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 18,
+        "path": "outputs/scenario-2-without-kb/1717498184/identity-verification.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 19,
+        "path": "outputs/scenario-2-without-kb/1717498184/immutable-bugs.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 20,
+        "path": "outputs/scenario-2-without-kb/1717498184/incorrect-constructor-name.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Code không có lỗ hổng do phiên bản 0.4.21 thì constructor trùng tên với smart contract là hợp lệ."
+    },
+    {
+        "no": 21,
+        "path": "outputs/scenario-2-without-kb/1717498184/incorrect-inheritance-order.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "❌"
+        },
+        "note": "Code, description và remediations đều đề cập đến thứ tự kế thừa phải khớp với thứ tự."
+    },
+    {
+        "no": 22,
+        "path": "outputs/scenario-2-without-kb/1717498184/insufficient-gas-griefing.md",
+        "validity": {
+            "code": "✅",
+            "description": "❌",
+            "remediations": "🌗"
+        },
+        "note": "Mô tả: việc không khai báo giới hạn gas không dẫn đến lỗ hổng insufficient-gas-griefing. Cách khắc phục 1: khai báo giới hạn gas không ngăn chặn được lỗ hổng."
+    },
+    {
+        "no": 23,
+        "path": "outputs/scenario-2-without-kb/1717498184/integer-overflow-underflow.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 24,
+        "path": "outputs/scenario-2-without-kb/1717498184/lack-of-proper-signature-verification.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 25,
+        "path": "outputs/scenario-2-without-kb/1717498184/message-call-with-hardcoded-gas-amount.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Có cover cả lỗ hổng khác."
+    },
+    {
+        "no": 26,
+        "path": "outputs/scenario-2-without-kb/1717498184/missing-protection-against-signature-replay-attacks.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 27,
+        "path": "outputs/scenario-2-without-kb/1717498184/outdated-compiler-version.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Có cover cả lỗ hổng khác."
+    },
+    {
+        "no": 28,
+        "path": "outputs/scenario-2-without-kb/1717498184/re-entrancy.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Có cover cả lỗ hổng khác."
+    },
+    {
+        "no": 29,
+        "path": "outputs/scenario-2-without-kb/1717498184/right-to-left-override-control-unicode.md",
+        "validity": {
+            "code": "🌗",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Code: mặc dù có chứa ký tự U+202E nhưng nó không thật sự dẫn đến lỗ hổng do cú pháp thực sự bị sai."
+    },
+    {
+        "no": 30,
+        "path": "outputs/scenario-2-without-kb/1717498184/shadowing-state-variables.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 31,
+        "path": "outputs/scenario-2-without-kb/1717498184/short-address.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Cách khắc phục 1 không giải quyết được lỗ hổng: đối số có kiểu là địa chỉ luôn có kích thước là 20 bytes sau khi EVM parse từ dữ liệu giao dịch."
+    },
+    {
+        "no": 32,
+        "path": "outputs/scenario-2-without-kb/1717498184/signature-malleability.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 33,
+        "path": "outputs/scenario-2-without-kb/1717498184/stack-size-limit.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Code bị thiên kiến."
+    },
+    {
+        "no": 34,
+        "path": "outputs/scenario-2-without-kb/1717498184/timestamp-dependency.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Cách khắc phục 1: việc sử dụng `block.number` không hẳn giải quyết được lỗ hổng và response không đề cập đến điều này."
+    },
+    {
+        "no": 35,
+        "path": "outputs/scenario-2-without-kb/1717498184/transaction-ordering-dependency.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 36,
+        "path": "outputs/scenario-2-without-kb/1717498184/typographical-error.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 37,
+        "path": "outputs/scenario-2-without-kb/1717498184/unchecked-return-value.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 38,
+        "path": "outputs/scenario-2-without-kb/1717498184/unencrypted-private-data-on-chain.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Có cover cả lỗ hổng khác."
+    },
+    {
+        "no": 39,
+        "path": "outputs/scenario-2-without-kb/1717498184/unexpected-balance.md",
+        "validity": {
+            "code": "❌",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Việc sử dụng `this.balance` trong code không dẫn đến lỗ hổng."
+    },
+    {
+        "no": 40,
+        "path": "outputs/scenario-2-without-kb/1717498184/uninitialized-storage-pointer.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 41,
+        "path": "outputs/scenario-2-without-kb/1717498184/untrustworthy-data-feeds.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 42,
+        "path": "outputs/scenario-2-without-kb/1717498184/use-of-deprecated-solidity-functions.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "❌"
+        },
+        "note": "Response tập trung vào hàm `send()` và cho rằng nó là một hàm không còn được sử dụng. Điều này là sai."
+    },
+    {
+        "no": 43,
+        "path": "outputs/scenario-2-without-kb/1717498184/weak-sources-of-randomness-from-chain-attributes.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 44,
+        "path": "outputs/scenario-2-without-kb/1717498184/write-to-arbitrary-storage-location.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Code bị thiên kiến."
+    }
+]

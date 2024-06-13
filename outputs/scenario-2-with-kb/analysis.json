@@ -1,0 +1,442 @@
+[
+    {
+        "no": 1,
+        "path": "outputs/scenario-2-with-kb/1717496458/access-control-management.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Do code và description xác định lỗ hổng nằm ở việc dùng visibility cho biến trạng thái là `public` có thể sinh ra một public getter, đây vẫn là một lỗ hổng về quản lý quyền truy cập mặc dù không tuân thủ KB."
+    },
+    {
+        "no": 2,
+        "path": "outputs/scenario-2-with-kb/1717496458/arbitrary-jump-with-function-type-variable.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Code không sử dụng opcode `mstore` hoặc toán tử `:=` trong một assembly block nên không có cách nào để trỏ con trỏ hàm đến một vùng nhớ tùy ý."
+    },
+    {
+        "no": 3,
+        "path": "outputs/scenario-2-with-kb/1717834047/assert-and-require-violation.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Theo như response, câu lệnh require có thể bị bypass nếu balance bị underflow."
+    },
+    {
+        "no": 4,
+        "path": "outputs/scenario-2-with-kb/1717496458/authorization-through-tx.origin.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 5,
+        "path": "outputs/scenario-2-with-kb/1717496458/built-in-symbol-shadowing.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 6,
+        "path": "outputs/scenario-2-with-kb/1717496458/call-to-the-unknown.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Có cover lỗ hổng khác."
+    },
+    {
+        "no": 7,
+        "path": "outputs/scenario-2-with-kb/1717496458/delegatecall-to-untrusted-callee.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Code bị thiên kiến."
+    },
+    {
+        "no": 8,
+        "path": "outputs/scenario-2-with-kb/1717496458/denial-of-service-with-block-gas-limit.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Cách khắc phục 1 hợp lý mặc dù không có trong KB."
+    },
+    {
+        "no": 9,
+        "path": "outputs/scenario-2-with-kb/1717496458/denial-of-service-with-failed-call.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Cách khắc phục 1: không giải quyết được vấn đề. Cách khắc phục 3: sẽ gây ra lỗ hổng message-call-with-hardcoded-gas-amount."
+    },
+    {
+        "no": 10,
+        "path": "outputs/scenario-2-with-kb/1717496458/double-constructor.md",
+        "validity": {
+            "code": "✅",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Mô tả: không đề cập đến việc hàm tạo nào được khai báo trước thì sẽ được gọi trước. Cách khắc phục 2: không cần thiết."
+    },
+    {
+        "no": 11,
+        "path": "outputs/scenario-2-with-kb/1717496458/ether-lost-in-transfer.md",
+        "validity": {
+            "code": "✅",
+            "description": "❌",
+            "remediations": "🌗"
+        },
+        "note": "Mô tả: `transfer` không làm mất do có hoàn trả giao dịch. Cách khắc phục 1: việc kiểm tra địa chỉ có phải là smart contract hay không là bất hợp lý vì địa chỉ đó vẫn có thể là external owned account và việc này còn có thể dẫn đến lỗ hổng identity-verification."
+    },
+    {
+        "no": 12,
+        "path": "outputs/scenario-2-with-kb/1717496458/floating-compiler-version.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 13,
+        "path": "outputs/scenario-2-with-kb/1717496458/frozen-ether.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Cách khắc phục 2 và 3 còn cover luôn cả lỗ hổng về quyền truy cập."
+    },
+    {
+        "no": 14,
+        "path": "outputs/scenario-2-with-kb/1717496458/function-or-state-variable-default-visibility.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 15,
+        "path": "outputs/scenario-2-with-kb/1717496458/function-selector-clashing.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "🌗"
+        },
+        "note": "Code không hợp lý do nó là về function overloading thay vì function selector clashing. Mô tả cũng tương tự, dùng function overloading để dẫn đến function selector clashing. Cách khắc phục 2 không chính xác do function overloading không bao giờ gây ra đụng độ function selector."
+    },
+    {
+        "no": 16,
+        "path": "outputs/scenario-2-with-kb/1717496458/hash-collisons-with-multiple-variable-length-arguments.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Không có cách khắc phục nào đề cập đến việc dùng `abi.encodePacked` với đối số có kích thước cố định."
+    },
+    {
+        "no": 17,
+        "path": "outputs/scenario-2-with-kb/1717496458/hiding-malicious-code-with-external-contract.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "🌗"
+        },
+        "note": "Đoạn code và mô tả chưa đề cập rõ ràng cách che giấu mã độc (chẳng hạn thông qua việc ép kiểu như trong KB). Cách khắc phục chưa đề cập đến việc công khai địa chỉ của thực thể smart contract."
+    },
+    {
+        "no": 18,
+        "path": "outputs/scenario-2-with-kb/1717496458/identity-verification.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 19,
+        "path": "outputs/scenario-2-with-kb/1717496458/immutable-bugs.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Mặc dù không tổng quát nhưng vẫn đúng về việc không thể chỉnh sửa dữ liệu một khi đã triển khai lên blockchain."
+    },
+    {
+        "no": 20,
+        "path": "outputs/scenario-2-with-kb/1717496458/incorrect-constructor-name.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "✅"
+        },
+        "note": "Code và description chỉ đề cập đến việc dùng named constructor là dễ xảy ra lỗi chứ không chỉ ra một trường hợp có lỗi cụ thể."
+    },
+    {
+        "no": 21,
+        "path": "outputs/scenario-2-with-kb/1717496458/incorrect-inheritance-order.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 22,
+        "path": "outputs/scenario-2-with-kb/1717496458/insufficient-gas-griefing.md",
+        "validity": {
+            "code": "🌗",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Về bản chất, đoạn code trong response có chứa lỗ hổng message-call-with-hardcoded-gas-amount do gán cứng gas chứ không liên quan đến việc không kiểm tra lượng gas được cung cấp bởi attacker trước khi thực hiện external call."
+    },
+    {
+        "no": 23,
+        "path": "outputs/scenario-2-with-kb/1717496458/integer-overflow-underflow.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 24,
+        "path": "outputs/scenario-2-with-kb/1717496458/lack-of-proper-signature-verification.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 25,
+        "path": "outputs/scenario-2-with-kb/1717496458/message-call-with-hardcoded-gas-amount.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 26,
+        "path": "outputs/scenario-2-with-kb/1717496458/missing-protection-against-signature-replay-attacks.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 27,
+        "path": "outputs/scenario-2-with-kb/1717496458/outdated-compiler-version.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Cách khắc phục 2 không hợp ngữ cảnh."
+    },
+    {
+        "no": 28,
+        "path": "outputs/scenario-2-with-kb/1717496458/re-entrancy.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 29,
+        "path": "outputs/scenario-2-with-kb/1717496458/right-to-left-override-control-unicode.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "❌"
+        },
+        "note": "Hoàn toàn không liên quan đến lỗ hổng right-to-left-override-control-unicode mà liên quan đến hằm băm `sha3`."
+    },
+    {
+        "no": 30,
+        "path": "outputs/scenario-2-with-kb/1717496458/shadowing-state-variables.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 31,
+        "path": "outputs/scenario-2-with-kb/1717496458/short-address.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "🌗"
+        },
+        "note": "Cách khắc phục 1 không giải quyết được lỗ hổng. Cách khắc phục 2 không cụ thể. Không có cách khắc phục nào liên quan đến việc kiểm tra kích thước của dữ liệu giao dịch như đã đề cập ở trong KB."
+    },
+    {
+        "no": 32,
+        "path": "outputs/scenario-2-with-kb/1717496458/signature-malleability.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 33,
+        "path": "outputs/scenario-2-with-kb/1717496458/stack-size-limit.md",
+        "validity": {
+            "code": "✅",
+            "description": "🌗",
+            "remediations": "✅"
+        },
+        "note": "Về phần code, do lỗ hổng này nằm ở EVM nên bất kỳ smart contract nào cũng có thể gặp phải, việc tạo ra một hàm đệ quy là hợp lý để minh họa lỗ hổng. Mô tả bị sai do nói rằng việc chạm đến stack limit sẽ gây ra stack overflow thay vì ngoại lệ out-of-gas."
+    },
+    {
+        "no": 34,
+        "path": "outputs/scenario-2-with-kb/1717496458/timestamp-dependency.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 35,
+        "path": "outputs/scenario-2-with-kb/1717496458/transaction-ordering-dependency.md",
+        "validity": {
+            "code": "❌",
+            "description": "❌",
+            "remediations": "❌"
+        },
+        "note": "Liên quan đến re-entrancy."
+    },
+    {
+        "no": 36,
+        "path": "outputs/scenario-2-with-kb/1717496458/typographical-error.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 37,
+        "path": "outputs/scenario-2-with-kb/1717496458/unchecked-return-value.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 38,
+        "path": "outputs/scenario-2-with-kb/1717496458/unencrypted-private-data-on-chain.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 39,
+        "path": "outputs/scenario-2-with-kb/1717496458/unexpected-balance.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 40,
+        "path": "outputs/scenario-2-with-kb/1717496458/uninitialized-storage-pointer.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 41,
+        "path": "outputs/scenario-2-with-kb/1717496458/untrustworthy-data-feeds.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 42,
+        "path": "outputs/scenario-2-with-kb/1717496458/use-of-deprecated-solidity-functions.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 43,
+        "path": "outputs/scenario-2-with-kb/1717496458/weak-sources-of-randomness-from-chain-attributes.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": ""
+    },
+    {
+        "no": 44,
+        "path": "outputs/scenario-2-with-kb/1717496458/write-to-arbitrary-storage-location.md",
+        "validity": {
+            "code": "✅",
+            "description": "✅",
+            "remediations": "✅"
+        },
+        "note": "Code bị thiên kiến."
+    }
+]
